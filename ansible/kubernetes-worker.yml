@@ -1,0 +1,30 @@
+---
+- name: kubernetes worker
+  hosts:
+    - 10.255.1.24
+    - 10.255.1.25
+    - 10.255.1.26
+    - 10.255.1.27
+    - 10.255.1.28
+    - 10.255.1.29
+  user: root
+  roles:
+    - role: consul
+      tags:
+        - consul
+      vars:
+        services:
+          - name: kubernetes-worker
+            port: 10250
+          # istio-ingress-gateway nodeport
+          - name: ingress-istio-status-nodeport
+            port: 30021
+          - name: ingress-istio-http-nodeport
+            port: 30080
+          - name: ingress-istio-https-nodeport
+            port: 30443
+          # ingress-nginx-nginx nodeport
+          - name: ingress-nginx-http-nodeport
+            port: 31080
+          - name: ingress-nginx-https-nodeport
+            port: 31443

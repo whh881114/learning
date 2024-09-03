@@ -1,0 +1,20 @@
+frontend stats
+    bind 10.255.1.122:8404
+    mode http
+    stats enable
+    stats refresh 10s
+    stats uri /stats
+    stats realm Private lands
+
+    # IDC私有云环境，可以显示版本信息。
+    stats hide-version
+
+    # IDC私有云环境，可以不用用户名密码证验，其界面上也只是只读。
+    # stats auth freedom:Haproxy007@freedom.org
+
+listen tcp-kubernetes-apiserver
+    bind 10.255.1.122:6443
+    mode tcp
+    option tcplog
+    {{range service "kubernetes-apiserver"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}

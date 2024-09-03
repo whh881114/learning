@@ -1,0 +1,7 @@
+---
+# istio与kubernetes兼容性：https://istio.io/latest/docs/releases/supported-releases/#support-status-of-istio-releases
+version: 1.23.0
+
+istio_dir: /usr/local/istio
+
+namespace: istio-system

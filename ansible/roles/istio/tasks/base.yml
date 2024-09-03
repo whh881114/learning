@@ -1,0 +1,30 @@
+---
+- name: download package
+  unarchive:
+    src: "ftp://central-server.freedom.org/istio/base-{{ version }}.tgz"
+    dest: "{{ istio_dir }}"
+    remote_src: yes
+
+- name: configure base
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    variable_start_string: '[['
+    variable_end_string: ']]'
+  with_items:
+    - { src: "values_base.yaml", dest: "{{ istio_dir }}/base/values.yaml" }
+
+- name: install ingress-nginx
+  shell: |
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+    helm install --values values.yaml --create-namespace --namespace {{ namespace }} istio-base .
+  args:
+    chdir: "{{ istio_dir }}/base"
+  ignore_errors: yes
+  register: install_log
+
+- name: show install log
+  debug:
+    msg:
+      - "{{ install_log.stdout_lines }}"
+      - "{{ install_log.stderr_lines }}"

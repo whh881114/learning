@@ -1,0 +1,45 @@
+---
+- name: download package
+  unarchive:
+    src: "{{ pkg }}"
+    dest: /usr/local
+    remote_src: yes
+
+- name: rename ingress-nginx directory
+  file:
+    path: /usr/local/ingress-nginx
+    state: directory
+    dest: "/usr/local/ingress-{{ ingress_class_name }}"
+
+- name: configure ingress-nginx
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    variable_start_string: '[['
+    variable_end_string: ']]'
+  with_items:
+    - { src: "{{ ingress_class_name }}-values.yaml", dest: "/usr/local/ingress-{{ ingress_class_name }}/values.yaml" }
+
+- name: install ingress-nginx
+  shell: |
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+    kubectl create namespace {{ namespace }}
+    helm install --values values.yaml --namespace {{ namespace }} {{ ingress_class_name }} .
+  args:
+    chdir: "/usr/local/ingress-{{ ingress_class_name }}"
+  ignore_errors: yes
+  register: install_ingress_nginx
+
+- name: show install ingress-nginx log
+  debug:
+    msg:
+      - "{{ install_ingress_nginx.stdout_lines }}"
+      - "{{ install_ingress_nginx.stderr_lines }}"
+
+- name: copy ingress-nginx-nodeport file
+  copy:
+    src: ../../kubernetes-manifests/nginx-ingress-{{ ingress_class_name }}-controller-nodeport.yml
+    dest: /tmp/nginx-ingress-{{ ingress_class_name }}-controller-nodeport.yml
+
+- name: create a nodeport service for ingress-nginx
+  shell: kubectl apply -f /tmp/nginx-ingress-{{ ingress_class_name }}-controller-nodeport.yml

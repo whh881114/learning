@@ -1,0 +1,15 @@
+---
+- name: "create {{ istio_dir }} directory"
+  file:
+    path: "{{ istio_dir }}"
+    state: directory
+
+
+- include: uninstall.yml
+
+- include: base.yml
+
+- include: istiod.yml
+
+- include: gateway.yml
+

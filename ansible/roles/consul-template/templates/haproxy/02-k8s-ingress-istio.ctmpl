@@ -1,0 +1,20 @@
+listen tcp-istio-ingress-gateway-status-nodeport
+    bind 10.255.3.101:15021
+    mode tcp
+    option tcplog
+    {{range service "ingress-istio-status-nodeport"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+
+listen tcp-istio-ingress-http-nodeport
+    bind 10.255.3.101:80
+    mode tcp
+    option tcplog
+    {{range service "ingress-istio-http-nodeport"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+
+listen tcp-istio-ingress-https-nodeport
+    bind 10.255.3.101:443
+    mode tcp
+    option tcplog
+    {{range service "ingress-istio-https-nodeport"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}

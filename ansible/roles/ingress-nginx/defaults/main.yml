@@ -1,0 +1,22 @@
+---
+version: 4.11.1
+pkg: "ftp://central-server.freedom.org/ingress-nginx-{{ version }}.tgz"
+
+controller_image: "registry.k8s.io/ingress-nginx/controller"
+controller_tag: "v1.11.1"
+controller_digest: "sha256:8f0d2b5885516c9d46c836dbb158446af6a0a9307ca2fd591c21171ff0bf2a7b"
+
+opentelemetry_image: "registry.k8s.io/ingress-nginx/opentelemetry"
+opentelemetry_tag: "v20230721-3e2062ee5"
+opentelemetry_digest: "sha256:028d74d4c7b3dba8ffc566b92a43e97ae18923aeaa1c458e25f714ba8a5dd36b"
+
+admission_webhooks_patch_image: "registry.k8s.io/ingress-nginx/kube-webhook-certgen"
+admission_webhooks_patch_tag: "v1.4.1"
+admission_webhooks_patch_digest: "sha256:887b7f4495677473f1bef5bfb48200a1070e526183b515682a7e78e43c7d7da4"
+
+default_backend_image: "registry.k8s.io/defaultbackend-amd64"
+default_backend_tag: "1.5"
+
+# ingressClassResource
+namespace: ingress-nginx
+ingress_class_name: nginx

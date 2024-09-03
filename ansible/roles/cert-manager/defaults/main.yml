@@ -1,0 +1,26 @@
+---
+version: v1.15.2
+pkg: "ftp://central-server.freedom.org/cert-manager/{{ version }}/cert-manager-{{ version }}.tgz"
+crds_files:
+  - "ftp://central-server.freedom.org/cert-manager/{{ version }}/cert-manager.crds.yaml"
+
+namespace: cert-manager
+
+cainjector_image: "[[ registry ]]/quay.io/jetstack/cert-manager-cainjector"
+cainjector_tag: v1.15.2
+
+controller_image: "[[ registry ]]/quay.io/jetstack/cert-manager-controller"
+controller_tag: v1.15.2
+
+webhook_image: "[[ registry ]]/quay.io/jetstack/cert-manager-webhook"
+webhook_tag: v1.15.2
+
+acmesolver_image: "[[ registry ]]/quay.io/jetstack/cert-manager-acmesolver"
+acmesolver_tag: v1.15.2
+
+startupapicheck_image: "[[ registry ]]/quay.io/jetstack/cert-manager-startupapicheck"
+startupapicheck_tag: v1.15.2
+
+godaddy_pkg: "ftp://central-server.freedom.org/cert-manager/godaddy-webhook-0.3.0.tgz"
+proxy_enabled: false
+proxy_godaddy_addr: "http://10.255.2.162:10811"

@@ -1,0 +1,15 @@
+---
+- name: consul-template feature file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    variable_start_string: '[['
+    variable_end_string: ']]'
+  with_items:
+    - { src: "{{ template_feature }}/{{ template_feature }}.hcl", dest: "{{ conf_dir }}/{{ template_feature }}.hcl" }
+    - { src: "{{ template_feature }}/01-k8s-apiserver.ctmpl", dest: "{{ root_dir }}/01-k8s-apiserver.ctmpl" }
+    - { src: "{{ template_feature }}/02-k8s-ingress-istio.ctmpl", dest: "{{ root_dir }}/02-k8s-ingress-istio.ctmpl" }
+    - { src: "{{ template_feature }}/03-k8s-ingress-nginx.ctmpl", dest: "{{ root_dir }}/03-k8s-ingress-nginx.ctmpl" }
+  notify:
+    - restart-consul-template

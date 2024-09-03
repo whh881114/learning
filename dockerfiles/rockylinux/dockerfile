@@ -1,0 +1,23 @@
+FROM harbor.idc.roywong.top/docker.io/rockylinux/rockylinux:9.4
+
+LABEL AUTHOR="Wanghaohao" DESCRIPTION="自定义RockyLinux9.4系统，安装常用小工具，用于测试其他服务。"
+
+ADD files/vimrc /root/.vimrc
+
+RUN dnf -y install wget \
+                   nc \
+                   unzip \
+                   telnet \
+                   net-tools \
+                   mtr \
+                   dos2unix \
+                   unix2dos \
+                   tree \
+                   subscription-manager \
+                   redis \
+                   mysql \
+                   bind-utils
+
+WORKDIR /data
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]

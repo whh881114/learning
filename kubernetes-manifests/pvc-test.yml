@@ -1,0 +1,47 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-claim-infra
+  annotations:
+    # not required, depending on whether this annotation was shown in the storage class description
+    nfs.io/storage-path: "test-path-infra"
+spec:
+  storageClassName: infra
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-claim-mysql
+  annotations:
+    # not required, depending on whether this annotation was shown in the storage class description
+    nfs.io/storage-path: "test-path-mysql"
+spec:
+  storageClassName: mysql
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-claim-redis
+  annotations:
+    # not required, depending on whether this annotation was shown in the storage class description
+    nfs.io/storage-path: "test-path-redis"
+spec:
+  storageClassName: redis
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

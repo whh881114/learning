@@ -1,0 +1,43 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rockylinux-data
+  labels:
+    app: data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: infra
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rockylinux
+  labels:
+    app: rockylinux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rockylinux
+  template:
+    metadata:
+      labels:
+        app: rockylinux
+    spec:
+      containers:
+        - name: rockylinux
+          image: harbor.idc.roywong.top/roywong.top/rockylinux:9.4
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: rockylinux-data

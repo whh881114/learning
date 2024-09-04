@@ -23,4 +23,9 @@ local clusterParams = import '../../clusterParams.libsonnet';
       memory: '8Gi',
     }
   },
+
+  exporter: {
+    username: 'exporter',
+    password: 'pJwtdho13jLipiyquxldnqialgrpkvl~',
+  },
 }

@@ -10,6 +10,10 @@ function(app)
 	    { name: "MYSQLD_EXPORTER_PASSWORD", value: app.exporter.password }
 	  ],
 	  args: [
+	    '--collect.info_schema.innodb_metrics',
+	    '--collect.info_schema.tables',
+	    '--collect.info_schema.processlist',
+	    '--collect.info_schema.tables.databases=*',
 	    '--mysqld.username',
 	    app.exporter.username,
 	  ],

@@ -38,7 +38,9 @@ function(app)
                 name: 'mysql',
                 image: app.image,
                 imagePullPolicy: app.imagePullPolicy,
-                env: app.env,
+                env: [
+                  {MYSQL_ROOT_PASSWORD: app.password},
+                ] + app.env,
                 ports: [{name: 'mysql', port: 3306, containerPort: 3306}],
                 resources: app.resources,
                 volumeMounts: [

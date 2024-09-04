@@ -44,13 +44,13 @@ function(app)
                 ports: [{name: 'mysql', port: 3306, containerPort: 3306}],
                 resources: app.resources,
                 volumeMounts: [
-//                  {name: 'conf', mountPath: '/etc/my.cnf', subPath: 'my.cnf', readOnly: true},
+                  {name: 'conf', mountPath: '/etc/my.cnf', subPath: 'my.cnf', readOnly: true},
                   {name: 'data', mountPath: '/var/lib/mysql'},
                 ],
               }, mysqldExporterContainer
             ],
             volumes: [
-//              {name: 'conf', configMap: {name: app.name}},
+              {name: 'conf', configMap: {name: app.name}},
               {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name}},
             ],
           },

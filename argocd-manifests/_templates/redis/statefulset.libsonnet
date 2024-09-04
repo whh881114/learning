@@ -31,7 +31,7 @@ function(app)
     ports: [{name: 'metrics', port: 9121, containerPort: 9121}],
   };
 
-  local standalone = {
+  local redisStatefulSet = {
       apiVersion: 'apps/v1',
       kind: 'StatefulSet',
       metadata: {
@@ -75,4 +75,4 @@ function(app)
       },
     };
 
-  standalone
+  redisStatefulSet

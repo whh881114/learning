@@ -34,7 +34,7 @@ spec:
         - name: docker-credential-harbor-idc-roywong-top
       containers:
         - name: rockylinux9u4
-          image: harbor.idc.roywong.top/roywong.top/rockylinux:9.4
+          image: harbor.idc.roywong.top/library/rockylinux:9.4
           imagePullPolicy: Always
           volumeMounts:
             - name: data

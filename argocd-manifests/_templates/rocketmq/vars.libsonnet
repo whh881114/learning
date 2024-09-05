@@ -1,17 +1,12 @@
 local clusterParams = import '../../clusterParams.libsonnet';
 
-local main = {
-  storageClassName: 'infra',
-  storageClassCapacity: '10Gi',
-
+{
   image: clusterParams.registry + '/docker.io/apache/rocketmq:4.9.7',
   imagePullPolicy: 'IfNotPresent',
 
-	nameSrv: {},
-	broker: {},
-};
+  storageClassName: 'infra',
+  storageClassCapacity: '10Gi',
 
-local nameSrv = {
 	nameSrv: {
 		env: [
 			{name: 'NODE_ROLE', value: 'nameserver'},
@@ -28,46 +23,42 @@ local nameSrv = {
 	    }
 	  },
   },
-};
 
-local borker = {
-	env: [
-		{name: 'NODE_ROLE', value: 'broker'},
-	],
-  resources: {
-    requests: {
-      cpu: '2000m',
-      memory: '4Gi',
-    },
-    limits: {
-      cpu: '8000m',
-      memory: '16Gi',
-    }
-  },
-	broker: [
-		{
-			name: 'borker-m1',
-			replicas: 1,
-			configFile: 'borkerM1',
-		},
-		{
-			name: 'borker-s1',
-			replicas: 1,
-			configFile: 'borkerS1',
-		},
-		{
-			name: 'borker-m2',
-			replicas: 1,
-			configFile: 'borkerM2',
-		},
-		{
-			name: 'borker-s2',
-			replicas: 1,
-			configFile: 'borkerS2',
-		},
-	]
-};
+	broker: {
+		env: [
+			{name: 'NODE_ROLE', value: 'broker'},
+		],
+	  resources: {
+	    requests: {
+	      cpu: '2000m',
+	      memory: '4Gi',
+	    },
+	    limits: {
+	      cpu: '8000m',
+	      memory: '16Gi',
+	    }
+	  },
+	},
 
-main + nameSrv + borker
-
+	brokerM1: {
+		name: 'broker-m1',
+		replicas: 1,
+		configFile: 'brokerM1',
+	},
+	brokerS1: {
+		name: 'broker-s1',
+		replicas: 1,
+		configFile: 'brokerS1',
+	},
+	brokerM2: {
+		name: 'broker-m1',
+		replicas: 1,
+		configFile: 'brokerM2',
+	},
+	brokerS2: {
+		name: 'broker-m1',
+		replicas: 1,
+		configFile: 'brokerS2',
+	},
+}
 

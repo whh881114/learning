@@ -4,9 +4,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
   image: clusterParams.registry + '/docker.io/apache/rocketmq:4.9.7',
   imagePullPolicy: 'IfNotPresent',
 
-  storageClassName: 'infra',
-  storageClassCapacity: '10Gi',
-
 	nameSrv: {
 		env: [
 			{name: 'NODE_ROLE', value: 'nameserver'},
@@ -22,6 +19,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '4Gi',
 	    }
 	  },
+	  storageClassName: 'infra',
+    storageClassCapacity: '20Gi',
   },
 
 	broker: {
@@ -38,6 +37,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '16Gi',
 	    }
 	  },
+	  storageClassName: 'infra',
+    storageClassCapacity: '100Gi',
 	},
 
 	brokerM1: {

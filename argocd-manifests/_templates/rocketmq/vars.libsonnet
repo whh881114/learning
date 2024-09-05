@@ -52,12 +52,12 @@ local clusterParams = import '../../clusterParams.libsonnet';
 		configFile: 'brokerS1',
 	},
 	brokerM2: {
-		name: 'broker-m1',
+		name: 'broker-m2',
 		replicas: 1,
 		configFile: 'brokerM2',
 	},
 	brokerS2: {
-		name: 'broker-m1',
+		name: 'broker-s2',
 		replicas: 1,
 		configFile: 'brokerS2',
 	},

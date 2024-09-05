@@ -48,18 +48,22 @@ local borker = {
 		{
 			name: 'borker-m1',
 			replicas: 1,
+			configFile: 'borkerM1',
 		},
 		{
 			name: 'borker-s1',
 			replicas: 1,
+			configFile: 'borkerS1',
 		},
 		{
 			name: 'borker-m2',
 			replicas: 1,
+			configFile: 'borkerM2',
 		},
 		{
 			name: 'borker-s2',
 			replicas: 1,
+			configFile: 'borkerS2',
 		},
 	]
 };

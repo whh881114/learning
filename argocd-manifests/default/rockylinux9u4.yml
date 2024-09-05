@@ -2,9 +2,9 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: rockylinux-data
+  name: data-rockylinux9u4
   labels:
-    app: data
+    app: data-rockylinux9u4
 spec:
   accessModes:
     - ReadWriteOnce
@@ -17,21 +17,23 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: rockylinux
+  name: rockylinux9u4
   labels:
-    app: rockylinux
+    app: rockylinux9u4
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rockylinux
+      app: rockylinux9u4
   template:
     metadata:
       labels:
-        app: rockylinux
+        app: rockylinux9u4
     spec:
+      imagePullSecrets:
+        - name: docker-credential-harbor-idc-roywong-top
       containers:
-        - name: rockylinux
+        - name: rockylinux9u4
           image: harbor.idc.roywong.top/roywong.top/rockylinux:9.4
           imagePullPolicy: Always
           volumeMounts:
@@ -40,4 +42,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: rockylinux-data
+            claimName: data-rockylinux9u4

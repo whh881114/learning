@@ -2,4 +2,5 @@
     'redis',
     'mysql',
     'monitoring',
+    'default',
 ]

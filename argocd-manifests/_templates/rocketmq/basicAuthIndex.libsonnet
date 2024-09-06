@@ -1,0 +1,4 @@
+{
+	deault: import './baiscAuth/default',
+}
+

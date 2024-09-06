@@ -5,6 +5,7 @@ local Pvc = import './pvc.libsonnet';
 local Service = import './service.libsonnet';
 local Statefulset = import './statefulset.libsonnet';
 local ServiceMonitor = import './serviceMonitor.libsonnet';
+local Deployment = import './deployment.libsonnet';
 
 
 function(app)
@@ -13,5 +14,6 @@ function(app)
 	local service = Service(app);
 	local statefulset = Statefulset(app);
 	local serviceMonitor = ServiceMonitor(app);
+	local deployment = Deployment(app);
 
-  [configmap] + dockerCredential + service + pvc + statefulset + serviceMonitor
+  configmap + dockerCredential + service + pvc + statefulset + serviceMonitor + deployment

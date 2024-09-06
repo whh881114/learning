@@ -44,7 +44,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
     logsStorageClassCapacity: '20Gi',
 	},
 
-	brokerM1: {
+  brokerM1: {
 		name: 'broker-m1',
 		replicas: 1,
 		configFile: 'brokerM1',
@@ -64,5 +64,21 @@ local clusterParams = import '../../clusterParams.libsonnet';
 		replicas: 1,
 		configFile: 'brokerS2',
 	},
+
+	console: {
+		image: clusterParams.registry + 'docker.io/styletang/rocketmq-console-ng:1.0.0',
+		replicas: 1,
+	  resources: {
+	    requests: {
+	      cpu: '100m',
+	      memory: '256Mi',
+	    },
+	    limits: {
+	      cpu: '1000m',
+	      memory: '1Gi',
+	    }
+	  },
+  },
+
 }
 

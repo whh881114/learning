@@ -1,7 +1,8 @@
 local basicAuthIndex = import './basicAuthIndex.libsonnet';
-local authString = std.get(configmapIndex, app.name);
 
 function(app)
+  local authString = std.get(basicAuthIndex, app.name);
+
   local basicAuth = {
     apiVersion: 'v1',
     kind: 'Secret',
@@ -9,7 +10,7 @@ function(app)
       name: 'baisc-auth-' + app.name,
     },
     data: {
-      auth: std.base64(authString),
+      auth: std.base64(std.toString(authString)),
     },
     type: 'Opaque',
   };

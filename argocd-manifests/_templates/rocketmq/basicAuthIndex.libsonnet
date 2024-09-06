@@ -1,4 +1,3 @@
 {
-	deault: import './baiscAuth/default',
+	default: import './baiscAuth/default',
 }
-

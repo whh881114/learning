@@ -136,4 +136,48 @@ function(app)
 	  for i in [app.brokerM1.name, app.brokerS1.name, app.brokerM2.name, app.brokerS2.name]
   ];
 
-  serviceClusterNameSrv + serviceNodePortNameSrv + serviceClusterBroker + serviceNodePortBroker
+  local serviceClusterConsole = {
+	  apiVersion: 'v1',
+	  kind: 'Service',
+	  metadata: {
+	    name:  app.name + '-rocketmq-console',
+	    labels: {app: app.name + '-rocketmq-console'},
+	  },
+    spec: {
+      selector: {app: app.name + '-rocketmq-console'},
+      type: 'ClusterIP',
+      ports: [
+        {
+		      name: 'console',
+		      port: 8080,
+		      targetPort: 8080,
+        },
+      ],
+    },
+  };
+
+  local serviceNodePortConsole = {
+	  apiVersion: 'v1',
+	  kind: 'Service',
+	  metadata: {
+	    name:  app.name + '-rocketmq-console-nodeport',
+	    labels: {app: app.name + '-rocketmq-console-nodeport'},
+	  },
+    spec: {
+      selector: {app: app.name + '-rocketmq-console'},
+      type: 'ClusterIP',
+      ports: [
+        {
+		      name: 'console',
+		      port: 8080,
+		      targetPort: 8080,
+        },
+      ],
+    },
+  };
+
+  serviceClusterNameSrv +
+  serviceNodePortNameSrv +
+  serviceClusterBroker +
+  serviceNodePortBroker +
+  [serviceClusterConsole, serviceNodePortConsole]

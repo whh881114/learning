@@ -29,10 +29,10 @@ function(app)
 	  kind: 'Service',
 	  metadata: {
 	    name:  app.name + '-namesrv--nodeport',
-	    labels: {app: app.name + '-namesrv--nodeport'},
+	    labels: {app: app.name + '-namesrv-nodeport'},
 	  },
     spec: {
-      selector: {app: app.name + '-namesrv--nodeport'},
+      selector: {app: app.name + '-namesrv-nodeport'},
       type: 'NodePort',
       ports: [
         {
@@ -98,11 +98,11 @@ function(app)
 	  apiVersion: 'v1',
 	  kind: 'Service',
 	  metadata: {
-	    name:  app.name + '-broker--nodeport',
-	    labels: {app: app.name + '-broker--nodeport'},
+	    name:  app.name + '-broker-nodeport',
+	    labels: {app: app.name + '-broker-nodeport'},
 	  },
     spec: {
-      selector: {app: app.name + '-broker--nodeport'},
+      selector: {app: app.name + '-broker-nodeport'},
       type: 'NodePort',
       ports: [
         {

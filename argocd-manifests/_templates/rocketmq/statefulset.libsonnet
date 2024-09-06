@@ -78,6 +78,10 @@ function(app)
                 imagePullPolicy: app.imagePullPolicy,
                 env: app.broker.env,
                 command: ['./mqbroker'],
+                args: [
+                  '-c',
+                  '${ROCKETMQ_HOME}/conf/broker.conf',
+                ],
                 ports: [
                   {name: 'fast',   port: 10909, containerPort: 10909},
                   {name: 'broker', port: 10911, containerPort: 10911},

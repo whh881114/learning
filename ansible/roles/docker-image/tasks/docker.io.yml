@@ -5,6 +5,7 @@
     docker tag  "{{ mirror_registry }}/{{ item }}" "{{ registry }}/{{ item }}"
     docker push "{{ registry }}/{{ item }}"
   loop:
+    - docker.io/apache/rocketmq-exporter:0.0.2
     - docker.io/apache/rocketmq:5.3.0
     - docker.io/bitnami/redis-exporter:1.62.0
     - docker.io/bitnami/mysqld-exporter:0.15.1

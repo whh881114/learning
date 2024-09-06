@@ -31,7 +31,13 @@ function(app)
 							],
               ports: [{name: 'console', port: 8080, containerPort: 8080}],
               resources: app.console.resources,
+              volumeMounts: [
+                {name: 'localtime', mountPath: '/etc/localtime', readOnly: true},
+              ],
             }
+          ],
+          volumes: [
+            {name: 'localtime', hostPath: {path: '/etc/localtime', type: 'File'}},
           ],
         },
       },

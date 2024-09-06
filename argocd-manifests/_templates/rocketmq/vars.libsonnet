@@ -1,7 +1,8 @@
 local clusterParams = import '../../clusterParams.libsonnet';
 
 {
-  image: clusterParams.registry + '/docker.io/apache/rocketmq:4.9.7',
+	rocketmqVersion: '4.9.7',
+  image: clusterParams.registry + '/docker.io/apache/rocketmq:' + rocketmqVersion,
   imagePullPolicy: 'IfNotPresent',
 
 	nameSrv: {

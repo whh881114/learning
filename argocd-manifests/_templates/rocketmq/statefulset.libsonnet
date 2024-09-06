@@ -2,6 +2,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 
 
 function(app)
+	local rocketmqVersion = app.rocketmqVersion;
+
   local rocketmqExporterContainer = {
     name: 'rocketmq-expoter',
     image: clusterParams.registry + '/docker.io/apache/rocketmq-exporter:0.0.2',
@@ -80,7 +82,7 @@ function(app)
                 command: ['./mqbroker'],
                 args: [
                   '-c',
-                  '${ROCKETMQ_HOME}/conf/broker.conf',
+                  '../conf/broker.conf',
                 ],
                 ports: [
                   {name: 'fast',   port: 10909, containerPort: 10909},
@@ -91,7 +93,7 @@ function(app)
                 volumeMounts: [
 	                  {name: 'data', mountPath: '/home/rocketmq/store'},
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
-	                  {name: 'conf', mountPath: '/home/rocketmq/conf/broker.conf', subPath: 'broker.conf', readOnly: true},
+	                  {name: 'conf', mountPath: '/home/rocketmq/rocketmq-%s/conf/broker.conf' % rocketmqVersion, subPath: 'broker.conf', readOnly: true},
                 ],
               },
             ],

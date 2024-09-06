@@ -57,16 +57,16 @@ function(app)
       apiVersion: 'apps/v1',
       kind: 'StatefulSet',
       metadata: {
-        name: app.name + '-' + i,
-        labels: {app: app.name + '-' + i},
+        name: app.name + '-' + i.name,
+        labels: {app: app.name + '-' + i.name},
       },
       spec: {
-        serviceName: app.name + '-' + i,
+        serviceName: app.name + '-' + i.name,
         replicas: 1,
-        selector: {matchLabels: {app: app.name + '-' + i}},
+        selector: {matchLabels: {app: app.name + '-' + i.name}},
         template: {
           metadata: {
-            labels: {app: app.name + '-' + i},
+            labels: {app: app.name + '-' + i.name},
           },
           spec: {
             imagePullSecrets: clusterParams.imagePullSecrets,
@@ -85,18 +85,20 @@ function(app)
                 volumeMounts: [
 	                  {name: 'data', mountPath: '/home/rocketmq/store'},
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
+	                  {name: 'conf', mountPath: '/home/rocketmq/conf/broker.conf', subPath: 'broker.conf', readOnly: true},
                 ],
               },
             ],
             volumes: [
-	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-' + i}},
-	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-' + i}},
+	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-' + i.name}},
+	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-' + i.name}},
+	              {name: 'conf', configMap: {name: app.name, key: i.configFile + '.conf'}},
             ],
           },
         },
       },
     }
-    for i in [app.brokerM1.name, app.brokerS1.name, app.brokerM2.name, app.brokerS2.name]
+    for i in [app.brokerM1, app.brokerS1, app.brokerM2, app.brokerS2]
   ];
 
 

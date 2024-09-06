@@ -39,7 +39,8 @@ function(app)
 	                  {name: 'data', mountPath: '/home/rocketmq/store'},
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
 	                ],
-	              }, rocketmqExporterContainer
+	              },
+//	              }, rocketmqExporterContainer
 	            ],
 	            volumes: [
 	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-namesrv-' + i}},

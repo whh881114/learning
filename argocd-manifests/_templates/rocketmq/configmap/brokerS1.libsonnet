@@ -14,7 +14,7 @@ local conf = |||
 	# See the License for the specific language governing permissions and
 	# limitations under the License.
 	brokerClusterName=DefaultCluster
-	brokerName=broker-a
+	brokerName=brokerM1
 	brokerId=1
 	deleteWhen=04
 	fileReservedTime=48

@@ -165,7 +165,7 @@ function(app)
 	  },
     spec: {
       selector: {app: app.name + '-rocketmq-console'},
-      type: 'ClusterIP',
+      type: 'NodePort',
       ports: [
         {
 		      name: 'console',

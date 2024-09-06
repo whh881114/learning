@@ -8,7 +8,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
 		env: [
 			{name: 'NODE_ROLE', value: 'nameserver'},
 		],
-		replicas: 3,
+		replicas: 2,
 	  resources: {
 	    requests: {
 	      cpu: '1000m',
@@ -20,7 +20,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	    }
 	  },
 	  storageClassName: 'infra',
-    storageClassCapacity: '20Gi',
+    dataStorageClassCapacity: '100Gi',
+    logsStorageClassCapacity: '20Gi',
   },
 
 	broker: {
@@ -38,7 +39,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	    }
 	  },
 	  storageClassName: 'infra',
-    storageClassCapacity: '100Gi',
+    dataStorageClassCapacity: '100Gi',
+    logsStorageClassCapacity: '20Gi',
 	},
 
 	brokerM1: {

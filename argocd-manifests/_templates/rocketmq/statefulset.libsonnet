@@ -33,14 +33,14 @@ function(app)
 	                image: app.image,
 	                imagePullPolicy: app.imagePullPolicy,
 	                env: app.nameSrv.env,
+	                cmd: ['./mqnamesrv'],
 	                ports: [{name: 'namesrv', port: 9876, containerPort: 9876}],
 	                resources: app.nameSrv.resources,
 	                volumeMounts: [
 	                  {name: 'data', mountPath: '/home/rocketmq/store'},
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
 	                ],
-	              },
-//	              }, rocketmqExporterContainer
+	              }, rocketmqExporterContainer
 	            ],
 	            volumes: [
 	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-namesrv-' + i}},
@@ -77,6 +77,7 @@ function(app)
                 image: app.image,
                 imagePullPolicy: app.imagePullPolicy,
                 env: app.broker.env,
+                cmd: ['./mqbroker'],
                 ports: [
                   {name: 'fast',   port: 10909, containerPort: 10909},
                   {name: 'broker', port: 10911, containerPort: 10911},

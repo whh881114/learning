@@ -32,8 +32,8 @@ function(app)
 		  apiVersion: 'v1',
 		  kind: 'Service',
 		  metadata: {
-		    name:  app.name + '-namesrv-nodeport-' + i,
-		    labels: {app: app.name + '-namesrv-nodeport-' + i},
+		    name:  app.name + '-namesrv-' + i + '-nodeport',
+		    labels: {app: app.name + '-namesrv-' + i + '-nodeport'},
 		  },
 	    spec: {
 	      selector: {app: app.name + '-namesrv-' + i},

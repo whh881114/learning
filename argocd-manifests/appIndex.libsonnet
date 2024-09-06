@@ -1,6 +1,7 @@
 [
+		'default',
     'redis',
     'mysql',
     'monitoring',
-    'default',
+    'rocketmq',
 ]

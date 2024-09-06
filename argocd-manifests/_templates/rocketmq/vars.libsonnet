@@ -66,7 +66,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	},
 
 	console: {
-		image: clusterParams.registry + 'docker.io/styletang/rocketmq-console-ng:1.0.0',
+		image: clusterParams.registry + '/docker.io/styletang/rocketmq-console-ng:1.0.0',
 		replicas: 1,
 	  resources: {
 	    requests: {

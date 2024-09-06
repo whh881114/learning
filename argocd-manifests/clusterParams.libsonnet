@@ -3,6 +3,8 @@
   ingressNginxDomainName: 'idc-ingress-nginx.roywong.top',
   ingressIstioDomainName: 'idc-ingress-istio.roywong.top',
 
+  ingressNginxDomainNameTLS: 'tls-wildcard-idc-ingress-nginx-roywong-top',
+
   appRootDir: 'argocd-manifests',
 
   repo: {

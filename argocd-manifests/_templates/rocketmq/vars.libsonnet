@@ -4,6 +4,8 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	rocketmqVersion: '4.9.7',
   image: clusterParams.registry + '/docker.io/apache/rocketmq:' + self.rocketmqVersion,
   imagePullPolicy: 'IfNotPresent',
+  ingressClassName: 'nginx',
+  namespace: 'rocketmq',
 
 	nameSrv: {
 		env: [

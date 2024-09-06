@@ -33,7 +33,7 @@ function(app)
 	                image: app.image,
 	                imagePullPolicy: app.imagePullPolicy,
 	                env: app.nameSrv.env,
-	                cmd: ['./mqnamesrv'],
+	                command: ['./mqnamesrv'],
 	                ports: [{name: 'namesrv', port: 9876, containerPort: 9876}],
 	                resources: app.nameSrv.resources,
 	                volumeMounts: [
@@ -77,7 +77,7 @@ function(app)
                 image: app.image,
                 imagePullPolicy: app.imagePullPolicy,
                 env: app.broker.env,
-                cmd: ['./mqbroker'],
+                command: ['./mqbroker'],
                 ports: [
                   {name: 'fast',   port: 10909, containerPort: 10909},
                   {name: 'broker', port: 10911, containerPort: 10911},

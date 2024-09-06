@@ -6,7 +6,7 @@ function(app)
     kind: 'Ingress',
     metadata: {
       annotations: {
-        'nginx.ingress.kubernetes.io/ssl-redirect': true,
+        'nginx.ingress.kubernetes.io/ssl-redirect': 'true',
       },
       labels: {app: app.name},
       name: app.name,

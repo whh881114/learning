@@ -34,7 +34,7 @@ function(app)
 	                env: app.controller.env + [
 	                  {name: 'CLUSTER_ID', value: app.clusterID},
 	                  {name: 'KAFKA_NODE_ID', value: i + 1},
-	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
+//	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
 	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
 	                ]
 	                ,

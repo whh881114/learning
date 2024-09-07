@@ -1,7 +1,8 @@
 [
 		'default',
-    'redis',
+		'kafka',
+		'monitoring',
     'mysql',
-    'monitoring',
+		'redis',
     'rocketmq',
 ]

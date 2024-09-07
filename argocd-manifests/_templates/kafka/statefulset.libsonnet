@@ -97,8 +97,8 @@ function(app)
 	              },
 	            ],
 	            volumes: [
-	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-controller-' + i}},
-	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-controller-' + i}},
+	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-broker-' + i}},
+	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-broker-' + i}},
 	            ],
 	          },
 	        },

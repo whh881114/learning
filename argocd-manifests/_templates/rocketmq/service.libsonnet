@@ -140,11 +140,11 @@ function(app)
 	  apiVersion: 'v1',
 	  kind: 'Service',
 	  metadata: {
-	    name:  app.name + '-rocketmq-console',
-	    labels: {app: app.name + '-rocketmq-console'},
+	    name:  app.name + '-console',
+	    labels: {app: app.name + '-console'},
 	  },
     spec: {
-      selector: {app: app.name + '-rocketmq-console'},
+      selector: {app: app.name + '-console'},
       type: 'ClusterIP',
       ports: [
         {
@@ -160,11 +160,11 @@ function(app)
 	  apiVersion: 'v1',
 	  kind: 'Service',
 	  metadata: {
-	    name:  app.name + '-rocketmq-console-nodeport',
-	    labels: {app: app.name + '-rocketmq-console-nodeport'},
+	    name:  app.name + '-console-nodeport',
+	    labels: {app: app.name + '-console-nodeport'},
 	  },
     spec: {
-      selector: {app: app.name + '-rocketmq-console'},
+      selector: {app: app.name + '-console'},
       type: 'NodePort',
       ports: [
         {

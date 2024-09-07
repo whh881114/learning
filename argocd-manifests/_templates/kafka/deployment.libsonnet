@@ -26,7 +26,7 @@ function(app)
               env: [
 								{
 									name: 'KAFKA_BROKERS',
-									value: 'default-broker-0:9092',
+									value: 'default-broker-0:9092,default-broker-1:9092,default-broker-2:9092,',
 								}
 							],
               ports: [{name: 'console', port: 8080, containerPort: 8080}],

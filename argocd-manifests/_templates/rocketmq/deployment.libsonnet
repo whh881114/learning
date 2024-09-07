@@ -6,15 +6,15 @@ function(app)
     apiVersion: 'apps/v1',
     kind: 'Deployment',
     metadata: {
-      name: app.name + '-rocketmq-console',
-      labels: {app: app.name + '-rocketmq-console'},
+      name: app.name + '-console',
+      labels: {app: app.name + '-console'},
     },
     spec: {
       replicas: 1,
-      selector: {matchLabels: {app: app.name + '-rocketmq-console'}},
+      selector: {matchLabels: {app: app.name + '-console'}},
       template: {
         metadata: {
-          labels: {app: app.name + '-rocketmq-console'},
+          labels: {app: app.name + '-console'},
         },
         spec: {
           imagePullSecrets: clusterParams.imagePullSecrets,

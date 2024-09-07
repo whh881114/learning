@@ -24,7 +24,7 @@ function(app)
               {
                 backend: {
                   service: {
-                    name: app.name + '-rocketmq-console',
+                    name: app.name + '-console',
                     port: {
                       number: 8080,
                     },

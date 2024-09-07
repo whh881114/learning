@@ -11,7 +11,4 @@ function(app)
 	local service = Service(app);
 	local statefulset = Statefulset(app);
 
-
-	statefulset
-
-//	dockerCredential + service + [configmap, pvc, statefulset, serviceMonitor]
+	dockerCredential + service + pvc + statefulset

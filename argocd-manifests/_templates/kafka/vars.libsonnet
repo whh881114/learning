@@ -6,7 +6,10 @@ local clusterParams = import '../../clusterParams.libsonnet';
   imagePullPolicy: 'IfNotPresent',
   ingressClassName: 'nginx',
 
-  kafkaDataDirs: '/var/lib/kafka/data',
+  storageClassName: 'infra',
+  storageClassCapacity: '100Gi',
+
+	// 日志目录，其实就是kafka的数据目录。
   kafkaLogDirs: '/tmp/kraft-combined-logs',
 
   controller: {
@@ -31,9 +34,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '4Gi',
 	    }
     },
-    storageClassName: 'infra',
-    dataStorageClassCapacity: '100Gi',
-    logsStorageClassCapacity: '20Gi',
   },
 
   broker: {
@@ -59,9 +59,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '16Gi',
 	    }
     },
-    storageClassName: 'infra',
-    dataStorageClassCapacity: '100Gi',
-    logsStorageClassCapacity: '20Gi',
   },
 
   console: {

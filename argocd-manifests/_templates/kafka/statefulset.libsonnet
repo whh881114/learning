@@ -57,39 +57,39 @@ function(app)
 	    for i in std.range(0, app.controller.replicas-1)
     ];
 
-  local kafkaStatefulSet = [
+  local brokerStatefulSet = [
 	  {
 	      apiVersion: 'apps/v1',
 	      kind: 'StatefulSet',
 	      metadata: {
-	        name: app.name + '-kafka-' + i,
-	        labels: {app: app.name + '-kafka-' + i},
+	        name: app.name + '-broker-' + i,
+	        labels: {app: app.name + '-broker-' + i},
 	      },
 	      spec: {
-	        serviceName: app.name + '-kafka-' + i,
+	        serviceName: app.name + '-broker-' + i,
 	        replicas: 1,
-	        selector: {matchLabels: {app: app.name + '-kafka-' + i}},
+	        selector: {matchLabels: {app: app.name + '-broker-' + i}},
 	        template: {
 	          metadata: {
-	            labels: {app: app.name + '-kafka-' + i},
+	            labels: {app: app.name + '-broker-' + i},
 	          },
 	          spec: {
 	            imagePullSecrets: clusterParams.imagePullSecrets,
 	            containers: [
 	              {
-	                name: 'kafka',
+	                name: 'broker',
 	                image: app.image,
 	                imagePullPolicy: app.imagePullPolicy,
 	                env: app.controller.env + [
                     {name: 'CLUSTER_ID', value: app.clusterID},
 	                  {name: 'KAFKA_NODE_ID', value: '%d' % [i + app.controller.replicas + 1]},
 	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
-	                  {name: 'KAFKA_ADVERTISED_LISTENERS', value: 'PLAINTEXT://%s-kafka-%d:9092,PLAINTEXT_HOST://localhost:9092' % [app.name, i]},
+	                  {name: 'KAFKA_ADVERTISED_LISTENERS', value: 'PLAINTEXT://%s-broker-%d:9092,PLAINTEXT_HOST://localhost:9092' % [app.name, i]},
 	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
 	                ]
 	                ,
-	                ports: [{name: 'kafka', port: 9092, containerPort: 9092}],
-	                resources: app.kafka.resources,
+	                ports: [{name: 'broker', port: 9092, containerPort: 9092}],
+	                resources: app.broker.resources,
 	                volumeMounts: [
 	                  {name: 'data', mountPath: app.kafkaDataDirs},
 	                  {name: 'logs', mountPath: app.kafkaLogDirs},
@@ -107,4 +107,4 @@ function(app)
 	    for i in std.range(0, app.controller.replicas-1)
     ];
 
-    controllerStatefulSet + kafkaStatefulSet
+    controllerStatefulSet + brokerStatefulSet

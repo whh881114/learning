@@ -2,6 +2,12 @@ local clusterParams = import '../../clusterParams.libsonnet';
 
 
 function(app)
+	// KAFKA_BROKERS: default-broker-i:9092,default-broker-1:9092,default-broker-2:9092
+  local KAFKA_BROKERS = [
+    app.name + '-broker-%s:9092' % i
+    for i in std.range(0, app.broker.replicas-1)
+  ];
+
 	local consoleDeployment = {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
@@ -26,7 +32,7 @@ function(app)
               env: [
 								{
 									name: 'KAFKA_BROKERS',
-									value: 'default-broker-0:9092,default-broker-1:9092,default-broker-2:9092,',
+									value: std.join(",", KAFKA_BROKERS),
 								}
 							],
               ports: [{name: 'console', port: 8080, containerPort: 8080}],

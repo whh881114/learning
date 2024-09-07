@@ -17,7 +17,7 @@ function(app)
 	        labels: {app: app.name + '-controller-' + i},
 	      },
 	      spec: {
-	        serviceName: app.name,
+	        serviceName: app.name + '-controller-' + i,
 	        replicas: 1,
 	        selector: {matchLabels: {app: app.name + '-controller-' + i}},
 	        template: {
@@ -66,7 +66,7 @@ function(app)
 	        labels: {app: app.name + '-kafka-' + i},
 	      },
 	      spec: {
-	        serviceName: app.name,
+	        serviceName: app.name + '-kafka-' + i,
 	        replicas: 1,
 	        selector: {matchLabels: {app: app.name + '-kafka-' + i}},
 	        template: {

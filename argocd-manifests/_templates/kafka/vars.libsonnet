@@ -37,7 +37,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
   broker: {
     env: [
       {name: 'KAFKA_PROCESS_ROLES',                             value: 'broker'},
-      {name: 'KAFKA_LISTENERS',                                 value: 'PLAINTEXT://:9092,PLAINTEXT_HOST://:9092'},
+      {name: 'KAFKA_LISTENERS',                                 value: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9092'},
       {name: 'KAFKA_LISTENER_SECURITY_PROTOCOL_MAP',            value: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'},
       {name: 'KAFKA_INTER_BROKER_LISTENER_NAME',                value: 'PLAINTEXT'},
       {name: 'KAFKA_CONTROLLER_LISTENER_NAMES',                 value: 'CONTROLLER'},

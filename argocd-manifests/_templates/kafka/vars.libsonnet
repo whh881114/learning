@@ -4,7 +4,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
   image: clusterParams.registry + '/docker.io/apache/kafka:3.8.0',
   imagePullPolicy: 'IfNotPresent',
 
-  crontoller: {
+  controller: {
     env: [
       {name: 'KAFKA_PROCESS_ROLES',                     value: 'controller'},
       {name: 'KAFKA_LISTENERS',                         value: 'CONTROLLER://:9093'},

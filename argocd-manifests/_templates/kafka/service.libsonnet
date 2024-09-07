@@ -45,56 +45,56 @@ function(app)
     for i in std.range(0, app.controller.replicas-1)
   ];
 
-	local serviceClusterBroker = [
+	local serviceClusterKafka = [
 		{
 		  apiVersion: 'v1',
 		  kind: 'Service',
 		  metadata: {
-		    name:  app.name + '-broker-' + i,
-		    labels: {app: app.name + '-broker-' + i},
+		    name:  app.name + '-kafka-' + i,
+		    labels: {app: app.name + '-kafka-' + i},
 		  },
 	    spec: {
-	      selector: {app: app.name + '-broker-' + i},
+	      selector: {app: app.name + '-kafka-' + i},
 	      type: 'ClusterIP',
 	      ports: [
 	        {
-			      name: 'broker',
+			      name: 'kafka',
 			      port: 9092,
 			      targetPort: 9092,
 	        },
 	      ],
 	    },
 	  }
-	  for i in std.range(0, app.broker.replicas-1)
+	  for i in std.range(0, app.kafka.replicas-1)
   ];
 
-  local serviceNodePortBroker = [
+  local serviceNodePortKafka = [
 	  {
 		  apiVersion: 'v1',
 		  kind: 'Service',
 		  metadata: {
-		    name:  app.name + '-broker-' + i + '-nodeport',
-		    labels: {app: app.name + '-broker-' + i + '-nodeport'},
+		    name:  app.name + '-kafka-' + i + '-nodeport',
+		    labels: {app: app.name + '-kafka-' + i + '-nodeport'},
 		  },
 	    spec: {
-	      selector: {app: app.name + '-broker-' + i},
+	      selector: {app: app.name + '-kafka-' + i},
 	      type: 'NodePort',
 	      ports: [
 	        {
-			      name: 'broker',
+			      name: 'kafka',
 			      port: 9092,
 			      targetPort: 9092,
 	        },
 	      ],
 	    },
 	  }
-	  for i in std.range(0, app.broker.replicas-1)
+	  for i in std.range(0, app.kafka.replicas-1)
   ];
 
 
 
   serviceClusterController +
   serviceNodePortController +
-  serviceClusterBroker +
-  serviceNodePortBroker
+  serviceClusterKafka +
+  serviceNodePortKafka
 

@@ -132,8 +132,8 @@ function(app)
   };
 
 
-  serviceClusterNameSrv +
-  serviceNodePortNameSrv +
+  serviceClusterController +
+  serviceNodePortController +
   serviceClusterBroker +
   serviceNodePortBroker +
   [serviceClusterConsole, serviceNodePortConsole]

@@ -95,11 +95,11 @@ function(app)
 	  apiVersion: 'v1',
 	  kind: 'Service',
 	  metadata: {
-	    name:  app.name + '-kafka-console',
-	    labels: {app: app.name + '-kafka-console'},
+	    name:  app.name + '-console',
+	    labels: {app: app.name + '-console'},
 	  },
     spec: {
-      selector: {app: app.name + '-kafka-console'},
+      selector: {app: app.name + '-console'},
       type: 'ClusterIP',
       ports: [
         {
@@ -115,11 +115,11 @@ function(app)
 	  apiVersion: 'v1',
 	  kind: 'Service',
 	  metadata: {
-	    name:  app.name + '-kafka-console-nodeport',
-	    labels: {app: app.name + '-kafka-console-nodeport'},
+	    name:  app.name + '-console-nodeport',
+	    labels: {app: app.name + '-console-nodeport'},
 	  },
     spec: {
-      selector: {app: app.name + '-kafka-console'},
+      selector: {app: app.name + '-console'},
       type: 'NodePort',
       ports: [
         {

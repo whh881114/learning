@@ -6,15 +6,15 @@ function(app)
     apiVersion: 'apps/v1',
     kind: 'Deployment',
     metadata: {
-      name: app.name + '-kafka-console',
-      labels: {app: app.name + '-kafka-console'},
+      name: app.name + '-console',
+      labels: {app: app.name + '-console'},
     },
     spec: {
       replicas: 1,
-      selector: {matchLabels: {app: app.name + '-kafka-console'}},
+      selector: {matchLabels: {app: app.name + '-console'}},
       template: {
         metadata: {
-          labels: {app: app.name + '-kafka-console'},
+          labels: {app: app.name + '-console'},
         },
         spec: {
           imagePullSecrets: clusterParams.imagePullSecrets,
@@ -26,7 +26,7 @@ function(app)
               env: [
 								{
 									name: 'KAFKA_BROKERS',
-									value: 'default-broker-0:9092;default-broker-1:9092;default-broker-2:9092',
+									value: 'default-broker-0:9092',
 								}
 							],
               ports: [{name: 'console', port: 8080, containerPort: 8080}],

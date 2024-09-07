@@ -34,7 +34,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
     logsStorageClassCapacity: '20Gi',
   },
 
-  kafka: {
+  broker: {
     env: [
       {name: 'KAFKA_PROCESS_ROLES',                             value: 'broker'},
       {name: 'KAFKA_LISTENERS',                                 value: 'PLAINTEXT://:9092,PLAINTEXT_HOST://:9092'},

@@ -84,7 +84,6 @@ function(app)
                     {name: 'CLUSTER_ID', value: app.clusterID},
 	                  {name: 'KAFKA_NODE_ID', value: '%d' % [i + app.controller.replicas + 1]},
 	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
-	                  {name: 'KAFKA_ADVERTISED_LISTENERS', value: 'PLAINTEXT://%s-broker-%d:9092,PLAINTEXT_HOST://localhost:9092' % [app.name, i]},
 	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
 	                ]
 	                ,

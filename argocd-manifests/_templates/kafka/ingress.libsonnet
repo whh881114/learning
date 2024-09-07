@@ -21,7 +21,7 @@ function(app)
               {
                 backend: {
                   service: {
-                    name: app.name + '-kafka-console',
+                    name: app.name + '-console',
                     port: {
                       number: 8080,
                     },

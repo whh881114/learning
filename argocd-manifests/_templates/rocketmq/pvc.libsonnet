@@ -33,9 +33,9 @@ function(app)
 	      accessModes: ["ReadWriteOnce"],
 	      resources:
 		      if type == 'data' then
-		        {requests: {storage: app.nameSrv.dataStorageClassCapacity}}
+		        {requests: {storage: app.broker.dataStorageClassCapacity}}
 			    else
-						{requests: {storage: app.nameSrv.logsStorageClassCapacity}},
+						{requests: {storage: app.broker.logsStorageClassCapacity}},
 	      storageClassName: app.broker.storageClassName,
 	    },
     }

@@ -91,10 +91,50 @@ function(app)
 	  for i in std.range(0, app.broker.replicas-1)
   ];
 
+  local serviceClusterConsole = {
+	  apiVersion: 'v1',
+	  kind: 'Service',
+	  metadata: {
+	    name:  app.name + '-kafka-console',
+	    labels: {app: app.name + '-kafka-console'},
+	  },
+    spec: {
+      selector: {app: app.name + '-kafka-console'},
+      type: 'ClusterIP',
+      ports: [
+        {
+		      name: 'console',
+		      port: 8080,
+		      targetPort: 8080,
+        },
+      ],
+    },
+  };
+
+  local serviceNodePortConsole = {
+	  apiVersion: 'v1',
+	  kind: 'Service',
+	  metadata: {
+	    name:  app.name + '-kafka-console-nodeport',
+	    labels: {app: app.name + '-kafka-console-nodeport'},
+	  },
+    spec: {
+      selector: {app: app.name + '-kafka-console'},
+      type: 'NodePort',
+      ports: [
+        {
+		      name: 'console',
+		      port: 8080,
+		      targetPort: 8080,
+        },
+      ],
+    },
+  };
 
 
-  serviceClusterController +
-  serviceNodePortController +
+  serviceClusterNameSrv +
+  serviceNodePortNameSrv +
   serviceClusterBroker +
-  serviceNodePortBroker
+  serviceNodePortBroker +
+  [serviceClusterConsole, serviceNodePortConsole]
 

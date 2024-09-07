@@ -4,8 +4,8 @@ function(app)
 		  apiVersion: 'v1',
 		  kind: 'PersistentVolumeClaim',
 		  metadata: {
-		    name:  'logs-' + app.name + '-controller-' + i,
-		    labels: {app: 'logs-' + app.name + '-controller-' + i},
+		    name:  'data-' + app.name + '-controller-' + i,
+		    labels: {app: 'data-' + app.name + '-controller-' + i},
 		  },
 	    spec: {
 	      accessModes: ["ReadWriteOnce"],
@@ -21,8 +21,8 @@ function(app)
 		  apiVersion: 'v1',
 		  kind: 'PersistentVolumeClaim',
 		  metadata: {
-		    name:  'logs-' + app.name + '-broker-' + i,
-		    labels: {app: 'logs-' + app.name + '-broker-' + i},
+		    name:  'data-' + app.name + '-broker-' + i,
+		    labels: {app: 'data-' + app.name + '-broker-' + i},
 		  },
 	    spec: {
 	      accessModes: ["ReadWriteOnce"],

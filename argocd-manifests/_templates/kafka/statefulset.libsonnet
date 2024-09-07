@@ -41,12 +41,12 @@ function(app)
 	                ports: [{name: 'controller', port: 9093, containerPort: 9093}],
 	                resources: app.controller.resources,
 	                volumeMounts: [
-	                  {name: 'logs', mountPath: app.kafkaLogDirs},
+	                  {name: 'data', mountPath: app.kafkaLogDirs},
 	                ],
 	              },
 	            ],
 	            volumes: [
-	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-controller-' + i}},
+	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-controller-' + i}},
 	            ],
 	          },
 	        },
@@ -89,12 +89,12 @@ function(app)
 	                ports: [{name: 'broker', port: 9092, containerPort: 9092}],
 	                resources: app.broker.resources,
 	                volumeMounts: [
-	                  {name: 'logs', mountPath: app.kafkaLogDirs},
+	                  {name: 'data', mountPath: app.kafkaLogDirs},
 	                ],
 	              },
 	            ],
 	            volumes: [
-	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-broker-' + i}},
+	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-broker-' + i}},
 	            ],
 	          },
 	        },

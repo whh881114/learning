@@ -1,8 +1,10 @@
 local clusterParams = import '../../clusterParams.libsonnet';
 
 {
+	namespace: 'kafka',
   image: clusterParams.registry + '/docker.io/apache/kafka:3.8.0',
   imagePullPolicy: 'IfNotPresent',
+  ingressClassName: 'nginx',
 
   kafkaDataDirs: '/var/lib/kafka/data',
   kafkaLogDirs: '/tmp/kraft-combined-logs',
@@ -60,6 +62,20 @@ local clusterParams = import '../../clusterParams.libsonnet';
     storageClassName: 'infra',
     dataStorageClassCapacity: '100Gi',
     logsStorageClassCapacity: '20Gi',
+  },
+
+  console: {
+    image: clusterParams.registry + '/docker.io/redpandadata/console:v2.7.2',
+    resources: {
+	    requests: {
+	      cpu: '100m',
+	      memory: '256Mi',
+	    },
+	    limits: {
+	      cpu: '1000m',
+	      memory: '2Gi',
+	    }
+    },
   },
 }
 

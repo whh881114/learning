@@ -6,6 +6,7 @@ local Service = import './service.libsonnet';
 local Statefulset = import './statefulset.libsonnet';
 local Deployment = import './deployment.libsonnet';
 local Ingress = import './ingress.libsonnet';
+local BasicAuth = import './basicAuth.libsonnet';
 
 
 function(app)
@@ -14,5 +15,6 @@ function(app)
 	local statefulset = Statefulset(app);
 	local deployment = Deployment(app);
 	local ingress = Ingress(app);
+	local basicAuth = BasicAuth(app);
 
-	dockerCredential + service + pvc + statefulset + deployment + ingress
+	dockerCredential + service + pvc + statefulset + deployment + ingress + basicAuth

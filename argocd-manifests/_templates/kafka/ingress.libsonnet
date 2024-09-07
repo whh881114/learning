@@ -7,6 +7,9 @@ function(app)
     metadata: {
       annotations: {
         'nginx.ingress.kubernetes.io/ssl-redirect': 'true',
+         'nginx.ingress.kubernetes.io/auth-type': 'basic',
+         'nginx.ingress.kubernetes.io/auth-secret': 'baisc-auth-' + app.name,
+         'nginx.ingress.kubernetes.io/auth-realm': 'Authentication Required',
       },
       labels: {app: app.name},
       name: app.name,

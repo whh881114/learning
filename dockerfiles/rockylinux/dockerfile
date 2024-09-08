@@ -13,6 +13,7 @@ RUN dnf -y install wget \
                    dos2unix \
                    unix2dos \
                    tree \
+                   vim \
                    subscription-manager \
                    redis \
                    mysql \

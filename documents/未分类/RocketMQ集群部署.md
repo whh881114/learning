@@ -1,5 +1,6 @@
 # RocketMQ集群部署
 
+
 ## 正文
 - 版本：4.9.7。
 
@@ -23,6 +24,18 @@
     
   - 每个broker配置文件不一样，所以broker也是一个statefulset实例，并且每个statefulset只能启用一个副本。
 
-- 结论：针对上述的思考，broker向namesrv注册地址都是service地址，所以要防止statefulset出现多副本的情况，所以要提前为每个实例创建  
-       pvc，访问模式为ReadWriteOnce。
-        
+- 结论：针对上述的思考，每个namesrv/broker部署为一个statefulset实例，并且每个statefulset只能启用一个副本。broker向namesrv注册  
+       地址都是service地址，所以要防止statefulset出现多副本的情况，所以要提前为每个实例创建pvc，访问模式为ReadWriteOnce。
+
+
+## 测试
+- 进入broker容器，执行以下测试命令。
+  ```shell
+  $ export NAMESRV_ADDR='default-namesrv-0:9876;default-namesrv-1:9876'
+  
+  $ sh tools.sh org.apache.rocketmq.example.quickstart.Producer
+   SendResult [sendStatus=SEND_OK, msgId= ...
+  
+  $ sh tools.sh org.apache.rocketmq.example.quickstart.Consumer
+   ConsumeMessageThread_%d Receive New Messages: [MessageExt...
+  ```

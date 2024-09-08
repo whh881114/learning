@@ -63,7 +63,7 @@ function(app)
 			      targetPort: 9092,
 	        },
 	        {
-			      name: 'brokerInternal',
+			      name: 'broker-internal',
 			      port: 19092,
 			      targetPort: 19092,
 	        },

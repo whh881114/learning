@@ -4,21 +4,16 @@ function(app)
 		  apiVersion: 'v1',
 		  kind: 'PersistentVolumeClaim',
 		  metadata: {
-		    name:  type + '-' + app.name + '-namesrv-' + i,
-		    labels: {app: type + '-' + app.name + '-namesrv-' + i},
+		    name:  'logs-' + app.name + '-namesrv-' + i,
+		    labels: {app: 'logs-' + app.name + '-namesrv-' + i},
 		  },
 	    spec: {
 	      accessModes: ["ReadWriteOnce"],
-	      resources:
-		      if type == 'data' then
-		        {requests: {storage: app.nameSrv.dataStorageClassCapacity}}
-			    else
-						{requests: {storage: app.nameSrv.logsStorageClassCapacity}},
-	      storageClassName: app.nameSrv.storageClassName,
+	      resources: {requests: {storage: app.logsStorageClassCapacity}},
+	      storageClassName: app.storageClassName,
 	    },
     }
     for i in std.range(0, app.nameSrv.replicas-1)
-    for type in ['data', 'logs']
   ];
 
   local pvcBroker = [
@@ -33,10 +28,10 @@ function(app)
 	      accessModes: ["ReadWriteOnce"],
 	      resources:
 		      if type == 'data' then
-		        {requests: {storage: app.broker.dataStorageClassCapacity}}
+		        {requests: {storage: app.dataStorageClassCapacity}}
 			    else
-						{requests: {storage: app.broker.logsStorageClassCapacity}},
-	      storageClassName: app.broker.storageClassName,
+						{requests: {storage: app.logsStorageClassCapacity}},
+	      storageClassName: app.storageClassName,
 	    },
     }
     for i in [app.brokerM1.name, app.brokerS1.name, app.brokerM2.name, app.brokerS2.name]

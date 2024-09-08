@@ -7,6 +7,10 @@ local clusterParams = import '../../clusterParams.libsonnet';
   ingressClassName: 'nginx',
   namespace: 'rocketmq',
 
+  storageClassName: 'infra',
+  dataStorageClassCapacity: '100Gi',
+  logsStorageClassCapacity: '20Gi',
+
 	nameSrv: {
 		env: [
 			{name: 'NODE_ROLE', value: 'nameserver'},
@@ -22,9 +26,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '4Gi',
 	    }
 	  },
-	  storageClassName: 'infra',
-    dataStorageClassCapacity: '100Gi',
-    logsStorageClassCapacity: '20Gi',
   },
 
 	broker: {
@@ -41,9 +42,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	      memory: '16Gi',
 	    }
 	  },
-	  storageClassName: 'infra',
-    dataStorageClassCapacity: '100Gi',
-    logsStorageClassCapacity: '20Gi',
 	},
 
   brokerM1: {

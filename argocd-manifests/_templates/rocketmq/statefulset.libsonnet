@@ -37,13 +37,11 @@ function(app)
 	                ports: [{name: 'namesrv', port: 9876, containerPort: 9876}],
 	                resources: app.nameSrv.resources,
 	                volumeMounts: [
-	                  {name: 'data', mountPath: '/home/rocketmq/store'},
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
 	                ],
 	              }, rocketmqExporterContainer
 	            ],
 	            volumes: [
-	              {name: 'data', persistentVolumeClaim: {claimName: 'data-' + app.name + '-namesrv-' + i}},
 	              {name: 'logs', persistentVolumeClaim: {claimName: 'logs-' + app.name + '-namesrv-' + i}},
 	            ],
 	          },

@@ -86,7 +86,10 @@ function(app)
 	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
 	                ]
 	                ,
-	                ports: [{name: 'broker', port: 9092, containerPort: 9092}],
+	                ports: [
+	                  {name: 'broker', port: 9092, containerPort: 9092},
+	                  {name: 'brokerInternal', port: 19092, containerPort: 19092},
+	                ],
 	                resources: app.broker.resources,
 	                volumeMounts: [
 	                  {name: 'data', mountPath: app.kafkaLogDirs},

@@ -16,7 +16,9 @@ RUN dnf -y install wget \
                    subscription-manager \
                    redis \
                    mysql \
-                   bind-utils
+                   bind-utils \
+                   java-11-openjdk \
+                   java-11-openjdk-*
 
 WORKDIR /data
 

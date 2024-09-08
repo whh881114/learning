@@ -1,4 +1,4 @@
-FROM harbor.idc.roywong.top/docker.io/rockylinux/rockylinux:9.4
+FROM harbor.idc.roywong.top/library/rockylinux:9.4
 
 LABEL AUTHOR="Wanghaohao" DESCRIPTION="自定义RockyLinux9.4系统，安装常用小工具，用于测试其他服务。"
 

@@ -40,8 +40,6 @@ function(app)
                 {name: 'conf', mountPath: '/conf', readOnly: true},
                 {name: 'myid', mountPath: '/bin/myid.sh', subPath: 'myid.sh', readOnly: true},
                 {name: 'data', mountPath: '/data'},
-                {name: 'data', mountPath: '/data/datalog', subPath: 'datalog'},
-                {name: 'data', mountPath: '/data/logs', subPath: 'logs'},
               ],
             },
           ],

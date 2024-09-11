@@ -19,4 +19,6 @@ local clusterParams = import '../../clusterParams.libsonnet';
 
   storageClassName: 'infra',
   storageClassCapacity: '10Gi',
+
+  configFile: 'default',
 }

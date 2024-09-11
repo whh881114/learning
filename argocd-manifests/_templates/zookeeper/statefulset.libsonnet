@@ -49,21 +49,21 @@ function(app)
           ]
         },
       },
-    },
-    volumeClaimTemplates: [
-      {
-        metadata: {
-          name:  'data',
-        },
-        spec: {
-          accessModes: ['ReadWriteOnce'],
-          resources: {
-            requests: {storage: app.storageClassCapacity},
+      volumeClaimTemplates: [
+        {
+          metadata: {
+            name:  'data',
           },
-          storageClassName: app.storageClassName,
+          spec: {
+            accessModes: ['ReadWriteOnce'],
+            resources: {
+              requests: {storage: app.storageClassCapacity},
+            },
+            storageClassName: app.storageClassName,
+          },
         },
-      },
-    ],
+      ],
+    },
   };
 
   [zookeeperStatefulset]

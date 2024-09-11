@@ -5,4 +5,5 @@
     'mysql',
 		'redis',
     'rocketmq',
+    'zookeeper',
 ]

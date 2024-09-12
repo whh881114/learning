@@ -6,7 +6,6 @@ function(app)
     dataDir=/data
     dataLogDir=/datalog
     clientPort=2181
-    admin.enableServer=true
     server.1=%s-0.%s:2888:3888
     server.2=%s-1.%s:2888:3888
     server.3=%s-2.%s:2888:3888

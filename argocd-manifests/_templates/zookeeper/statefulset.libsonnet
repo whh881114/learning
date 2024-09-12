@@ -39,7 +39,9 @@ function(app)
               volumeMounts: [
                 {name: 'conf', mountPath: '/conf', readOnly: true},
                 {name: 'myid', mountPath: '/bin/myid.sh', subPath: 'myid.sh', readOnly: true},
-                {name: 'data', mountPath: '/data'},
+                {name: 'data', mountPath: '/data', subPath: 'data'},
+                {name: 'data', mountPath: '/datalog', subPath: 'datalog'},
+                {name: 'data', mountPath: '/logs', subPath: 'logs'},
               ],
             },
           ],

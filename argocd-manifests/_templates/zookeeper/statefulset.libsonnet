@@ -45,7 +45,6 @@ function(app)
               ],
               readinessProbe: {
                 exec: {command: ['sh', '-c', 'ps -ef | grep zookeeper']}, // 检查 ZooKeeper 服务是否已运行
-                tcpSocket: {port: 2181},  // 检查 ZooKeeper 服务的 2181 端口是否已打开
                 initialDelaySeconds: 30,  // 启动后等待 30 秒再开始检查
                 periodSeconds: 10,        // 每 10 秒检查一次
                 failureThreshold: 5,      // 检查失败次数达到 5 次认为不健康

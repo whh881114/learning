@@ -20,7 +20,8 @@
   GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
   ```
 
-- `grafana`面板：`https://grafana.com/grafana/dashboards/14057-mysql/`，官方中的面板，需要修改下三个参数。
-  - `Uptime`：对原参数求和，`sum(mysql_global_status_uptime{job=~"$job", instance=~"$instance"})`。
-  - `Current QPS`：对原参数求平均值，`avg(rate(mysql_global_status_queries{job=~"$job", instance=~"$instance"}[$__interval]))`。
-  - `InnoDB Buffer Pool`：对原参数求平均值，`avg(mysql_global_variables_innodb_buffer_pool_size{job=~"$job", instance=~"$instance"})`。
+- `grafana`面板：https://grafana.com/grafana/dashboards/14057-mysql/
+  - 官方面板，需要修改下三个参数，使界面美观。
+    - `Uptime`：对原参数求和，`sum(mysql_global_status_uptime{job=~"$job", instance=~"$instance"})`。
+    - `Current QPS`：对原参数求平均值，`avg(rate(mysql_global_status_queries{job=~"$job", instance=~"$instance"}[$__interval]))`。
+    - `InnoDB Buffer Pool`：对原参数求平均值，`avg(mysql_global_variables_innodb_buffer_pool_size{job=~"$job", instance=~"$instance"})`。

@@ -10,8 +10,7 @@ function(app)
 	    { name: "MYSQLD_EXPORTER_PASSWORD", value: app.exporter.password }
 	  ],
 	  args: [
-	    '--mysqld.username',
-	    app.exporter.username,
+	    '--mysqld.username=%s' % app.exporter.username,
 	  ],
     ports: [{name: 'metrics', port: 9104, containerPort: 9104}],
   };

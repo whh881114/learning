@@ -5,10 +5,26 @@
 **确认监控数据是否会丢失，如果数据丢失，就需要确认prometheus中设置的保留metrics的时间为7d是否有关系。**
 
 
+## 2024/09/13
+```
+现象：kubernetes-prometheus桶的使用量突然增长，从昨日观察的99.4GiB增长到175.1GiB。
+
+原因：未知。
+
+结论：未知。
+```
+
+
+### kubernetes-prometheus桶的使用量突然增长
+![2024-09-13--minio-kubernetes-prometheus.png](images/2024-09-13--minio-kubernetes-prometheus.png)
+
+
+
+
 ## 2024/09/12
 ```
 结论：
-- kubernetes-prometheus桶的使用量稳步增长，目前为99.4GB。
+- kubernetes-prometheus桶的使用量稳步增长，目前为99.4GiB。
 - kube-proxy监控数据未中断。
 ```
 

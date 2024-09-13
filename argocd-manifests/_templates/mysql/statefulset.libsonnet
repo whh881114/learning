@@ -15,6 +15,7 @@ function(app)
       '--collect.info_schema.processlist',
       '--collect.info_schema.tables.databases=*',
 	    '--mysqld.username=%s' % app.exporter.username,
+	    '--mysqld.address="localhost:3306"',
 	  ],
     ports: [{name: 'metrics', port: 9104, containerPort: 9104}],
   };

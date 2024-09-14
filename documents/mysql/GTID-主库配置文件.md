@@ -9,7 +9,7 @@ no-auto-rehash
 [mysqld]
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
-log-error=/var/log/mysqld.log
+log-error=/var/log/mysql/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 
 server-id = 1

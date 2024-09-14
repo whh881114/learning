@@ -71,5 +71,8 @@ max_execution_time=120000
 default_authentication_plugin=caching_sha2_password
 
 
-replicate-ignore-db=information_schema,mysql,performance_schema,sys
+replicate-ignore-db=information_schema
+replicate-ignore-db=mysql
+replicate-ignore-db=performance_schema
+replicate-ignore-db=sys
 ```

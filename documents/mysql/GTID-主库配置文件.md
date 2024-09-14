@@ -16,7 +16,7 @@ pid-file=/var/run/mysqld/mysqld.pid
 ## common settings
 character_set_server = UTF8MB4
 skip_name_resolve = 1
-# 若你的MySQL数据库主要运行在境外，请务必根据实际情况调整本参数
+# 若你的MySQL数据库主要运行在境外，请务必根据实际情况调整本参数。
 default_time_zone = "+8:00"
 
 ## gtid
@@ -108,7 +108,7 @@ innodb_print_all_deadlocks = 1
 innodb_online_alter_log_max_size = 4G
 innodb_print_ddl_logs = 1
 innodb_status_file = 1
-#注意: 开启 innodb_status_output & innodb_status_output_locks 后, 可能会导致log_error文件增长较快
+# 注意: 开启 innodb_status_output & innodb_status_output_locks 后, 可能会导致log_error文件增长较快。
 innodb_status_output = 0
 innodb_status_output_locks = 1
 innodb_sort_buffer_size = 67108864

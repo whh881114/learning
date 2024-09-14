@@ -22,5 +22,6 @@ replicate-ignore-db=mysql
 replicate-ignore-db=performance_schema
 replicate-ignore-db=sys
 
-read_only=1   # 从库开启只读
+read_only=1         # 从库开启只读
+super_read_only=1   # root用户也设置成只读
 ```

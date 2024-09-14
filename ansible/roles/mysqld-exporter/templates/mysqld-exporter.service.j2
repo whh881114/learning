@@ -7,8 +7,8 @@ After=network-online.target
 [Service]
 LimitNOFILE=100000
 Type=simple
-WorkingDirectory="{{ root_dir }}"
-ExecStart="{{ root_dir }}/bin/mysqld_exporter" "{{ args }}"
+WorkingDirectory={{ root_dir }}
+ExecStart={{ root_dir }}/bin/mysqld_exporter {{ args }}
 TimeoutSec=10s
 KillSignal=SIGINT
 Restart=on-failure

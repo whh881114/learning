@@ -1,81 +1,138 @@
 # GTID-主库配置文件
 
+
 ```
-# For advice on how to change settings please see
-# http://dev.mysql.com/doc/refman/8.0/en/server-configuration-defaults.html
+[mysql]
+prompt="\u@mysqldb \R:\m:\s [\d]> "
+no-auto-rehash
+
 
 [mysqld]
-#
-# Remove leading # and set to the amount of RAM for the most important data
-# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
-# innodb_buffer_pool_size = 128M
-#
-# Remove the leading "# " to disable binary logging
-# Binary logging captures changes between backups and is enabled by
-# default. It's default setting is log_bin=binlog
-# disable_log_bin
-#
-# Remove leading # to set options mainly useful for reporting servers.
-# The server defaults are faster for transactions and fast SELECTs.
-# Adjust sizes as needed, experiment to find the optimal values.
-# join_buffer_size = 128M
-# sort_buffer_size = 2M
-# read_rnd_buffer_size = 2M
-#
-# Remove leading # to revert to previous value for default_authentication_plugin,
-# this will increase compatibility with older clients. For background, see:
-# https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_default_authentication_plugin
-# default-authentication-plugin=mysql_native_password
-
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
-
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 
+## common settings
+character_set_server = UTF8MB4
+skip_name_resolve = 1
+# 若你的MySQL数据库主要运行在境外，请务必根据实际情况调整本参数
+default_time_zone = "+8:00"
 
-
-server-id = 1
+## gtid
+# 主从复制或MGR集群中，server_id记得要不同,另外，实例启动时会生成 auto.cnf，里面的 server_uuid 值也要不同。
+# server_uuid的值还可以自己手动指定，只要符合uuid的格式标准就可以。
+server_id = 1
 gtid_mode = ON
-enforce_gtid_consistency = ON
-sync-binlog = 1
-innodb_flush_log_at_trx_commit=1
-binlog_expire_logs_seconds=864000
-binlog_cache_size=65536
-skip-name-resolve = 1
-event_scheduler=ON
-open_files_limit=10000
-innodb_thread_concurrency = 4
-max_allowed_packet = 128M
-max_connections = 9190
-max_connect_errors = 10000
-key_buffer_size = 128M
-long_query_time = 1
-sql_mode=''
-group_concat_max_len=200000000
-table_open_cache=400
-thread_cache_size=1000
-log_timestamps=SYSTEM
-innodb_print_all_deadlocks=on
-innodb_lock_wait_timeout=10
-innodb_io_capacity=2000
-innodb_io_capacity_max=3000
-innodb_flush_method=O_DIRECT
-innodb_flush_neighbors=0
-sort_buffer_size = 2M
-join_buffer_size = 2M
-read_buffer_size = 2M
-read_rnd_buffer_size = 2M
-innodb_sort_buffer_size = 4M
-table_definition_cache=2000 
-tmp_table_size = 128M
-max_heap_table_size = 512M
+enforce_gtid_consistency = TRUE
+replicate-ignore-db = information_schema
+replicate-ignore-db = mysql
+replicate-ignore-db = performance_schema
+replicate-ignore-db = sys
+slave-skip-errors = 1064,1062,1410
+
+## performance setttings
+lock_wait_timeout = 3600
+open_files_limit  = 65535
+back_log = 1024
+max_connections = 512
+max_connect_errors = 1000000
+table_open_cache = 1024
+table_definition_cache = 1024
+thread_stack = 512K
+sort_buffer_size = 4M
+join_buffer_size = 4M
+read_buffer_size = 8M
+read_rnd_buffer_size = 4M
 bulk_insert_buffer_size = 64M
-innodb_temp_data_file_path = ibtmp1:12M:autoextend:max:1G
-innodb_buffer_pool_size = 1024M
+thread_cache_size = 768
+interactive_timeout = 600
+wait_timeout = 600
+tmp_table_size = 32M
+max_heap_table_size = 32M
+lower_case_table_names = 1
+
+## log settings
+log_timestamps = SYSTEM
+log_error_verbosity = 3
+slow_query_log = 1
+log_slow_extra = 1
+slow_query_log_file = /var/log/mysqld.slow.log
+long_query_time = 0.1
+log_queries_not_using_indexes = 1
+log_throttle_queries_not_using_indexes = 60
+min_examined_row_limit = 100
+log_slow_admin_statements = 1
+log_slow_slave_statements = 1
+skip-log-bin
+binlog_format = ROW
+sync_binlog = 1
+binlog_cache_size = 4M
+max_binlog_cache_size = 2G
+max_binlog_size = 1G
+binlog_rows_query_log_events = 1
+binlog_expire_logs_seconds = 86400
+# MySQL 8.0.22前，想启用MGR的话，需要设置binlog_checksum=NONE才行。
+binlog_checksum = CRC32
+
+## myisam settings
+key_buffer_size = 32M
+myisam_sort_buffer_size = 128M
+
+## replication settings
+relay_log_recovery = 1
+slave_parallel_type = LOGICAL_CLOCK
+slave_parallel_workers = 8
+binlog_transaction_dependency_tracking = WRITESET
+slave_checkpoint_period = 2
+
+## innodb settings
+transaction_isolation = REPEATABLE-READ
+innodb_buffer_pool_size = 4096M
+innodb_buffer_pool_instances = 4
+innodb_data_file_path = ibdata1:12M:autoextend
+innodb_flush_log_at_trx_commit = 1
 innodb_log_buffer_size = 32M
-innodb_read_io_threads = 4
-innodb_write_io_threads = 4
-innodb_thread_concurrency = 4 
-default_authentication_plugin=caching_sha2_password
+innodb_log_file_size = 1G
+innodb_log_files_in_group = 3
+innodb_max_undo_log_size = 4G
+# 根据您的服务器IOPS能力适当调整，一般配普通SSD盘的话，可以调整到 10000 - 20000，配置高端PCIe SSD卡的话，则可以调整的更高，比如 50000 - 80000。
+innodb_io_capacity = 4000
+innodb_io_capacity_max = 8000
+innodb_open_files = 65535
+innodb_flush_method = O_DIRECT
+innodb_lru_scan_depth = 4000
+innodb_lock_wait_timeout = 10
+innodb_rollback_on_timeout = 1
+innodb_print_all_deadlocks = 1
+innodb_online_alter_log_max_size = 4G
+innodb_print_ddl_logs = 1
+innodb_status_file = 1
+#注意: 开启 innodb_status_output & innodb_status_output_locks 后, 可能会导致log_error文件增长较快
+innodb_status_output = 0
+innodb_status_output_locks = 1
+innodb_sort_buffer_size = 67108864
+
+## innodb monitor settings
+innodb_monitor_enable = "module_innodb"
+innodb_monitor_enable = "module_server"
+innodb_monitor_enable = "module_dml"
+innodb_monitor_enable = "module_ddl"
+innodb_monitor_enable = "module_trx"
+innodb_monitor_enable = "module_os"
+innodb_monitor_enable = "module_purge"
+innodb_monitor_enable = "module_log"
+innodb_monitor_enable = "module_lock"
+innodb_monitor_enable = "module_buffer"
+innodb_monitor_enable = "module_index"
+innodb_monitor_enable = "module_ibuf_system"
+innodb_monitor_enable = "module_buffer_page"
+innodb_monitor_enable = "module_adaptive_hash"
+
+## pfs settings
+performance_schema = 1
+performance_schema_instrument = '%lock%=on'
+
+[mysqldump]
+quick
 ```

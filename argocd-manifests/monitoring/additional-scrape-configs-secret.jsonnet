@@ -1,5 +1,10 @@
 local scrapeConfigsMinio = import './minio.libsonnet';
-local scrapeConfigs = [] + scrapeConfigsMinio;
+local scrapeConfigCvmMysqlZabbixMaster = import './cvm-mysql-zabbix-master.libsonnet';
+
+
+local scrapeConfigs = [] + scrapeConfigsMinio +
+                           scrapeConfigCvmMysqlZabbixMaster;
+
 
 local encodedScrapeConfigs = std.base64(std.toString(scrapeConfigs));
 

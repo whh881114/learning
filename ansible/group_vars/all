@@ -3,7 +3,7 @@ certs_dir: /etc/ssl/certs
 lan_domain: freedom.org
 wan_domain: roywong.top
 registry: harbor.idc.roywong.top
-system_dir: /usr/lib/systemd/system
+systemd_conf_dir: /usr/lib/systemd/system
 
 
 ### kubernetes

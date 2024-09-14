@@ -12,7 +12,7 @@
     mode: 0644
   with_items:
     - { src: my.cnf.j2, dest: "{{ root_dir }}/.my.cnf" }
-    - { src: mysqld-exporter.service.j2, dest: "{{ system_dir }}/mysqld-exporter.service" }
+    - { src: mysqld-exporter.service.j2, dest: "{{ systemd_conf_dir }}/mysqld-exporter.service" }
   notify:
     - systemctl-daemon-reload
     - restart-mysqld-exporter

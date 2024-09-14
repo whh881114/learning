@@ -17,7 +17,7 @@ local metrics = [
 
 local jobs = [
   {
-    job_name: 'minio-job-' + metric,
+    job_name: 'cvm/minio/' + metric,
     metrics_path: '/minio/metrics/v3/' + metric,
     scheme: 'http',
     static_configs: staticConfigs

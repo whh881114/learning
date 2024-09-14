@@ -1,8 +1,8 @@
-local scrapeConfigsMinio = import './minio.libsonnet';
+local scrapeConfigsCvmMinio = import './minio.libsonnet';
 local scrapeConfigCvmMysqlZabbixMaster = import './cvm-mysql-zabbix-master.libsonnet';
 
 
-local scrapeConfigs = [] + scrapeConfigsMinio +
+local scrapeConfigs = [] + scrapeConfigsCvmMinio +
                            scrapeConfigCvmMysqlZabbixMaster;
 
 

@@ -1,5 +1,5 @@
 version: 0.15.1
-arch: linux_amd64
+arch: linux-amd64
 
 pkg: "ftp://central-server.freedom.org/mysqld_exporter-{{ version }}.{{ arch }}.tar.gz"
 

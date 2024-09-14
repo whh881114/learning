@@ -12,9 +12,9 @@ socket=/var/lib/mysql/mysql.sock
 log-error=/var/log/mysql/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 
-server-id = 1
-gtid_mode = ON
-enforce_gtid_consistency = ON
+server-id=1
+gtid_mode=ON
+enforce_gtid_consistency=ON
 default_authentication_plugin=caching_sha2_password
 
 replicate-ignore-db=information_schema

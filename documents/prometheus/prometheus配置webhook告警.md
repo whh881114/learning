@@ -131,3 +131,14 @@ receivers:
 templates:
 - /etc/alertmanager/config/*.tmpl
 ```
+
+### alertmanager发送数据格式
+```shell
+https://prometheus.io/docs/alerting/latest/notifications/
+```
+
+### alertmanager webhook
+```
+根据alertmanager发送数据格式，这个对于一些告警媒介来说，还需要做一些处理才行，如企业微信机器人。那现在的重点是，要写一个web接口来处理
+alertmanger请求，思前想后，还是觉得用go写一个简单的web程序是最优解。
+```

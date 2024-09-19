@@ -1,7 +1,7 @@
 # prometheus配置webhook告警
 
 
-## prometheus配置alertmanager
+## 第一部分：prometheus配置alertmanager
 
 ### 默认配置内容
 ```yaml
@@ -72,4 +72,62 @@ alert: 用于定义告警规则，必须指定告警名称。如果使用了aler
 record: 用于定义记录规则，表示计算的表达式结果将存储为一个新的时间序列。如果使用了record字段，表示该规则是记录规则。
 ```
 
-## alertmanager配置告警通知渠道
+
+## 第二部分：alertmanager配置告警通知渠道
+
+### alertmanager默认配置文件
+```yaml
+global:
+  resolve_timeout: 5m
+  http_config:
+    follow_redirects: true
+    enable_http2: true
+  smtp_hello: localhost
+  smtp_require_tls: true
+  pagerduty_url: https://events.pagerduty.com/v2/enqueue
+  opsgenie_api_url: https://api.opsgenie.com/
+  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/
+  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/
+  telegram_api_url: https://api.telegram.org
+  webex_api_url: https://webexapis.com/v1/messages
+route:
+  receiver: "null"
+  group_by:
+  - namespace
+  continue: false
+  routes:
+  - receiver: "null"
+    matchers:
+    - alertname="Watchdog"
+    continue: false
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+inhibit_rules:
+- source_matchers:
+  - severity="critical"
+  target_matchers:
+  - severity=~"warning|info"
+  equal:
+  - namespace
+  - alertname
+- source_matchers:
+  - severity="warning"
+  target_matchers:
+  - severity="info"
+  equal:
+  - namespace
+  - alertname
+- source_matchers:
+  - alertname="InfoInhibitor"
+  target_matchers:
+  - severity="info"
+  equal:
+  - namespace
+- target_matchers:
+  - alertname="InfoInhibitor"
+receivers:
+- name: "null"
+templates:
+- /etc/alertmanager/config/*.tmpl
+```

@@ -55,10 +55,17 @@ alertmanagers，是配置Alertmanager服务器参数，此时没有使用传统�
 
 
 ## prometheus配置告警规则
+
+### 默认配置内容
 ```yaml
 rule_files:
 - /etc/prometheus/rules/prometheus-kube-prometheus-stack-prometheus-rulefiles-0/*.yaml
 ```
 
+### 自定义配置内容
+```
+默认的配置项，使用了*.yaml，那么可以编写任意的yaml文件内容，然后挂载到
+/etc/prometheus/rules/prometheus-kube-prometheus-stack-prometheus-rulefiles-0目录中即可。
+```
 
 ## alertmanager配置告警通知渠道

@@ -62,10 +62,14 @@ rule_files:
 - /etc/prometheus/rules/prometheus-kube-prometheus-stack-prometheus-rulefiles-0/*.yaml
 ```
 
-### 自定义配置内容
+### 自定义告警规则
 ```
-默认的配置项，使用了*.yaml，那么可以编写任意的yaml文件内容，然后挂载到
-/etc/prometheus/rules/prometheus-kube-prometheus-stack-prometheus-rulefiles-0目录中即可。
+查看chart中的templates/prometheus/additionalPrometheusRules.yaml文件，可以看出，实质上是创建PrometheusRule资源，所以说，只需要
+创建自定义的PrometheusRule资源，不需要修改chart默认配置文件values.yaml文件中的additionalPrometheusRules或additionalPrometheusRulesMap。
+
+此外，PrometheusRule资源既可以定义告警规则（Alerting Rule），也可以定义记录规则（Recording Rule）。
+alert: 用于定义告警规则，必须指定告警名称。如果使用了alert字段，表示该规则是告警规则。
+record: 用于定义记录规则，表示计算的表达式结果将存储为一个新的时间序列。如果使用了record字段，表示该规则是记录规则。
 ```
 
 ## alertmanager配置告警通知渠道

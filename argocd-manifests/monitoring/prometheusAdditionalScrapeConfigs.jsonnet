@@ -1,9 +1,9 @@
-local scrapeConfigsCvmMinio = import './scrapeConfigsCvmMinio.libsonnet';
-local scrapeConfigCvmMysqlZabbixMaster = import './scrapeConfigCvmMysqlZabbixMaster.libsonnet';
+local cvmMinio = import './prometheusAdditionalScrapeConfigs/cvmMinio.libsonnet';
+local cvmMysqlZabbixMaster = import './prometheusAdditionalScrapeConfigs/cvmMysqlZabbixMaster.libsonnet';
 
 
-local scrapeConfigs = [] + scrapeConfigsCvmMinio +
-                           scrapeConfigCvmMysqlZabbixMaster;
+local scrapeConfigs = [] + cvmMinio +
+                           cvmMysqlZabbixMaster;
 
 
 local encodedScrapeConfigs = std.base64(std.toString(scrapeConfigs));

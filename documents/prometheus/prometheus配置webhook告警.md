@@ -144,3 +144,10 @@ alertmanger请求，思前想后，还是觉得用go写一个简单的web程序�
 
 web程序的具体设计请查看`go-projects/qywxbot/README.md`文件。
 ```
+
+### 自定义alertmanager配置文件
+```yaml
+配置以下参数，将默认配置文件中的各大项，全部拆分成独立的secret文件。
+alertmanager.alertmanagerSpec.useExistingSecret = true
+alertmanager.alertmanagerSpec.secrets = ['global', 'route', 'inhibit', 'receivers']
+```

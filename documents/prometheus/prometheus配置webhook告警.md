@@ -141,4 +141,8 @@ https://prometheus.io/docs/alerting/latest/notifications/
 ```
 根据alertmanager发送数据格式，这个对于一些告警媒介来说，还需要做一些处理才行，如企业微信机器人。那现在的重点是，要写一个web接口来处理
 alertmanger请求，思前想后，还是觉得用go写一个简单的web程序是最优解。
+
+web程序思路：
+1- 程序启动时，指定启动参数，如监听地址和端口，还有配置文件或配置文件目录，配置文件目录中要以`.yaml`或`.yml`结尾的文件才算。
+2- 程序解析alertmanager数据格式，并整理成企业微信机器人可识别的markdown内容，并发送请求。
 ```

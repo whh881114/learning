@@ -1,5 +1,5 @@
 local staticConfigs = [
-	{targets: ['minio-1.freedom.org:9000', 'minio-2.freedom.org:9000', 'minio-3.freedom.org:9000', 'minio-4.freedom.org:9000']},
+	{targets: ['minio-s3.idc.roywong.top']},
 ];
 
 local metrics = [
@@ -19,7 +19,7 @@ local jobs = [
   {
     job_name: 'cvm/minio/' + metric,
     metrics_path: '/minio/metrics/v3/' + metric,
-    scheme: 'http',
+    scheme: 'https',
     static_configs: staticConfigs
   }
   for metric in metrics

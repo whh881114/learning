@@ -5,7 +5,7 @@ local receivers = import './receivers.libsonnet';
 
 
 local mainConfigs = std.manifestYamlDoc(global + route + inhibitRules + receivers);
-local encodedMainConfigs = std.base64(std.toString(mainConfigsYaml));
+local encodedMainConfigs = std.base64(std.toString(mainConfigs));
 
 
 {

@@ -10,4 +10,5 @@
     - { src: "grafana.conf", dest: "/etc/nginx/conf.d/grafana.conf"}
     - { src: "harbor.conf", dest: "/etc/nginx/conf.d/harbor.conf"}
     - { src: "zabbix.conf", dest: "/etc/nginx/conf.d/zabbix.conf"}
+    - { src: "status.conf", dest: "/etc/nginx/conf.d/status.conf"}
   notify: reload-nginx

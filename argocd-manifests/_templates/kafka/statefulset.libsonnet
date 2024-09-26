@@ -87,8 +87,8 @@ function(app)
 	                ]
 	                ,
 	                ports: [
-	                  {name: 'broker', port: 9092, containerPort: 9092},
-	                  {name: 'broker-internal', port: 19092, containerPort: 19092},
+	                  {name: 'broker', containerPort: 9092},
+	                  {name: 'broker-internal', containerPort: 19092},
 	                ],
 	                resources: app.broker.resources,
 	                volumeMounts: [

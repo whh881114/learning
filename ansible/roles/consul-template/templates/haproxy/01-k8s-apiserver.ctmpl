@@ -6,11 +6,16 @@ frontend stats
     stats uri /stats
     stats realm Private lands
 
-    # IDC私有云环境，可以显示版本信息。
+    # IDC私有云环境，可以显示版本信息，但是最好是禁用版本显示。
     stats hide-version
 
-    # IDC私有云环境，可以不用用户名密码证验，其界面上也只是只读。
-    # stats auth freedom:Haproxy007@freedom.org
+    # 配置认证后，zabbix只能使用模板`HAProxy by HTTP`监控。
+    stats auth admin:hRar7st*s9ja#-Qkih
+
+    # 配置acl，只允许zabbix-server访问。
+    acl zabbix src 10.255.1.13
+    http-request allow if zabbix
+
 
 listen tcp-kubernetes-apiserver
     bind 10.255.1.122:6443

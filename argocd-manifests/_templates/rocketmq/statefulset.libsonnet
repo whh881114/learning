@@ -6,7 +6,7 @@ function(app)
     name: 'rocketmq-expoter',
     image: clusterParams.registry + '/docker.io/apache/rocketmq-exporter:0.0.2',
     imagePullPolicy: app.imagePullPolicy,
-    ports: [{name: 'metrics', port: 5557, containerPort: 5557}],
+    ports: [{name: 'metrics', containerPort: 5557}],
   };
 
   local nameSrvStatefulSet = [
@@ -34,7 +34,7 @@ function(app)
 	                imagePullPolicy: app.imagePullPolicy,
 	                env: app.nameSrv.env,
 	                command: ['./mqnamesrv'],
-	                ports: [{name: 'namesrv', port: 9876, containerPort: 9876}],
+	                ports: [{name: 'namesrv', containerPort: 9876}],
 	                resources: app.nameSrv.resources,
 	                volumeMounts: [
 	                  {name: 'logs', mountPath: '/home/rocketmq/logs'},
@@ -81,9 +81,9 @@ function(app)
                   '../conf/broker.conf',
                 ],
                 ports: [
-                  {name: 'fast',   port: 10909, containerPort: 10909},
-                  {name: 'broker', port: 10911, containerPort: 10911},
-                  {name: 'ha',     port: 10912, containerPort: 10912},
+                  {name: 'fast',   containerPort: 10909},
+                  {name: 'broker', containerPort: 10911},
+                  {name: 'ha',     containerPort: 10912},
                 ],
                 resources: app.broker.resources,
                 volumeMounts: [

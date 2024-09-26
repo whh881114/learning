@@ -35,7 +35,7 @@ function(app)
 									value: std.join(",", KAFKA_BROKERS),
 								}
 							],
-              ports: [{name: 'console', port: 8080, containerPort: 8080}],
+              ports: [{name: 'console', containerPort: 8080}],
               resources: app.console.resources,
               volumeMounts: [
                 {name: 'localtime', mountPath: '/etc/localtime', readOnly: true},

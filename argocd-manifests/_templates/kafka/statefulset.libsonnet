@@ -38,7 +38,7 @@ function(app)
 	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
 	                ]
 	                ,
-	                ports: [{name: 'controller', port: 9093, containerPort: 9093}],
+	                ports: [{name: 'controller', containerPort: 9093}],
 	                resources: app.controller.resources,
 	                volumeMounts: [
 	                  {name: 'data', mountPath: app.kafkaLogDirs},

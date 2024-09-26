@@ -16,7 +16,7 @@ function(app)
       '--collect.info_schema.tables.databases=*',
 	    '--mysqld.username=%s' % app.exporter.username,
 	  ],
-    ports: [{name: 'metrics', port: 9104, containerPort: 9104}],
+    ports: [{name: 'metrics', containerPort: 9104}],
   };
 
   local mysqlStatefulSet = {
@@ -44,7 +44,7 @@ function(app)
                 env: [
                   {name: 'MYSQL_ROOT_PASSWORD', value: app.password},
                 ] + app.env,
-                ports: [{name: 'mysql', port: 3306, containerPort: 3306}],
+                ports: [{name: 'mysql', containerPort: 3306}],
                 resources: app.resources,
                 volumeMounts: [
                   {name: 'conf', mountPath: '/etc/my.cnf', subPath: 'my.cnf', readOnly: true},

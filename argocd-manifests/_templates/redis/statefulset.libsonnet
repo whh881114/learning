@@ -28,7 +28,7 @@ function(app)
     env: [
       {name: 'REDIS_PASSWORD', value: app.password},
     ],
-    ports: [{name: 'metrics', port: 9121, containerPort: 9121}],
+    ports: [{name: 'metrics', containerPort: 9121}],
   };
 
   local redisStatefulSet = {
@@ -55,7 +55,7 @@ function(app)
                 image: app.image,
                 imagePullPolicy: app.imagePullPolicy,
                 env: app.env,
-                ports: [{name: 'redis', port: 6379, containerPort: 6379}],
+                ports: [{name: 'redis', containerPort: 6379}],
                 resources: app.resources,
                 command: ['redis-server'],
                 args: ['/usr/local/etc/redis/redis.conf'],

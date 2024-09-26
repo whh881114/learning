@@ -10,7 +10,7 @@ frontend stats
     stats hide-version
 
     # 配置认证后，zabbix只能使用模板`HAProxy by HTTP`监控。
-    stats auth admin:hRar7st*s9ja#-Qkih
+    stats auth admin:admin
 
     # 配置acl，只允许zabbix-server访问。
     acl zabbix src 10.255.1.13

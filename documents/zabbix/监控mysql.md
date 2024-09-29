@@ -39,11 +39,11 @@
   Plugins.Mysql.Default.User=zbx_monitor
   Plugins.Mysql.Default.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
   
-  Plugins.Mysql.Sessions.MySQLTest1.Uri=tcp://localhost:3307
+  Plugins.Mysql.Sessions.MySQLTest1.Uri=tcp://localhost:3317
   Plugins.Mysql.Sessions.MySQLTest1.User=zbx_monitor
   Plugins.Mysql.Sessions.MySQLTest1.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
   
-  Plugins.Mysql.Sessions.MySQLTest2.Uri=tcp://localhost:3308
+  Plugins.Mysql.Sessions.MySQLTest2.Uri=tcp://localhost:3318
   Plugins.Mysql.Sessions.MySQLTest2.User=zbx_monitor
   Plugins.Mysql.Sessions.MySQLTest2.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
   ```

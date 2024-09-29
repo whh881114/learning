@@ -10,8 +10,8 @@
   ```
 
 ## 配置过程
-![VMware-Hypervisor-1.png](images/VMware-Hypervisor-1.png)
+![Dell-iDRAC-by-SNMP-1.png](images/Dell-iDRAC-by-SNMP-1.png)
 
 
 ## 监控结果
-![VMware-Hypervisor-2.png](images/VMware-Hypervisor-2.png)
+![Dell-iDRAC-by-SNMP-2.png](images/Dell-iDRAC-by-SNMP-2.png)

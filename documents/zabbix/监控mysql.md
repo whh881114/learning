@@ -31,13 +31,21 @@
 
 - mysql数据库监控用户名密码分别为：`zbx_monitor`和`dr_rfrfYz*fa10xtU@s#wfzzplev_lqe`。
 
-- 配置主机时，需要设置`{$MYSQL.DSN}`，单机单实例的情况下，写`tcp://localhost:3306`；当存在单机多实例的情况下，就创建在`web`界面  
-  多个监控实例，然后配置宏变量`{$MYSQL.DSN}`，`{$MYSQL.USER}`和`{$MYSQL.PASSWORD}`。  
+- 配置主机时，需要设置`{$MYSQL.DSN}`，单机单实例的情况下，写`tcp://localhost:3306`；当存在单机多实例的情况下，可以使用以下方法配置。  
+  第一种方式是，在`web`界面创建多个监控实例，然后配置宏变量`{$MYSQL.DSN}`，`{$MYSQL.USER}`和`{$MYSQL.PASSWORD}`。  
   第二种方式是，修改配置文件`/etc/zabbix/zabbix_agent2.d/plugins.d/mysql.conf`文件，配置多个`session`实例，  
   `web`界面上配置宏变量`{$MYSQL.DSN}`，值是`session`名称。
   ```
   Plugins.Mysql.Default.User=zbx_monitor
   Plugins.Mysql.Default.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
+  
+  Plugins.Mysql.Sessions.MySQLTest1.Uri=tcp://localhost:3307
+  Plugins.Mysql.Sessions.MySQLTest1.User=zbx_monitor
+  Plugins.Mysql.Sessions.MySQLTEST1.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
+  
+  Plugins.Mysql.Sessions.MySQLTest2.Uri=tcp://localhost:3308
+  Plugins.Mysql.Sessions.MySQLTest2.User=zbx_monitor
+  Plugins.Mysql.Sessions.MySQLTEST2.Password=dr_rfrfYz*fa10xtU@s#wfzzplev_lqe
   ```
 
 

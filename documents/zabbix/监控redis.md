@@ -38,5 +38,5 @@
 - zabbix上增加6380监控实例步骤，重点配置宏`{$REDIS.CONN.URI}`的值为**Redis6380**。
 
 
-## 结果
+## 监控结果
 ![Redis-by-Zabbix-agent-2.png](images/Redis-by-Zabbix-agent-2.png)

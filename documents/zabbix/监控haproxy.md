@@ -43,5 +43,5 @@
       http-request allow if zabbix
   ```
 
-## 结果
+## 监控结果
 ![HAProxy-by-HTTP.png](images/HAProxy-by-HTTP.png)

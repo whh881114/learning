@@ -49,6 +49,14 @@
   ```
 
 
+## 监控结果
+### 第一种方式监控结果
+![MySQL-by-Zabbix-agent-2-1.png](images/MySQL-by-Zabbix-agent-2-1.png)
+
+### 第二种方式监控结果
+![MySQL-by-Zabbix-agent-2-2.png](images/MySQL-by-Zabbix-agent-2-2.png)
+
+
 
 ## 额外记录
 - `mysql5.7`初始化密码。

@@ -1,21 +1,42 @@
 # prometheus数据丢失疑问记录
 
 
+
 ## 记录原因
 **确认监控数据是否会丢失，如果数据丢失，就需要确认prometheus中设置的保留metrics的时间为7d是否有关系。**
 
 
+
+## 2024/10/10
+### 现象&结论
+```
+现象：
+- kubernetes-prometheus桶的使用量变化规律和09/18结论相响应，数据未中断。
+
+结论：
+- kubernetes-prometheus桶的使用突然增长是因为thanos-sidecar将prometheus本地数据写入cos，突然下降是因为thanos-compactor将cos中的数据进行压缩。
+- 两次写入cos的时间间隔是14天或15天。
+```
+
+### kubernetes-prometheus桶的使用量
+![2024-10-10--minio-kubernetes-prometheus-1.png](images/2024-10-10--minio-kubernetes-prometheus-1.png)
+![2024-10-10--minio-kubernetes-prometheus-2.png](images/2024-10-10--minio-kubernetes-prometheus-2.png)
+
+
+
 ## 2024/09/18
+### 现象&结论
 ```
 现象：
 - kubernetes-prometheus桶的使用量降至125GiB。
 - 从历史趋势来看，与2024/09/18预测的结论基本吻合，数据至2024/09/14-17:10稳定。
 - kube-proxy监控数据未中断。
 
-结论：1. 与2024/09/13推测的原因一样，kubernetes-prometheus桶的使用突然增长是因为thanos-sidecar将prometheus本地数据写入cos，
-        突然下降是因为thanos-compactor将cos中的数据进行压缩。
-     2. 从此次的数据数据来看，两次写入cos的时间间隔是15天（初始时间是2024/08/29，第二次是2024/09/12），这个时间和prometheus中
-        设置的保留metrics的时间为7d不吻合。
+结论：
+- 与2024/09/13推测的原因一样，kubernetes-prometheus桶的使用突然增长是因为thanos-sidecar将prometheus本地数据写入cos，
+  突然下降是因为thanos-compactor将cos中的数据进行压缩。
+- 从此次的数据数据来看，两次写入cos的时间间隔是15天（初始时间是2024/08/29，第二次是2024/09/12），这个时间和prometheus中
+  设置的保留metrics的时间为7d不吻合。
 ```
 
 ### kubernetes-prometheus桶的使用量
@@ -25,7 +46,9 @@
 ![2024-09-18--kube-proxy--数据未中断.png](images/2024-09-18--kube-proxy--数据未中断.png)
 
 
+
 ## 2024/09/13
+### 现象&结论
 ```
 现象：
 - kubernetes-prometheus桶的使用量突然增长，从昨日观察的99.4GiB增长到175.1GiB，发生时间点是9/12-13:30。
@@ -42,7 +65,9 @@
 ![2024-09-13--minio-kubernetes-prometheus.png](images/2024-09-13--minio-kubernetes-prometheus.png)
 
 
+
 ## 2024/09/12
+### 现象&结论
 ```
 结论：
 - kubernetes-prometheus桶的使用量稳步增长，目前为99.4GiB。
@@ -56,7 +81,9 @@
 ![2024-09-12--kube-proxy--数据未中断.png](images/2024-09-12--kube-proxy--数据未中断.png)
 
 
+
 ## 2024/09/02
+### 现象&结论
 ```
 结论：
 - 虽然kubernetes-prometheus桶的使用量减少（84763078854 --> 59459099876），观察时间点是8/31到现在，
@@ -100,7 +127,7 @@
 ```
 
 ### kubernetes-prometheus桶的使用量减少（84763078854 --> 59459099876）
-![2024-09-02--minio-kubernetes-prometheus.png](images%2F2024-09-02--minio-kubernetes-prometheus.png)
+![2024-09-02--minio-kubernetes-prometheus.png](images/2024-09-02--minio-kubernetes-prometheus.png)
 
 ### minio主机磁盘使用情况
 ![2024-09-02--minio-1--数据盘使用率.png](images/2024-09-02--minio-1--数据盘使用率.png)

@@ -11,7 +11,10 @@ func main() {
 	log.SetPrefix("greetings: ")
 	log.SetFlags(0)
 
-	message, err := greetings.Hello("Gladys")
+	// 一个名字切片
+	names := []string{"Gladys", "Samantha", "Darrin"}
+
+	message, err := greetings.Hellos(names)
 	// 如果返回错误，则将期打印到控制台并退出程序。
 	if err != nil {
 		log.Fatal(err)

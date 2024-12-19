@@ -27,7 +27,7 @@
         - bind
       vars:
         master_role: true
-        sn: 2024081501      # bind角色中更新解析配置后，此sn需要同步修改，需要比前值大，这样slave服务会同步更新解析。
+        sn: 2024121901      # bind角色中更新解析配置后，此sn需要同步修改，需要比前值大，这样slave服务会同步更新解析。
 
     - role: promtail
       tags:

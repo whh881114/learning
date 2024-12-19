@@ -14,7 +14,7 @@
         - kubernetes
         - k8s
       vars:
-        reset: yes
+        reset: no
 
   tasks:
     - name: delete files

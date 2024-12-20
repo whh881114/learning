@@ -33,3 +33,22 @@
     - role: promtail
       tags:
         - promtail
+
+    - role: kubernetes
+      tags:
+        - kubernetes
+        - k8s
+      vars:
+        pod_network_cidr: "10.249.0.0/16"
+        service_cidr: "10.250.0.0/16"
+        api_server: "wanghaohao-k8s-master.freedom.org:6443"
+
+    - role: argo-cd
+      tags:
+        - argo-cd
+        - argocd
+
+    - role: argo-rollouts
+      tags:
+        - argo-rollouts
+        - argorollouts

@@ -8,6 +8,10 @@
         - kubernetes
         - k8s
 
+    - role: helm
+      tags:
+        - helm
+
     - role: cilium
       tags:
         - cilium
@@ -16,10 +20,6 @@
     - role: istio
       tags:
         - istio
-
-    - role: helm
-      tags:
-        - helm
 
     - role: ingress-nginx
       tags:

@@ -7,3 +7,7 @@ pkg_root_dir: "/usr/local/{{ name }}"
 
 app: argocd
 namespace: argocd
+
+# A8m~zgqgz+utrd%Y8b
+## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
+# argocdServerAdminPassword: "$2a$10$joKRMPWGHSCYt1vHE3Ai7ePlkjILYxnR5J6T5xoxuyLngT5FWW9Lm"

@@ -43,6 +43,15 @@
         service_cidr: "10.250.0.0/16"
         api_server: "wanghaohao-k8s-master.freedom.org:6443"
 
+    - role: cilium
+      tags:
+        - cilium
+        - cni
+
+    - role: helm
+      tags:
+        - helm
+
     - role: argo-cd
       tags:
         - argo-cd

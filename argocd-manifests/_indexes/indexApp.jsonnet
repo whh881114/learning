@@ -1,6 +1,6 @@
 # https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/
 
-local appIndex = import '../appIndex.libsonnet';
+local indexApp = import '../indexApp.libsonnet';
 local clusterParams = import '../clusterParams.libsonnet';
 
 [
@@ -34,5 +34,5 @@ local clusterParams = import '../clusterParams.libsonnet';
     },
   }
 
-  for name in appIndex
+  for name in indexApp
 ]

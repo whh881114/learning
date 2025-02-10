@@ -1,11 +1,10 @@
 [
 		{
-      name: 'wan',
-      chartName: 'ingress-nginx',
-      chartVersion: '4.12.0',
+      name: 'ingress-nginx',
+      version: '4.12.0',
       namespace: 'ingress-nginx',
       valueFiles: [
-        'values-' + self.name + '.yaml'
+        'values-wan.yaml'
       ]
 		},
 ]

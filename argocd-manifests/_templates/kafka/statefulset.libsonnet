@@ -35,13 +35,13 @@ function(app)
 	                  {name: 'CLUSTER_ID', value: app.clusterID},
 	                  {name: 'KAFKA_NODE_ID', value: '%d' % [i + 1]},
 	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
-	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
+	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaDataDir},
 	                ]
 	                ,
 	                ports: [{name: 'controller', containerPort: 9093}],
 	                resources: app.controller.resources,
 	                volumeMounts: [
-	                  {name: 'data', mountPath: app.kafkaLogDirs},
+	                  {name: 'data', mountPath: app.kafkaDataDir},
 	                ],
 	              },
 	            ],
@@ -83,7 +83,7 @@ function(app)
 	                  {name: 'KAFKA_NODE_ID', value: '%d' % [i + app.controller.replicas + 1]},
 	                  {name: 'KAFKA_CONTROLLER_QUORUM_VOTERS', value: std.join(",", KAFKA_CONTROLLER_QUORUM_VOTERS)},
 	                  {name: 'KAFKA_ADVERTISED_LISTENERS', value: 'PLAINTEXT://%s-broker-%d:19092,PLAINTEXT_HOST://%s-broker-%d:9092' % [app.name, i, app.name, i]},
-	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaLogDirs},
+	                  {name: 'KAFKA_LOG_DIRS', value: app.kafkaDataDir},
 	                ]
 	                ,
 	                ports: [
@@ -92,7 +92,7 @@ function(app)
 	                ],
 	                resources: app.broker.resources,
 	                volumeMounts: [
-	                  {name: 'data', mountPath: app.kafkaLogDirs},
+	                  {name: 'data', mountPath: app.kafkaDataDir},
 	                ],
 	              },
 	            ],

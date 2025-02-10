@@ -5,7 +5,7 @@
 global:
   image:
     # -- Registry host to pull images from.
-    registry: registry.k8s.io
+    registry: harbor.idc.roywong.top
 ## Overrides for generated resource names
 # See templates/_helpers.tpl
 # nameOverride:
@@ -26,13 +26,13 @@ controller:
     ## Keep false as default for now!
     chroot: false
     # registry: registry.k8s.io
-    image: ingress-nginx/controller
+    image: registry.k8s.io/ingress-nginx/controller
     ## for backwards compatibility consider setting the full image url via the repository value below
     ## use *either* current default registry/image or repository format or installing chart by providing the values.yaml will fail
     ## repository:
     tag: "v1.12.0"
-    digest: sha256:e6b8de175acda6ca913891f0f727bca4527e797d52688cbe9fec9040d6f6b6fa
-    digestChroot: sha256:87c88e1c38a6c8d4483c8f70b69e2cca49853bb3ec3124b9b1be648edf139af3
+    digest: ""
+    digestChroot: ""
     pullPolicy: IfNotPresent
     runAsNonRoot: true
     # -- This value must not be changed using the official image.
@@ -792,7 +792,7 @@ controller:
       enabled: true
       image:
         # registry: registry.k8s.io
-        image: ingress-nginx/kube-webhook-certgen
+        image: registry.k8s.io/ingress-nginx/kube-webhook-certgen
         ## for backwards compatibility consider setting the full image url via the repository value below
         ## use *either* current default registry/image or repository format or installing chart by providing the values.yaml will fail
         ## repository:
@@ -951,7 +951,7 @@ defaultBackend:
   name: defaultbackend
   image:
     # registry: registry.k8s.io
-    image: defaultbackend-amd64
+    image: registry.k8s.io/defaultbackend-amd64
     ## for backwards compatibility consider setting the full image url via the repository value below
     ## use *either* current default registry/image or repository format or installing chart by providing the values.yaml will fail
     ## repository:

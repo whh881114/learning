@@ -7,6 +7,6 @@ local instanceVars = {
   password: 'nx4miofxxo.iq<rexztoQ,g1eyydfGoi',
 };
 
-local app = defaultVars + instanceVars;
+local app = std.mergePatch(defaultVars, instanceVars);
 
 Mysql(app)

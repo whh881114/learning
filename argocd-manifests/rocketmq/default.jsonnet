@@ -6,6 +6,6 @@ local instanceVars = {
 	name: 'default',
 };
 
-local app = defaultVars + instanceVars;
+local app = std.mergePatch(defaultVars, instanceVars);
 
 Rocketmq(app)

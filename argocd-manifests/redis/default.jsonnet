@@ -7,6 +7,6 @@ local instanceVars = {
   password: 'sRvojqyud9dxyl|qExvbavusl:xr5tq!',
 };
 
-local app = defaultVars + instanceVars;
+local app = std.mergePatch(defaultVars, instanceVars);
 
 Redis(app)

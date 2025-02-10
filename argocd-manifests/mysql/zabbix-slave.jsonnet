@@ -9,6 +9,6 @@ local instanceVars = {
   storageClassCapacity: '100Gi',
 };
 
-local app = defaultVars + instanceVars;
+local app = std.mergePatch(defaultVars, instanceVars);
 
 Mysql(app)

@@ -7,6 +7,6 @@ local instanceVars = {
   clusterID: '4L6g3nShT-eMCtK--X86sw',
 };
 
-local app = defaultVars + instanceVars;
+local app = std.mergePatch(defaultVars, instanceVars);
 
 Kafka(app)

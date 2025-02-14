@@ -124,7 +124,7 @@ controller:
   # We do not support namespaced IngressClasses, yet, so a ClusterRole and a ClusterRoleBinding is required.
   ingressClassResource:
     # -- Name of the IngressClass
-    name: nginx
+    name: ingress-nginx-wan
     # -- Create the IngressClass or not
     enabled: true
     # -- If true, Ingresses without `ingressClassName` get assigned to this IngressClass on creation.
@@ -136,7 +136,7 @@ controller:
     # -- Controller of the IngressClass. An Ingress Controller looks for IngressClasses it should reconcile by this value.
     # This value is also being set as the `--controller-class` argument of this Ingress Controller.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class
-    controllerValue: k8s.io/ingress-nginx
+    controllerValue: k8s.io/ingress-nginx-wan
     # -- Aliases of this IngressClass. Creates copies with identical settings but the respective alias as name.
     # Useful for development environments with only one Ingress Controller but production-like Ingress resources.
     # `default` gets enabled on the original IngressClass only.
@@ -154,7 +154,7 @@ controller:
     #   name: external-lb
   # -- For backwards compatibility with ingress.class annotation, use ingressClass.
   # Algorithm is as follows, first ingressClassName is considered, if not present, controller looks for ingress.class annotation
-  ingressClass: nginx
+  ingressClass: ingress-nginx-wan
   # -- Labels to add to the pod container metadata
   podLabels: {}
   #  key: value
@@ -379,7 +379,7 @@ controller:
   # -- Annotations to be added to controller pods
   ##
   podAnnotations: {}
-  replicaCount: 1
+  replicaCount: 3
   # -- Minimum available pods set in PodDisruptionBudget.
   # Define either 'minAvailable' or 'maxUnavailable', never both.
   minAvailable: 1
@@ -502,7 +502,8 @@ controller:
     externalIPs: []
     # -- Deprecated: Pre-defined IP address of the external controller service. Used by cloud providers to connect the resulting load balancer service to a pre-existing static IP.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
-    loadBalancerIP: ""
+    # 指定haproxy服务器的子ip
+    loadBalancerIP: "10.255.3.103"
     # -- Restrict access to the external controller service. Values must be CIDRs. Allows any source address by default.
     loadBalancerSourceRanges: []
     # -- Load balancer class of the external controller service. Used by cloud providers to select a load balancer implementation other than the cloud provider default.

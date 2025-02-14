@@ -492,7 +492,7 @@ controller:
     labels: {}
     # -- Type of the external controller service.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-    type: LoadBalancer
+    type: NodePort
     # -- Pre-defined cluster internal IP address of the external controller service. Take care of collisions with existing services.
     # This value is immutable. Set once, it can not be changed without deleting and re-creating the service.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#choosing-your-own-ip-address
@@ -502,8 +502,7 @@ controller:
     externalIPs: []
     # -- Deprecated: Pre-defined IP address of the external controller service. Used by cloud providers to connect the resulting load balancer service to a pre-existing static IP.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
-    # 指定haproxy服务器的子ip
-    loadBalancerIP: "10.255.3.103"
+    loadBalancerIP: ""
     # -- Restrict access to the external controller service. Values must be CIDRs. Allows any source address by default.
     loadBalancerSourceRanges: []
     # -- Load balancer class of the external controller service. Used by cloud providers to select a load balancer implementation other than the cloud provider default.
@@ -558,7 +557,9 @@ controller:
       # Example:
       # tcp:
       #   8080: 30080
-      tcp: {}
+      tcp:
+        80: 30848
+        443: 30865
       # -- Node port mapping for external UDP listeners. If left empty, the service controller allocates them from the configured node port range.
       # Example:
       # udp:

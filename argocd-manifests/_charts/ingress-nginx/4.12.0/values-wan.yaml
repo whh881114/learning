@@ -550,16 +550,14 @@ controller:
     appProtocol: true
     nodePorts:
       # -- Node port allocated for the external HTTP listener. If left empty, the service controller allocates one from the configured node port range.
-      http: ""
+      http: "30848"
       # -- Node port allocated for the external HTTPS listener. If left empty, the service controller allocates one from the configured node port range.
-      https: ""
+      https: "30865"
       # -- Node port mapping for external TCP listeners. If left empty, the service controller allocates them from the configured node port range.
       # Example:
       # tcp:
       #   8080: 30080
-      tcp:
-        80: 30848
-        443: 30865
+      tcp: {}
       # -- Node port mapping for external UDP listeners. If left empty, the service controller allocates them from the configured node port range.
       # Example:
       # udp:

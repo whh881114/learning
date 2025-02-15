@@ -8,7 +8,7 @@ local clusterParams = import '../clusterParams.libsonnet';
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-      name: chart.name + '-' + chart.instance,
+      name: chart.name,
       namespace: clusterParams.argocdNamespace,
     },
     spec: {
@@ -20,7 +20,7 @@ local clusterParams = import '../clusterParams.libsonnet';
       source: {
         repoURL: clusterParams.repo.url,
         targetRevision: clusterParams.repo.branch,
-        path: clusterParams.appRootDir + '/_charts/' + chart.name + '/' + chart.version,
+        path: clusterParams.appRootDir + '/' + chart.path,
         helm: {
           valueFiles: chart.valueFiles
         }

@@ -2,13 +2,13 @@
 # For instance, instead of `--set defaults.foo=bar`, just set `--set foo=bar`.
 defaults:
   # Name allows overriding the release name. Generally this should not be set
-  name: ""
+  name: "istio-ingress"
   # revision declares which revision this gateway is a part of
   revision: ""
 
   # Controls the spec.replicas setting for the Gateway deployment if set.
   # Otherwise defaults to Kubernetes Deployment default (1).
-  replicaCount:
+  replicaCount: 3
 
   kind: Deployment
 
@@ -41,7 +41,7 @@ defaults:
 
   service:
     # Type of service. Set to "None" to disable the service entirely
-    type: LoadBalancer
+    type: NodePort
     ports:
     - name: status-port
       port: 15021
@@ -75,8 +75,8 @@ defaults:
 
   autoscaling:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 5
+    minReplicas: 3
+    maxReplicas: 7
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: {}
     autoscaleBehavior: {}

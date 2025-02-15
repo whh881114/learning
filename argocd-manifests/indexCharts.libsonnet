@@ -36,12 +36,21 @@
       ]
 		},
 		{
-      name: 'istio-gateway',
+      name: 'istio-gateway-lan',
       version: '1.23.0',
       path:'/_charts/istio/' + self.version + '/gateway',
       namespace: 'istio-system',
       valueFiles: [
-        'values.yaml'
+        'values-lan.yaml'
+      ]
+		},
+    {
+      name: 'istio-gateway-wan',
+      version: '1.23.0',
+      path:'/_charts/istio/' + self.version + '/gateway',
+      namespace: 'istio-system',
+      valueFiles: [
+        'values-wan.yaml'
       ]
 		},
 ]

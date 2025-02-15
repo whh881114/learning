@@ -47,14 +47,17 @@ defaults:
       port: 15021
       protocol: TCP
       targetPort: 15021
+      nodePort: 30929
     - name: http2
       port: 80
       protocol: TCP
       targetPort: 80
+      nodePort: 30930
     - name: https
       port: 443
       protocol: TCP
       targetPort: 443
+      nodePort: 30931
     annotations: {}
     loadBalancerIP: ""
     loadBalancerSourceRanges: []

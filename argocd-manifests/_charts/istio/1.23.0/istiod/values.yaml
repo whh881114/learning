@@ -5,6 +5,8 @@ defaults:
 
   ## Discovery Settings
   pilot:
+    disableValidationWebhook: true
+
     autoscaleEnabled: true
     autoscaleMin: 3
     autoscaleMax: 7

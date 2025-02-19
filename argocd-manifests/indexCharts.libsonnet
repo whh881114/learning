@@ -3,7 +3,7 @@
       name: 'ingress-nginx-wan',
       version: '4.12.0',
       path:'/_charts/ingress-nginx/' + self.version,
-      namespace: 'default',
+      namespace: 'ingress-nginx',
       valueFiles: [
         'values-wan.yaml'
       ]
@@ -12,7 +12,7 @@
       name: 'ingress-nginx-lan',
       version: '4.12.0',
       path:'/_charts/ingress-nginx/' + self.version,
-      namespace: 'default',
+      namespace: 'ingress-nginx',
       valueFiles: [
         'values-lan.yaml'
       ]

@@ -9,9 +9,9 @@
   with_items:
     - { src: "{{ template_feature }}/{{ template_feature }}.hcl", dest: "{{ conf_dir }}/{{ template_feature }}.hcl" }
 
-    - { src: "{{ template_feature }}/00-stats.cfg", dest: "{{ root_dir }}/00-stats.cfg" }
+    - { src: "{{ template_feature }}/00-stats.cfg", dest: "/etc/haproxy/conf.d/00-stats.cfg" }
     -
-    - { src: "{{ template_feature }}/01-k8s-apiserver.ctmpl", dest: "{{ root_dir }}/01-k8s-apiserver.ctmpl" }
+    - { src: "{{ template_feature }}/01-k8s-apiserver.ctmpl",     dest: "{{ root_dir }}/01-k8s-apiserver.ctmpl" }
     - { src: "{{ template_feature }}/02-k8s-ingress-istio.ctmpl", dest: "{{ root_dir }}/02-k8s-ingress-istio.ctmpl" }
     - { src: "{{ template_feature }}/03-k8s-ingress-nginx.ctmpl", dest: "{{ root_dir }}/03-k8s-ingress-nginx.ctmpl" }
 

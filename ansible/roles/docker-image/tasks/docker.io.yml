@@ -35,6 +35,7 @@
     - docker.io/kiwigrid/k8s-sidecar:1.24.3
     - docker.io/library/busybox:latest
     - docker.io/library/busybox:1.31.1
+
     - docker.io/istio/pilot:1.22.3
     - docker.io/istio/proxyv2:1.22.3
     - docker.io/istio/examples-bookinfo-details-v1:1.19.1
@@ -43,6 +44,14 @@
     - docker.io/istio/examples-bookinfo-reviews-v1:1.19.1
     - docker.io/istio/examples-bookinfo-reviews-v2:1.19.1
     - docker.io/istio/examples-bookinfo-reviews-v3:1.19.1
+
+    - docker.io/istio/examples-bookinfo-details-v1:1.20.1
+    - docker.io/istio/examples-bookinfo-productpage-v1:1.20.1
+    - docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+    - docker.io/istio/examples-bookinfo-reviews-v1:1.20.1
+    - docker.io/istio/examples-bookinfo-reviews-v2:1.20.1
+    - docker.io/istio/examples-bookinfo-reviews-v3:1.20.1
+
     - docker.io/grafana/grafana:10.4.0
     - docker.io/grafana/grafana:11.1.0
     - docker.io/jaegertracing/all-in-one:1.56

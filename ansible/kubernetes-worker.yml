@@ -16,13 +16,7 @@
         services:
           - name: kubernetes-worker
             port: 10250
-          # istio-ingress-gateway nodeport
-          - name: ingress-istio-status-nodeport
-            port: 30021
-          - name: ingress-istio-http-nodeport
-            port: 30080
-          - name: ingress-istio-https-nodeport
-            port: 30443
+
           # ingress-nginx-nginx nodeport
           - name: ingress-nginx-http-nodeport
             port: 31080

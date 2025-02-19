@@ -38,12 +38,12 @@
             port: 30932
           - name: istio-gateway-wan-http-nodeport
             port: 30933
-          - name: iistio-gateway-wan-https-nodeport
+          - name: istio-gateway-wan-https-nodeport
             port: 30934
 
           - name: istio-gateway-lan-status-nodeport
             port: 30929
           - name: istio-gateway-lan-http-nodeport
             port: 30930
-          - name: iistio-gateway-lan-https-nodeport
+          - name: istio-gateway-lan-https-nodeport
             port: 30931

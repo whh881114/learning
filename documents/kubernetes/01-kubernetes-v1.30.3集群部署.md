@@ -60,7 +60,7 @@
 - 在master-1.k8s.freedom.org上执行初始化命令，这里指定镜像仓库了，所以各k8s集群中不用手动去pull镜像，然后再打tag。
   ```shell
   kubeadm init \
-           --image-repository=harbor.idc.roywong.top/registry.k8s.io
+           --image-repository=harbor.idc.roywong.top/registry.k8s.io \
            --kubernetes-version=v1.30.3 \
            --pod-network-cidr=10.251.0.0/16 \
            --service-cidr=10.252.0.0/16 \

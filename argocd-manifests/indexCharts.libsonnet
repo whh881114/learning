@@ -27,6 +27,15 @@
       ]
 		},
 		{
+      name: 'cert-manager',
+      version: '1.15.2',
+      path:'/_charts/cert-manager/' + self.version,
+      namespace: 'cert-manager',
+      valueFiles: [
+        'values.yaml'
+      ]
+		},
+		{
       name: 'ingress-nginx-wan',
       version: '4.12.0',
       path:'/_charts/ingress-nginx/' + self.version,

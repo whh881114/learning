@@ -5,7 +5,7 @@
     "name": "docker-credential-harbor-idc-roywong-work"
   },
   "data": {
-    ".dockerconfigjson": "ewoJImF1dGhzIjogewoJCSJoYXJib3IuaWRjLnJveXdvbmcudG9wIjogewoJCQkiYXV0aCI6ICJZV1J0YVc0NmNTdHhPSFI1U1d4dlVUTndjRzl3ZVhwMiIKCQl9Cgl9Cn0="
+    ".dockerconfigjson": "ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJoYXJib3IuaWRjLnJveXdvbmcud29yayI6IHsKICAgICAgICAgICAgICAgICAgICAgICAgImF1dGgiOiAiWVdSdGFXNDZjU3R4T0hSNVNXeHZVVE53Y0c5d2VYcDIiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgfQp9Cg=="
   },
   "type": "kubernetes.io/dockerconfigjson"
 }

@@ -6,9 +6,9 @@
 
 
 ## 部署
-- 使用helm安装nfs-subdir-external-provisioner。
+- 使用`argocd`部署`nfs-subdir-external-provisioner`。
 
-- 下载nfs-subdir-external-provisioner对应的helm包，修改values.yaml中的相关值。
+- 下载`nfs-subdir-external-provisioner`对应的`helm`包，修改`values.yaml`中的相关值，其目录为`argocd-manifests/_charts/nfs-subdir-external-provisioner/4.0.18`。
 
 - `values-infra.yaml`
   ```yaml
@@ -58,62 +58,4 @@
   storageClass.provisionerName: redis
   ```
 
-
-## 测试
-- pvc-test.yml
-  ```yaml
-  ---
-  kind: PersistentVolumeClaim
-  apiVersion: v1
-  metadata:
-    name: test-claim-infra
-    annotations:
-      nfs.io/storage-path: "test-path" # not required, depending on whether this annotation was shown in the storage class description
-  spec:
-    storageClassName: infra
-    accessModes:
-      - ReadWriteMany
-    resources:
-      requests:
-        storage: 10Gi
-  
-  ---
-  kind: PersistentVolumeClaim
-  apiVersion: v1
-  metadata:
-    name: test-claim-mysql
-    annotations:
-      nfs.io/storage-path: "test-path" # not required, depending on whether this annotation was shown in the storage class description
-  spec:
-    storageClassName: mysql
-    accessModes:
-      - ReadWriteMany
-    resources:
-      requests:
-        storage: 10Gi
-  
-  ---
-  kind: PersistentVolumeClaim
-  apiVersion: v1
-  metadata:
-    name: test-claim-redis
-    annotations:
-      nfs.io/storage-path: "test-path" # not required, depending on whether this annotation was shown in the storage class description
-  spec:
-    storageClassName: redis
-    accessModes:
-      - ReadWriteMany
-    resources:
-      requests:
-        storage: 10Gi
-  ```
-
-- 结果
-  ```shell
-  [root@master-1.k8s.freedom.org ~ 17:25]# 1> kubectl get pvc
-  NAME               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-  test-claim-infra   Bound    pvc-16cba2cc-5a38-43de-b1ab-44bb291a217f   10Gi       RWX            infra          <unset>                 5h45m
-  test-claim-mysql   Bound    pvc-3dc6eee3-678d-4899-abfa-c8b834a4aec9   10Gi       RWX            mysql          <unset>                 5h45m
-  test-claim-redis   Bound    pvc-dc5d0890-ec05-40ca-8d07-96589b0422ef   10Gi       RWX            redis          <unset>                 5h45m
-  [root@master-1.k8s.freedom.org ~ 17:26]# 2> 
-  ```
+- 然后在`argocd`管理界面上同步对应的`app`即可。

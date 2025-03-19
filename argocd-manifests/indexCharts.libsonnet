@@ -1,5 +1,32 @@
 [
 		{
+      name: 'nfs-infra',
+      version: '4.0.18',
+      path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
+      namespace: 'storageclass',
+      valueFiles: [
+        'values-infra.yaml'
+      ]
+		},
+		{
+      name: 'nfs-mysql',
+      version: '4.0.18',
+      path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
+      namespace: 'storageclass',
+      valueFiles: [
+        'values-mysql.yaml'
+      ]
+		},
+		{
+      name: 'nfs-redis',
+      version: '4.0.18',
+      path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
+      namespace: 'storageclass',
+      valueFiles: [
+        'values-redis.yaml'
+      ]
+		},
+		{
       name: 'ingress-nginx-wan',
       version: '4.12.0',
       path:'/_charts/ingress-nginx/' + self.version,

@@ -4,7 +4,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {
@@ -19,7 +18,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {
@@ -34,7 +32,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {
@@ -49,7 +46,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {
@@ -64,7 +60,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {
@@ -79,7 +74,6 @@ template {
     command = "/usr/bin/systemctl reload haproxy"
     command_timeout = "60s"
     perms = 0644
-    backup = true
     left_delimiter  = "{{"
     right_delimiter = "}}"
     wait {

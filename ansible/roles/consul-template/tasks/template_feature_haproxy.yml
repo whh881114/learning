@@ -12,7 +12,6 @@
     - { src: "{{ template_feature }}/00-stats.cfg", dest: "/etc/haproxy/conf.d/00-stats.cfg" }
 
     - { src: "{{ template_feature }}/01-k8s-apiserver.ctmpl",     dest: "{{ root_dir }}/01-k8s-apiserver.ctmpl" }
-    - { src: "{{ template_feature }}/03-k8s-ingress-nginx.ctmpl", dest: "{{ root_dir }}/03-k8s-ingress-nginx.ctmpl" }
 
     - { src: "{{ template_feature }}/04-k8s-ingress-nginx-wan.ctmpl", dest: "{{ root_dir }}/04-k8s-ingress-nginx-wan.ctmpl" }
     - { src: "{{ template_feature }}/05-k8s-ingress-nginx-lan.ctmpl", dest: "{{ root_dir }}/05-k8s-ingress-nginx-lan.ctmpl" }

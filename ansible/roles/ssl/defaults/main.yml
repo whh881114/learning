@@ -1,5 +1,3 @@
 ---
 domains:
-  - "*.idc.roywong.top"
-  - "*.idc-ingress-istio.roywong.top"
-  - "*.idc-ingress-nginx.roywong.top"
+  - "*.idc.roywong.work"

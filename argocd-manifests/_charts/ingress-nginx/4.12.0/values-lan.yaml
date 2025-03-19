@@ -5,7 +5,7 @@
 global:
   image:
     # -- Registry host to pull images from.
-    registry: harbor.idc.roywong.top
+    registry: harbor.idc.roywong.work
 ## Overrides for generated resource names
 # See templates/_helpers.tpl
 # nameOverride:

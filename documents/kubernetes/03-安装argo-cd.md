@@ -110,7 +110,7 @@ argocd-server-69cf54895f-v7zsr                      1/1     Running   0         
 ```
 
 ## 登录
-- 使用kubectl进行端口转发，其监听地址只能为本地回环地址，所以还需要结合socat进行再次转发。
+- 使用`kubectl`进行端口转发，其监听地址只能为本地回环地址，所以还需要结合socat进行再次转发。
 ```shell
 kubectl port-forward service/argocd-server -n argocd 8080:443 &
 socat TCP-LISTEN:8443,reuseaddr,fork TCP:127.0.0.1:8080

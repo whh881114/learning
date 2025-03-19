@@ -108,3 +108,10 @@ argocd-server-69cf54895f-ddrwz                      1/1     Running   0         
 argocd-server-69cf54895f-v7zsr                      1/1     Running   0          6m48s   10.251.3.251   worker-1.k8s.freedom.org   <none>           <none>
 [root@master-1.k8s.freedom.org ~ 15:47]# 2> 
 ```
+
+## 登录
+- 使用kubectl进行端口转发，其监听地址只能为本地回环地址，所以还需要结合socat进行再次转发。
+```shell
+kubectl port-forward service/argocd-server -n argocd 8080:443 &
+socat TCP-LISTEN:8443,reuseaddr,fork TCP:127.0.0.1:8080
+```

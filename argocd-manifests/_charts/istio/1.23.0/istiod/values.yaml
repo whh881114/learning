@@ -18,7 +18,7 @@ defaults:
     variant: ""
 
     # Can be a full hub/image:tag
-    image: "harbor.idc.roywong.top/docker.io/istio/pilot:1.23.0"
+    image: "harbor.idc.roywong.work/docker.io/istio/pilot:1.23.0"
     traceSampling: 1.0
 
     # Resources for a small pilot install
@@ -236,7 +236,7 @@ defaults:
     # Default hub for Istio images.
     # Releases are published to docker hub under 'istio' project.
     # Dev builds from prow are on gcr.io
-    hub: harbor.idc.roywong.top/docker.io/istio
+    hub: harbor.idc.roywong.work/docker.io/istio
     # Default tag for Istio images.
     tag: 1.23.0
     # Variant of the image to use.
@@ -297,7 +297,7 @@ defaults:
     priorityClassName: ""
 
     proxy:
-      image: "harbor.idc.roywong.top/docker.io/istio/proxyv2:1.23.0"
+      image: "harbor.idc.roywong.work/docker.io/istio/proxyv2:1.23.0"
 
       # This controls the 'policy' in the sidecar injector.
       autoInject: enabled
@@ -380,7 +380,7 @@ defaults:
 
     proxy_init:
       # Base name for the proxy_init container, used to configure iptables.
-      image: "harbor.idc.roywong.top/docker.io/istio/proxyv2:1.23.0"
+      image: "harbor.idc.roywong.work/docker.io/istio/proxyv2:1.23.0"
 
     # configure remote pilot and istiod service and endpoint
     remotePilotAddress: ""

@@ -9,6 +9,8 @@
 - 使用helm安装nfs-subdir-external-provisioner。
 
 - 下载nfs-subdir-external-provisioner对应的helm包，修改values.yaml中的相关值。
+
+- `values-infra.yaml`
   ```yaml
   replicaCount: 3
   
@@ -23,7 +25,8 @@
   storageClass.name: infra
   storageClass.provisionerName: infra
   ```
-  
+
+- `values-mysql.yaml`
   ```yaml
   replicaCount: 3
   
@@ -38,7 +41,8 @@
   storageClass.name: mysql
   storageClass.provisionerName: mysql
   ```
-  
+
+- `values-redis.yaml`
   ```yaml
   replicaCount: 3
   

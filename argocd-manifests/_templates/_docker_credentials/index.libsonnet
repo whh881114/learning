@@ -1,3 +1,3 @@
-local harborIdcRoywongTop = import './harbor_idc_roywong_top.libsonnet';
+local harborIdcRoywongWork = import './harbor_idc_roywong_work.libsonnet';
 
-[harborIdcRoywongTop]
+[harborIdcRoywongWork]

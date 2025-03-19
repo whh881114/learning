@@ -57,10 +57,10 @@ spec:
         app: rockylinux9u4
     spec:
       imagePullSecrets:
-        - name: docker-credential-harbor-idc-roywong-top
+        - name: docker-credential-harbor-idc-roywong-work
       containers:
         - name: rockylinux9u4
-          image: harbor.idc.roywong.top/library/rockylinux:9.4
+          image: harbor.idc.roywong.work/library/rockylinux:9.4
           imagePullPolicy: Always
           volumeMounts:
             - name: data

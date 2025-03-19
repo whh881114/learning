@@ -1,9 +1,9 @@
 {
-  registry: 'harbor.idc.roywong.top',
-  ingressNginxDomainName: 'idc-ingress-nginx.roywong.top',
-  ingressIstioDomainName: 'idc-ingress-istio.roywong.top',
+  registry: 'harbor.idc.roywong.work',
+  ingressNginxDomainName: 'idc-ingress-nginx.roywong.work',
+  ingressIstioDomainName: 'idc-ingress-istio.roywong.work',
 
-  ingressNginxDomainNameTLS: 'tls-wildcard-idc-ingress-nginx-roywong-top',
+  ingressNginxDomainNameTLS: 'tls-wildcard-idc-ingress-nginx-roywong-work',
 
   appRootDir: 'argocd-manifests',
 
@@ -15,6 +15,6 @@
   argocdNamespace: 'argocd',
 
   imagePullSecrets: [
-    {name: "docker-credential-harbor-idc-roywong-top"},
+    {name: "docker-credential-harbor-idc-roywong-work"},
   ],
 }

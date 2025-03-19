@@ -1,6 +1,6 @@
 [
 		{
-      name: 'nfs-infra',
+      name: 'storageclass-nfs-infra',
       version: '4.0.18',
       path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
       namespace: 'storageclass',
@@ -9,7 +9,7 @@
       ]
 		},
 		{
-      name: 'nfs-mysql',
+      name: 'storageclass-nfs-mysql',
       version: '4.0.18',
       path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
       namespace: 'storageclass',
@@ -18,7 +18,7 @@
       ]
 		},
 		{
-      name: 'nfs-redis',
+      name: 'storageclass-nfs-redis',
       version: '4.0.18',
       path:'/_charts/nfs-subdir-external-provisioner/' + self.version,
       namespace: 'storageclass',

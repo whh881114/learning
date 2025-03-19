@@ -13,20 +13,6 @@ template {
 }
 
 template {
-    source = "[[ root_dir ]]/03-k8s-ingress-nginx.ctmpl"
-    destination = "/etc/haproxy/conf.d/03-k8s-ingress-nginx.cfg"
-    command = "/usr/bin/systemctl reload haproxy"
-    command_timeout = "60s"
-    perms = 0644
-    left_delimiter  = "{{"
-    right_delimiter = "}}"
-    wait {
-        min = "30s"
-        max = "120s"
-    }
-}
-
-template {
     source = "[[ root_dir ]]/04-k8s-ingress-nginx-wan.ctmpl"
     destination = "/etc/haproxy/conf.d/04-k8s-ingress-nginx-wan.cfg"
     command = "/usr/bin/systemctl reload haproxy"

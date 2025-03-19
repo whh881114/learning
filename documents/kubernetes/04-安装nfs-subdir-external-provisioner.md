@@ -58,4 +58,4 @@
   storageClass.provisionerName: redis
   ```
 
-- 然后在`argocd`管理界面上同步对应的`app`即可。
+- 部署逻辑位置文件`argocd-manifests/_indexes/indexCharts.jsonnet`中，然后在`argocd`管理界面上同步对应的`app`即可。

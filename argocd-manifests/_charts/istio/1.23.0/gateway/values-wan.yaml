@@ -2,7 +2,7 @@
 # For instance, instead of `--set defaults.foo=bar`, just set `--set foo=bar`.
 defaults:
   # Name allows overriding the release name. Generally this should not be set
-  name: "istio-ingress-wan"
+  name: "istio-gateway-wan"
   # revision declares which revision this gateway is a part of
   revision: ""
 

@@ -28,7 +28,7 @@ local clusterParams = import '../clusterParams.libsonnet';
       },
       syncPolicy: {
         syncOptions: [
-          "CreateNamespace=true"
+          'CreateNamespace=true'
         ],
       },
     },

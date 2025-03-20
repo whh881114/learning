@@ -17,4 +17,9 @@
   imagePullSecrets: [
     {name: "docker-credential-harbor-idc-roywong-work"},
   ],
+
+  repoSecrets: {
+    url: 'git@github.com:whh881114/argocd-manifests-secrets.git',
+    branch: 'master',
+  }
 }

@@ -31,7 +31,7 @@ local clusterParams = import '../clusterParams.libsonnet';
           'CreateNamespace=true'
         ],
       },
-    },k
+    },
   }
 
   for app in indexApps

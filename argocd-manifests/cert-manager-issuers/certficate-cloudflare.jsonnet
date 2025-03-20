@@ -9,7 +9,7 @@ local clusterParams = import '../clusterParams.libsonnet';
     namespace: clusterParams.certManagerNamespace,
   },
   spec: {
-    secretName: clusterParams.clusterIssuerName,
+    secretName: clusterParams.clusterIssuerName + '-secret',
     issuerRef: {
       kind: 'ClusterIssuer',
       name: clusterParams.clusterIssuerName,

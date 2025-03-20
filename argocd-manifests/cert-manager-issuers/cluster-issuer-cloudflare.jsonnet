@@ -22,7 +22,8 @@ local clusterParams = import '../clusterParams.libsonnet';
           dns01: {
             cloudflare: {
               apiTokenSecretRef: {
-                name: clusterParams.apiTokenSecret
+                name: clusterParams.apiTokenSecret,
+                key: 'api-token'
               }
             }
           }

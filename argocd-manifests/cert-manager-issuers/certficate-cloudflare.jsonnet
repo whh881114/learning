@@ -14,11 +14,12 @@ local namespaces = std.uniq(std.sort(namespace1 + namespace2));
     kind: 'Certificate',
     metadata: {
       name: clusterParams.clusterIssuerName,
-      namespaces: namespace,
+      namespace: namespace,
     },
     spec: {
       secretName: clusterParams.clusterIssuerName,
       issuerRef: {
+        kind: 'ClusterIssuer',
         name: clusterParams.clusterIssuerName,
       },
       dnsNames: clusterParams.dnsZones

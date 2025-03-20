@@ -24,6 +24,8 @@
     branch: 'master',
   },
 
+  certManagerNamespace: 'cert-manager',
+
   clusterIssuerName: 'roywong-work-tls',
 
   dnsZones: [

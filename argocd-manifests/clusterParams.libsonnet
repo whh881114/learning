@@ -18,8 +18,21 @@
     {name: "docker-credential-harbor-idc-roywong-work"},
   ],
 
+  // cert-manager相关变量
   repoSecrets: {
     url: 'git@github.com:whh881114/argocd-manifests-secrets.git',
     branch: 'master',
-  }
+  },
+
+  clusterIssuerName: 'roywong-work-tls',
+
+  dnsZones: [
+    '*.idc.roywong.work',
+    '*.idc-ingress-nginx-lan.roywong.work',
+    '*.idc-ingress-nginx-wan.roywong.work',
+    '*.idc-istio-gateway-lan.roywong.work',
+    '*.idc-istio-gateway-wan.roywong.work',
+  ],
+
+  apiTokenSecret: 'cloudflare-api-token-secret',
 }

@@ -8,17 +8,17 @@ local clusterParams = import '../clusterParams.libsonnet';
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-      name: name,
+      name: app.name,
       namespace: clusterParams.argocdNamespace,
     },
     spec: {
       destination: {
         server: 'https://kubernetes.default.svc',
-        namespace: name,
+        namespace: app.namespace,
       },
       project: 'default',
       source: {
-        path: clusterParams.appRootDir + '/' + name,
+        path: clusterParams.appRootDir + '/' + app.name,
         directory: {
           jsonnet: {},
           recurse: true,
@@ -34,5 +34,5 @@ local clusterParams = import '../clusterParams.libsonnet';
     },
   }
 
-  for name in indexApp
+  for app in indexApp
 ]

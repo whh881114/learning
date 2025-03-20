@@ -24,16 +24,19 @@
     branch: 'master',
   },
 
-  certManagerNamespace: 'cert-manager',
-
-  clusterIssuerName: 'roywong-work-tls',
-
-  dnsZones: [
-    '*.idc-ingress-nginx-lan.roywong.work',
-    '*.idc-ingress-nginx-wan.roywong.work',
-    '*.idc-istio-gateway-lan.roywong.work',
-    '*.idc-istio-gateway-wan.roywong.work',
-  ],
-
-  apiTokenSecret: 'cloudflare-api-token-secret',
+  tls: {
+    name: 'roywong-work-tls',
+    namespace: 'cert-manager',
+    apiTokenSecret: 'cloudflare-api-token-secret',
+    clusterIssuerName: self.name + '-cluster-issuer',
+    clusterIssuerSecret: self.name + '-key',
+    certificateName: self.name + '-certificate',
+    certificateSecret: self.name + '-cert',
+    dnsZones: [
+      '*.idc-ingress-nginx-lan.roywong.work',
+      '*.idc-ingress-nginx-wan.roywong.work',
+      '*.idc-istio-gateway-lan.roywong.work',
+      '*.idc-istio-gateway-wan.roywong.work',
+    ],
+  },
 }

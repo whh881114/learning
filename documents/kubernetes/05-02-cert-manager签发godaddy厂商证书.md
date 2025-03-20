@@ -1,65 +1,15 @@
-# 安装cert-manager
+# cert-manager签发godaddy厂商证书
 
-## 前言
-- https://cert-manager.io/docs/
-- https://github.com/cert-manager/cert-manager/releases
-- https://artifacthub.io/packages/helm/cert-manager/cert-managers
-- https://github.com/topics/cert-manager-webhook
-- https://github.com/snowdrop/godaddy-webhook
-
-## 部署
-- 主要是调整镜像地址，另外，手动安装crds，其次，相对应的deployment启用多副本，同时开启`podDisruptionBudget.enabled=true`。
-
-## 结果
-```shell
-ok: [10.255.1.12] => {
-    "msg": [
-        [
-            "NAME: cert-manager",
-            "LAST DEPLOYED: Thu Aug  8 15:27:48 2024",
-            "NAMESPACE: cert-manager",
-            "STATUS: deployed",
-            "REVISION: 1",
-            "TEST SUITE: None",
-            "NOTES:",
-            "cert-manager v1.15.2 has been deployed successfully!",
-            "",
-            "In order to begin issuing certificates, you will need to set up a ClusterIssuer",
-            "or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).",
-            "",
-            "More information on the different types of issuers and how to configure them",
-            "can be found in our documentation:",
-            "",
-            "https://cert-manager.io/docs/configuration/",
-            "",
-            "For information on how to configure cert-manager to automatically provision",
-            "Certificates for Ingress resources, take a look at the `ingress-shim`",
-            "documentation:",
-            "",
-            "https://cert-manager.io/docs/usage/ingress/"
-        ],
-        []
-    ]
-}
-```
 
 ## ACME签发证书流程
-```shell
-- 创建`dns-provider`，如果provider在此清单中就忽略，如果不在就使用webhook即可，
+```  
+  签发证书流程是一样的，但是godaddy不在cert-manager支持范围内，所以需要使用webhook的方式来签发证书。
   https://cert-manager.io/docs/configuration/acme/dns01/#supported-dns01-providers
   https://cert-manager.io/docs/configuration/acme/dns01/#webhook
-
-- 创建ClusterIssuer: 定义证书颁发机构（CA），例如Let's Encrypt。
-
-- 创建Certificate: 定义要申请的证书，包括 DNS 名称、密钥使用等信息。 
-
-- Cert-Manager 自动申请证书: Cert-Manager 会根据 Issuer 和 Certificate 的配置，向 CA 申请证书。
-
-- 证书存储: 签发的证书会被存储在 Kubernetes Secret 中。
 ```
 
 ## ACME创建示例
-- **目前我使用的是GoDaddy厂商证书，因为网络问题没办法签发成功。文档地址：https://github.com/snowdrop/godaddy-webhook。**
+- **最开始使用GoDaddy厂商证书，因为网络问题没办法签发成功。文档地址：https://github.com/snowdrop/godaddy-webhook。**
 
 - 创建GoDaddy的密钥对地址：https://api.godaddy.com。
 
@@ -121,7 +71,8 @@ ok: [10.255.1.12] => {
       kind: ClusterIssuer
   ```
 
-- 结果，其中clusterissuer和certificate的状态是True就表示是正常的，其中wildcard-idc-roywong-top证书状态是False，这个表示签发失败。
+## 结果
+- clusterissuer和certificate的状态是True就表示是正常的，其中wildcard-idc-roywong-top证书状态是False，这个表示签发失败。
   查看cert-manager-controller的日志可以看出是什么原因导致。
   ```shell
   I0811 04:15:45.896256       1 dns.go:90] "presenting DNS01 challenge for domain" logger="cert-manager.controller.Present" resource_name="wildcard-idc-roywong-top-1-287666903-3311906022" resource_namespace="cert-manager" resource_kind="Challenge" resource_version="v1" dnsName="idc.roywong.top" type="DNS-01" resource_name="wildcard-idc-roywong-top-1-287666903-3311906022" resource_namespace="cert-manager" resource_kind="Challenge" resource_version="v1" domain="idc.roywong.top"

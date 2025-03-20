@@ -1,6 +1,6 @@
 # https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/
 
-local indexApp = import '../indexApp.libsonnet';
+local indexApps = import '../indexApps.libsonnet';
 local clusterParams = import '../clusterParams.libsonnet';
 
 [
@@ -31,8 +31,8 @@ local clusterParams = import '../clusterParams.libsonnet';
           'CreateNamespace=true'
         ],
       },
-    },
+    },k
   }
 
-  for app in indexApp
+  for app in indexApps
 ]

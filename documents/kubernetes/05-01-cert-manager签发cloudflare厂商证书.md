@@ -75,8 +75,46 @@ spec:
   secretName: roywong-work-tls-cert
 ```
 
-## 创建ingress
+## 创建指向nginx服务的ingress
 ```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - image: 'harbor.idc.roywong.work/docker.io/nginx:1.27.1'
+          name: nginx
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: nginx
+  type: ClusterIP
+
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

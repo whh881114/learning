@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: harbor.idc.roywong.work/docker.io/nginx@sha256:1.27.1
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: roywong-work-tls  # 替换为你创建的 ClusterIssuer 名称
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # 强制 HTTPS 重定向
+spec:
+  ingressClassName: ingress-nginx-lan  # 指定 Ingress Controller 使用 NGINX Ingress Controller
+  rules:
+    - host: www.idc-ingress-nginx-lan.roywong.work
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - '*.idc-ingress-nginx-lan.roywong.work'  # 替换为你的域名
+      secretName: roywong-work-tls-secret  # 替换为你的 TLS Secret 名称

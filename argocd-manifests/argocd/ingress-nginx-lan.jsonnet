@@ -6,7 +6,7 @@ local vars = import './vars.libsonnet';
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
-      name: vars.name,
+      name: vars.ingressName,
       annotations: {
         'nginx.ingress.kubernetes.io/rewrite-target': '/',
         'cert-manager.io/cluster-issuer': clusterParams.tls.clusterIssuerName,

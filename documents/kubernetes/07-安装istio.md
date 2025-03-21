@@ -7,21 +7,28 @@
 - istio和kubernetes集群存在兼容性：https://istio.io/latest/docs/releases/supported-releases/#support-status-of-istio-releases
 
 
-## 安装
+## 安装（argocd）
+- 下载`istio`对应的`helm`包，针对`sidecar`模式，只需要下载`base`，`istiod`和`gateway`，修改相对应的`values.yaml`文件即可，   
+  其目录为`argocd-manifests/_charts/istio/1.23.0`。
+
+- 部署逻辑位置文件`argocd-manifests/_indexes/indexCharts.jsonnet`中，然后在`argocd`管理界面上同步对应的`app`即可。
+
+
+## 安装（ansible方法，弃用）
 - 使用helm添加repo，然后使用fetch下载包。
-```shell
-helm repo add istio https://istio-release.storage.googleapis.com/charts
-
-helm search repo istio
-
-helm fetch istio/base --version=1.23.0
-helm fetch istio/istiod --version=1.23.0
-helm fetch istio/gateway --version=1.23.0
-
-helm install istio-base    istio/base    -n istio-system
-helm install istiod        istio/istiod  -n istio-system --wait
-helm install istio-ingress istio/gateway -n istio-ingress --wait
-```
+  ```shell
+  helm repo add istio https://istio-release.storage.googleapis.com/charts
+  
+  helm search repo istio
+  
+  helm fetch istio/base --version=1.23.0
+  helm fetch istio/istiod --version=1.23.0
+  helm fetch istio/gateway --version=1.23.0
+  
+  helm install istio-base    istio/base    -n istio-system
+  helm install istiod        istio/istiod  -n istio-system --wait
+  helm install istio-ingress istio/gateway -n istio-ingress --wait
+  ```
 
 - 另一种下载helm chart包的方法，下载地址：https://gcsweb.istio.io/gcs/istio-release/releases/1.23.0/helm/。
 
@@ -29,7 +36,7 @@ helm install istio-ingress istio/gateway -n istio-ingress --wait
 
 
 
-## 安装结果
+## 安装结果（ansible方法，弃用）
 ```shell
 ok: [10.255.1.12] => {
     "msg": [

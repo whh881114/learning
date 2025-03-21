@@ -1,2 +1,3 @@
-harbor.idc.roywong.top:443
-kubernetes-dashboard.idc-ingress-nginx.roywong.top:443
+harbor.idc.roywong.work:443
+www.idc-ingress-nginx-lan.roywong.work:443
+www.idc-ingress-nginx-wan.roywong.work:443

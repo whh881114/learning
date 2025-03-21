@@ -63,7 +63,7 @@ local clusterParams = import '../clusterParams.libsonnet';
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
-      name: 'nginx',
+      name: 'www-lan',
       annotations: {
         'nginx.ingress.kubernetes.io/rewrite-target': '/',
         'cert-manager.io/cluster-issuer': clusterParams.tls.clusterIssuerName,
@@ -91,7 +91,30 @@ local clusterParams = import '../clusterParams.libsonnet';
               }
             ]
           }
-        },
+        }
+      ],
+      tls: [
+        {
+          hosts: clusterParams.tls.dnsZones,
+          secretName: clusterParams.tls.certificateSecret
+        }
+      ]
+    }
+  },
+  {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      name: 'www-wan',
+      annotations: {
+        'nginx.ingress.kubernetes.io/rewrite-target': '/',
+        'cert-manager.io/cluster-issuer': clusterParams.tls.clusterIssuerName,
+        'nginx.ingress.kubernetes.io/ssl-redirect': 'true',
+      }
+    },
+    spec: {
+      ingressClassName: 'ingress-nginx-wan',  // 指定ingress-nginx名称，系统内有部署多个ingress-nginx。
+      rules: [
         {
           host: 'www.idc-ingress-nginx-wan.roywong.work',
           http: {

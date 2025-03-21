@@ -91,6 +91,25 @@ local clusterParams = import '../clusterParams.libsonnet';
               }
             ]
           }
+        },
+        {
+          host: 'www.idc-ingress-nginx-wan.roywong.work',
+          http: {
+            paths: [
+              {
+                path: '/',
+                pathType: 'Prefix',
+                backend: {
+                  service: {
+                    name: 'nginx',
+                    port: {
+                      number: 80
+                    }
+                  }
+                }
+              }
+            ]
+          }
         }
       ],
       tls: [

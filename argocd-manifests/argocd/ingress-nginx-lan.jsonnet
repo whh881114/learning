@@ -14,10 +14,10 @@ local vars = import './vars.libsonnet';
       }
     },
     spec: {
-      ingressClassName: vars.ingressClassName,  // 指定ingress-nginx名称，系统内有部署多个ingress-nginx。
+      ingressClassName: clusterParams.ingressNginxLanClassName,  // 指定ingress-nginx名称，系统内有部署多个ingress-nginx。
       rules: [
         {
-          host: vars.serviceName + '.' + vars.namespace + '.idc-' + vars.ingressClassName + '.roywong.work',
+          host: vars.serviceName + clusterParams.ingressNginxLanDomainName,
           http: {
             paths: [
               {

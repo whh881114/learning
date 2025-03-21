@@ -1,7 +1,5 @@
 {
-  name: 'argocd-server-lan',
-  namespace: 'argocd',
+  ingressName: 'argocd-server-lan',
   serviceName: 'argocd-server',
   servicePort: 80,
-  ingressClassName: 'ingress-nginx-lan',
 }

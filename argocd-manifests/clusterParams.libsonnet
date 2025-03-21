@@ -1,9 +1,12 @@
 {
   registry: 'harbor.idc.roywong.work',
-  ingressNginxDomainName: 'idc-ingress-nginx.roywong.work',
-  ingressIstioDomainName: 'idc-ingress-istio.roywong.work',
+  ingressNginxLanDomainName: '.idc-ingress-nginx-lan.roywong.work',
+  ingressNginxWanDomainName: '.idc-ingress-nginx-wan.roywong.work',
+  istiogatewayLanDomainName: '.idc-istio-gateway-lan.roywong.work',
+  istiogatewayWanDomainName: '.idc-istio-gateway-wan.roywong.work',
 
-  ingressNginxDomainNameTLS: 'tls-wildcard-idc-ingress-nginx-roywong-work',
+  ingressNginxLanClassName: 'ingress-nginx-lan',
+  ingressNginxWanClassName: 'ingress-nginx-wan',
 
   appRootDir: 'argocd-manifests',
 

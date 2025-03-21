@@ -8,4 +8,5 @@
     {name: 'zookeeper',  namespace: self.name, path: self.name},
 
     {name: 'cert-manager-issuers', namespace: 'cert-manager', path: self.name},
+    {name: 'argocd-ingress',       namespace: 'argocd',       path: self.name},
 ]

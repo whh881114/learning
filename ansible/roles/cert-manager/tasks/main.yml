@@ -1,3 +1,0 @@
----
-- include: install_cert_manager.yml
-- include: install_godaddy_webhook.yml

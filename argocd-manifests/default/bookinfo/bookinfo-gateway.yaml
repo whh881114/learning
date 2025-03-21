@@ -5,7 +5,7 @@ metadata:
   annotations:
     networking.istio.io/service-type: ClusterIP   # 默认情况下创建LoadBalancer服务，内部环境没有，则使用ClusterIP替代。
 spec:
-  gatewayClassName: istio
+  gatewayClassName: istio-gateway-wan
   listeners:
   - name: http
     port: 80

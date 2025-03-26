@@ -424,7 +424,7 @@ alertmanager:
     tls:
       - secretName: roywong-work-tls-cert
         hosts:
-          - "idc-ingress-nginx-lan.roywong.work"
+          - "*.idc-ingress-nginx-lan.roywong.work"
 
 
   ## Configuration for Alertmanager secret
@@ -976,7 +976,7 @@ grafana:
   ## Timezone for the default dashboards
   ## Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
   ##
-  defaultDashboardsTimezone: utc
+  defaultDashboardsTimezone: Asia/Shanghai
 
   ## Editable flag for the default dashboards
   ##
@@ -992,12 +992,12 @@ grafana:
   ingress:
     ## If true, Grafana Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     ## IngressClassName for Grafana Ingress.
     ## Should be provided if Ingress is enable.
     ##
-    # ingressClassName: nginx
+    ingressClassName: ingress-nginx-lan
 
     ## Annotations for Grafana Ingress
     ##
@@ -1014,7 +1014,8 @@ grafana:
     ##
     # hosts:
     #   - grafana.domain.com
-    hosts: []
+    hosts:
+      - "grafana.idc-ingress-nginx-lan.roywong.work"
 
     ## Path for grafana ingress
     path: /
@@ -1022,22 +1023,23 @@ grafana:
     ## TLS configuration for grafana Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-    # - secretName: grafana-general-tls
-    #   hosts:
-    #   - grafana.example.com
+    tls:
+      - secretName: roywong-work-tls-cert
+        hosts:
+          - "grafana.idc-ingress-nginx-lan.roywong.work"
 
   # # To make Grafana persistent (Using Statefulset)
   # #
-  # persistence:
-  #   enabled: true
-  #   type: sts
-  #   storageClassName: "storageClassName"
-  #   accessModes:
-  #     - ReadWriteOnce
-  #   size: 20Gi
-  #   finalizers:
-  #     - kubernetes.io/pvc-protection
+  useStatefulSet: true
+  persistence:
+    enabled: true
+    type: sts
+    storageClassName: "infra"
+    accessModes:
+      - ReadWriteOnce
+    size: 20Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
 
   serviceAccount:
     create: true

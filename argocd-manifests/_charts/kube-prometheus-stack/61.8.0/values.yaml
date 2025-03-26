@@ -1077,6 +1077,8 @@ grafana:
       ## URL of prometheus datasource
       ##
       # url: http://prometheus-stack-prometheus:9090/
+      # 安装了thanos，使用thanos-query-frontend作为数据查询入口。
+      url: http://thanos-query-frontend:9090/
 
       ## Prometheus request timeout in seconds
       # timeout: 30
@@ -2861,9 +2863,9 @@ prometheusOperator:
   ##
   image:
     registry: quay.io
-    repository: prometheus-operator/prometheus-operator
+    repository: quay.io/prometheus-operator/prometheus-operator
     # if not set appVersion field from Chart.yaml is used
-    tag: ""
+    tag: "v0.75.2"
     sha: ""
     pullPolicy: IfNotPresent
 
@@ -2888,9 +2890,9 @@ prometheusOperator:
   prometheusConfigReloader:
     image:
       registry: quay.io
-      repository: prometheus-operator/prometheus-config-reloader
+      repository: quay.io/prometheus-operator/prometheus-config-reloader
       # if not set appVersion field from Chart.yaml is used
-      tag: ""
+      tag: "v0.75.2"
       sha: ""
 
     # add prometheus config reloader liveness and readiness probe. Default: false
@@ -2909,7 +2911,7 @@ prometheusOperator:
   ##
   thanosImage:
     registry: quay.io
-    repository: thanos/thanos
+    repository: quay.io/thanos/thanos
     tag: v0.36.0
     sha: ""
 
@@ -2993,7 +2995,7 @@ prometheus:
   # Thanos sidecar on prometheus nodes
   # (Please remember to change ${kube-prometheus-stack.fullname} and ${namespace}. Not just copy and paste!)
   thanosService:
-    enabled: false
+    enabled: true
     annotations: {}
     labels: {}
 
@@ -3034,7 +3036,7 @@ prometheus:
   # ServiceMonitor to scrape Sidecar metrics
   # Needs thanosService to be enabled as well
   thanosServiceMonitor:
-    enabled: false
+    enabled: true
     interval: ""
 
     ## Additional labels
@@ -3207,11 +3209,11 @@ prometheus:
 
   # Ingress exposes thanos sidecar outside the cluster
   thanosIngress:
-    enabled: false
+    enabled: true
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: ingress-nginx-lan
 
     annotations: {}
     labels: {}
@@ -3224,26 +3226,25 @@ prometheus:
 
     ## Hosts must be provided if Ingress is enabled.
     ##
-    hosts: []
-      # - thanos-gateway.domain.com
+    hosts:
+      - "thanos-gateway.idc-ingress-nginx-lan.roywong.work"
 
     ## Paths to use for ingress rules
     ##
-    paths: []
-    # - /
+    paths:
+      - /
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## TLS configuration for Thanos Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-    # - secretName: thanos-gateway-tls
-    #   hosts:
-    #   - thanos-gateway.domain.com
-    #
+    tls:
+      - secretName: roywong-work-tls-cert
+        hosts:
+        - "*.idc-ingress-nginx-lan.roywong.work"
 
   ## ExtraSecret can be used to store various data in an extra secret
   ## (use it for example to store hashed basic auth credentials)
@@ -3257,11 +3258,11 @@ prometheus:
   #     someoneelse:$apr1$DMZX2Z4q$6SbQIfyuLQd.xmo/P0m2c.
 
   ingress:
-    enabled: false
+    enabled: true
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: ingress-nginx-lan
 
     annotations: {}
     labels: {}
@@ -3274,12 +3275,13 @@ prometheus:
     ##
     # hosts:
     #   - prometheus.domain.com
-    hosts: []
+    hosts:
+      - "prometheus.idc-ingress-nginx-lan.roywong.work"
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
-    paths: []
-    # - /
+    paths:
+      - /
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
@@ -3288,10 +3290,10 @@ prometheus:
     ## TLS configuration for Prometheus Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-      # - secretName: prometheus-general-tls
-      #   hosts:
-      #     - prometheus.example.com
+    tls:
+      - secretName: roywong-work-tls-cert
+        hosts:
+          - "*.idc-ingress-nginx-lan.roywong.work"
 
   ## Configuration for creating an Ingress that will map to each Prometheus replica service
   ## prometheus.servicePerReplica must be enabled
@@ -3418,9 +3420,9 @@ prometheus:
     ## statefulset's PVCs are deleted (true) or retained (false) on scaling down
     ## and deleting statefulset, respectively. Requires 1.27.0+.
     ## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
-    persistentVolumeClaimRetentionPolicy: {}
-    #  whenDeleted: Retain
-    #  whenScaled: Retain
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
 
     ## If true, pass --storage.tsdb.max-block-duration=2h to prometheus. This is already done if using Thanos
     ##
@@ -3430,7 +3432,7 @@ prometheus:
     ## It is possible to use strategic merge patch to project the service account token into the ‘prometheus’ container.
     automountServiceAccountToken: true
 
-    disableCompaction: false
+    disableCompaction: true
     ## APIServerConfig
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#apiserverconfig
     ##
@@ -3499,7 +3501,7 @@ prometheus:
     ##
     image:
       registry: quay.io
-      repository: prometheus/prometheus
+      repository: quay.io/prometheus/prometheus
       tag: v2.54.0
       sha: ""
 
@@ -3599,7 +3601,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the PrometheusRule resources created
     ##
-    ruleSelectorNilUsesHelmValues: true
+    ruleSelectorNilUsesHelmValues: false
 
     ## PrometheusRules to be selected for target discovery.
     ## If {}, select all PrometheusRules
@@ -3624,7 +3626,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the servicemonitors created
     ##
-    serviceMonitorSelectorNilUsesHelmValues: true
+    serviceMonitorSelectorNilUsesHelmValues: false
 
     ## ServiceMonitors to be selected for target discovery.
     ## If {}, select all ServiceMonitors
@@ -3647,7 +3649,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the podmonitors created
     ##
-    podMonitorSelectorNilUsesHelmValues: true
+    podMonitorSelectorNilUsesHelmValues: false
 
     ## PodMonitors to be selected for target discovery.
     ## If {}, select all PodMonitors
@@ -3669,7 +3671,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the probes created
     ##
-    probeSelectorNilUsesHelmValues: true
+    probeSelectorNilUsesHelmValues: false
 
     ## Probes to be selected for target discovery.
     ## If {}, select all Probes
@@ -3691,7 +3693,7 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the scrapeConfigs created
     ##
-    scrapeConfigSelectorNilUsesHelmValues: true
+    scrapeConfigSelectorNilUsesHelmValues: false
 
     ## scrapeConfigs to be selected for target discovery.
     ## If {}, select all scrapeConfigs
@@ -3711,7 +3713,7 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 10d
+    retention: 7d
 
     ## Maximum size of metrics
     ##
@@ -3733,7 +3735,7 @@ prometheus:
     ## Number of replicas of each shard to deploy for a Prometheus deployment.
     ## Number of replicas multiplied by shards is the total number of Pods created.
     ##
-    replicas: 1
+    replicas: 3
 
     ## EXPERIMENTAL: Number of shards to distribute targets onto.
     ## Number of replicas multiplied by shards is the total number of Pods created.
@@ -3816,17 +3818,16 @@ prometheus:
     ## Prometheus StorageSpec for persistent data
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
-    storageSpec: {}
+    storageSpec:
     ## Using PersistentVolumeClaim
     ##
-    #  volumeClaimTemplate:
-    #    spec:
-    #      storageClassName: gluster
-    #      accessModes: ["ReadWriteOnce"]
-    #      resources:
-    #        requests:
-    #          storage: 50Gi
-    #    selector: {}
+      volumeClaimTemplate:
+        spec:
+          storageClassName: infra
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
 
     ## Using tmpfs volume
     ##
@@ -3897,10 +3898,10 @@ prometheus:
     ## If additional scrape configurations are already deployed in a single secret file you can use this section.
     ## Expected values are the secret name and key
     ## Cannot be used with additionalScrapeConfigs
-    additionalScrapeConfigsSecret: {}
-      # enabled: false
-      # name:
-      # key:
+    additionalScrapeConfigsSecret:
+      enabled: true
+      name: additional-scrape-configs-secret
+      key: additional-scrape-configs.yaml
 
     ## additionalPrometheusSecretsAnnotations allows to add annotations to the kubernetes secret. This can be useful
     ## when deploying via spinnaker to disable versioning on the secret, strategy.spinnaker.io/versioned: 'false'
@@ -3973,7 +3974,19 @@ prometheus:
     ## This is experimental and may change significantly without backward compatibility in any release.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#thanosspec
     ##
-    thanos: {}
+    thanos:
+      objectStorageConfig:
+        secret:
+          type: S3
+          config:
+            bucket: "kubernetes-prometheus"
+            endpoint: "minio-s3.idc.roywong.work"
+            access_key: "053ixvmeitBL45A6BxFo"
+            secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
+      # BlockDuration controls the size of TSDB blocks produced by Prometheus.
+      # The default value is 2h to match the upstream Prometheus defaults.
+      # blockSize: 2h
+      #
       # secretProviderClass:
       #   provider: gcp
       #   parameters:
@@ -4487,7 +4500,7 @@ thanosRuler:
     ##
     image:
       registry: quay.io
-      repository: thanos/thanos
+      repository: quay.io/thanos/thanos
       tag: v0.36.0
       sha: ""
 

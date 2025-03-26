@@ -89,4 +89,22 @@
         'values-wan.yaml'
       ]
 		},
+		{
+      name: 'prometheus',
+      version: '61.8.0',
+      path:'/_charts/kube-prometheus-stack/' + self.version,
+      namespace: 'monitoring',
+      valueFiles: [
+        'values.yaml'
+      ]
+		},
+		{
+      name: 'thanos',
+      version: '15.7.19',
+      path:'/_charts/' + self.names + '/' + self.version,
+      namespace: 'monitoring',
+      valueFiles: [
+        'values.yaml'
+      ]
+		},
 ]

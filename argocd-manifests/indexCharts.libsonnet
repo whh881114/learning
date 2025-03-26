@@ -101,7 +101,7 @@
 		{
       name: 'thanos',
       version: '15.7.19',
-      path:'/_charts/' + self.names + '/' + self.version,
+      path:'/_charts/' + self.name + '/' + self.version,
       namespace: 'monitoring',
       valueFiles: [
         'values.yaml'

@@ -3715,7 +3715,7 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 7d
+    retention: 30d
 
     ## Maximum size of metrics
     ##
@@ -3829,7 +3829,7 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 50Gi
+              storage: 300Gi
 
     ## Using tmpfs volume
     ##

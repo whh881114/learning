@@ -98,3 +98,22 @@
   -rw-r--r-- 1 root root 497408  3月 27 13:29 crd-thanosrulers.yaml
   [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
   ```
+  
+
+## kube-state-metrics
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/kube-state-metrics/values.yaml`，修改内容如下：
+  ```yaml
+  image:
+    repository: registry.k8s.io/kube-state-metrics/kube-state-metrics
+    tag: "v2.13.0"
+  
+  replicas: 3
+  ```
+
+## prometheus-node-exporter
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/prometheus-node-exporter/values.yaml`，修改内容如下：
+  ```yaml
+  image:
+    repository: quay.io/prometheus/node-exporter
+    tag: "v1.8.2"
+  ```

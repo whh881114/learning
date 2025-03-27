@@ -26,6 +26,7 @@
 
   # grafana变量修改
   grafana:
+    adminPassword: prom-operator    # 管理员admin默认密码
     ingress:
       enabled: true
       ingressClassName: ingress-nginx-lan

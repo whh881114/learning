@@ -21,6 +21,8 @@
   # 全局变量修改
   namespaceOverride: "monitoring"
   kubeTargetVersionOverride: "1.30.3"
+  crds:
+    enabled: false
   global:
     imageRegistry: "harbor.idc.roywong.work"
 
@@ -62,3 +64,9 @@
     image:
       repository: quay.io/kiwigrid/k8s-sidecar
   ```
+
+- **特别说明**：`crds.enabled=false`，部署时不安装`crds`。默认情况下是开启`crds`安装，即使在`prometheus`应用中添加同步参数
+  `ApplyStrategy=create`，是可以将部分`crds`创建出来，但`create`逻辑只适合于初次创建，创建好后，还需要将此参数删除，之后就是
+  `apply`逻辑了，也会报错。  
+  **错误信息**：`The CustomResourceDefinition "***********" is invalid: metadata.annotations: Too long: must have at most 262144 bytes`  
+  **个人解决方法**：将代码拉取到`kubernetes`集群的主机上，然后使用`kubectl create -f xxx.yaml`方法创建于`crds`资源。

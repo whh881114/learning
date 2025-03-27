@@ -3207,11 +3207,11 @@ prometheus:
 
   # Ingress exposes thanos sidecar outside the cluster
   thanosIngress:
-    enabled: true
+    enabled: false
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    ingressClassName: ingress-nginx-lan
+    ingressClassName: ""
 
     annotations: {}
     labels: {}
@@ -3224,25 +3224,26 @@ prometheus:
 
     ## Hosts must be provided if Ingress is enabled.
     ##
-    hosts:
-      - "thanos-gateway.idc-ingress-nginx-lan.roywong.work"
+    hosts: []
+      # - thanos-gateway.domain.com
 
     ## Paths to use for ingress rules
     ##
-    paths:
-      - /
+    paths: []
+    # - /
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    pathType: ImplementationSpecific
+    # pathType: ImplementationSpecific
 
     ## TLS configuration for Thanos Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls:
-      - secretName: roywong-work-tls-cert
-        hosts:
-        - "*.idc-ingress-nginx-lan.roywong.work"
+    tls: []
+    # - secretName: thanos-gateway-tls
+    #   hosts:
+    #   - thanos-gateway.domain.com
+    #
 
   ## ExtraSecret can be used to store various data in an extra secret
   ## (use it for example to store hashed basic auth credentials)
@@ -3256,11 +3257,11 @@ prometheus:
   #     someoneelse:$apr1$DMZX2Z4q$6SbQIfyuLQd.xmo/P0m2c.
 
   ingress:
-    enabled: true
+    enabled: false
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    ingressClassName: ingress-nginx-lan
+    # ingressClassName: nginx
 
     annotations: {}
     labels: {}
@@ -3273,13 +3274,12 @@ prometheus:
     ##
     # hosts:
     #   - prometheus.domain.com
-    hosts:
-      - "prometheus.idc-ingress-nginx-lan.roywong.work"
+    hosts: []
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
-    paths:
-      - /
+    paths: []
+    # - /
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
@@ -3288,10 +3288,10 @@ prometheus:
     ## TLS configuration for Prometheus Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls:
-      - secretName: roywong-work-tls-cert
-        hosts:
-          - "*.idc-ingress-nginx-lan.roywong.work"
+    tls: []
+      # - secretName: prometheus-general-tls
+      #   hosts:
+      #     - prometheus.example.com
 
   ## Configuration for creating an Ingress that will map to each Prometheus replica service
   ## prometheus.servicePerReplica must be enabled

@@ -15,60 +15,16 @@
 - 部署方式由`ansible`转向`argocd`。
 
 
-## grafana
+## 配置全局变量
 - 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
-  # 全局变量修改
   namespaceOverride: "monitoring"
   kubeTargetVersionOverride: "1.30.3"
   crds:
     enabled: false
   global:
     imageRegistry: "harbor.idc.roywong.work"
-
-  # grafana变量修改
-  grafana:
-    adminPassword: prom-operator    # 管理员admin默认密码
-    ingress:
-      enabled: true
-      ingressClassName: ingress-nginx-lan
-      annotations:
-        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      hosts:
-        - "grafana.idc-ingress-nginx-lan.roywong.work"
-      path: /
-      tls:
-        - secretName: roywong-work-tls-cert
-          hosts:
-            - "*.idc-ingress-nginx-lan.roywong.work"
-    useStatefulSet: true
-    persistence:
-      enabled: true
-      type: sts
-      storageClassName: "infra"
-      accessModes:
-        - ReadWriteOnce
-      size: 20Gi
-      finalizers:
-        - kubernetes.io/pvc-protection
   ```
-
-- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/grafana/values.yaml`，修改内容如下：
-  ```yaml
-  image:
-    repository: docker.io/grafana/grafana
-    
-  initChownData:
-    image:
-      repository: docker.io/library/busybox
-      
-  sidecar:
-    image:
-      repository: quay.io/kiwigrid/k8s-sidecar
-  ```
-
 - **特别说明**：`crds.enabled=false`，部署时不安装`crds`。默认情况下是开启`crds`安装，即使在`prometheus`应用中添加同步参数
   `ApplyStrategy=create`，是可以将部分`crds`创建出来，但`create`逻辑只适合于初次创建，创建好后，还需要将此参数删除，之后就是
   `apply`逻辑了，也会报错。  
@@ -102,9 +58,52 @@
   -rw-r--r-- 1 root root 497408  3月 27 13:29 crd-thanosrulers.yaml
   [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
   ```
-  
 
-## kube-state-metrics
+## 配置grafana
+- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
+  ```yaml
+  grafana:
+    adminPassword: prom-operator    # 管理员admin默认密码
+    ingress:
+      enabled: true
+      ingressClassName: ingress-nginx-lan
+      annotations:
+        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - "grafana.idc-ingress-nginx-lan.roywong.work"
+      path: /
+      tls:
+        - secretName: roywong-work-tls-cert
+          hosts:
+            - "*.idc-ingress-nginx-lan.roywong.work"
+    useStatefulSet: true
+    persistence:
+      enabled: true
+      type: sts
+      storageClassName: "infra"
+      accessModes:
+        - ReadWriteOnce
+      size: 20Gi
+      finalizers:
+        - kubernetes.io/pvc-protection
+  ```
+
+- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/grafana/values.yaml`，修改内容如下：
+  ```yaml
+  image:
+    repository: docker.io/grafana/grafana
+  initChownData:
+    image:
+      repository: docker.io/library/busybox
+  sidecar:
+    image:
+      repository: quay.io/kiwigrid/k8s-sidecar
+  ```
+
+
+## 配置kube-state-metrics
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/kube-state-metrics/values.yaml`，修改内容如下：
   ```yaml
   image:
@@ -114,7 +113,7 @@
   replicas: 3
   ```
 
-## prometheus-node-exporter
+## 配置prometheus-node-exporter
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/prometheus-node-exporter/values.yaml`，修改内容如下：
   ```yaml
   image:
@@ -122,7 +121,7 @@
     tag: "v1.8.2"
   ```
 
-## prometheusOperator
+## 配置prometheusOperator
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
   prometheusOperator:
@@ -139,7 +138,7 @@
   ```
 
 
-## prometheus
+## 配置prometheus
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
 ```yaml
 prometheus:
@@ -163,7 +162,7 @@ prometheus:
               storage: 300Gi
 ```
 
-## alertmanager
+## 配置alertmanager
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
 ```yaml
 alertmanager:

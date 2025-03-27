@@ -1077,8 +1077,6 @@ grafana:
       ## URL of prometheus datasource
       ##
       # url: http://prometheus-stack-prometheus:9090/
-      # 安装了thanos，使用thanos-query-frontend作为数据查询入口。
-      url: http://thanos-query-frontend:9090/
 
       ## Prometheus request timeout in seconds
       # timeout: 30

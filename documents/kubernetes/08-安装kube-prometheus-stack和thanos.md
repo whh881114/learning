@@ -133,3 +133,14 @@
       repository: quay.io/thanos/thanos
       tag: v0.36.0
   ```
+
+
+## prometheus
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
+```yaml
+prometheus:
+  thanosService:
+    enabled: true
+  thanosServiceMonitor:
+    enabled: true
+```

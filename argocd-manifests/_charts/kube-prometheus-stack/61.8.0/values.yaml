@@ -767,7 +767,7 @@ alertmanager:
           accessModes: [ "ReadWriteOnce" ]
           resources:
             requests:
-              storage: 50Gi
+              storage: 1Gi
     # volumeClaimTemplate:
     #   spec:
     #     storageClassName: gluster

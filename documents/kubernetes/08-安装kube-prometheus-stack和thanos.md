@@ -16,18 +16,15 @@
 
 
 ## grafana
-- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`。
-
-- 全局变量修改：
+- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
+  # 全局变量修改
   namespaceOverride: "monitoring"
   kubeTargetVersionOverride: "1.30.3"
   global:
     imageRegistry: "harbor.idc.roywong.work"
-  ```
 
-- grafana变量修改：
-  ```yaml
+  # grafana变量修改
   grafana:
     ingress:
       enabled: true
@@ -49,4 +46,18 @@
       size: 20Gi
       finalizers:
         - kubernetes.io/pvc-protection
+  ```
+
+- 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/grafana/values.yaml`，修改内容如下：
+  ```yaml
+  image:
+    repository: docker.io/grafana/grafana
+    
+  initChownData:
+    image:
+      repository: docker.io/library/busybox
+      
+  sidecar:
+    image:
+      repository: quay.io/kiwigrid/k8s-sidecar
   ```

@@ -199,3 +199,16 @@ alertmanager:
 
 
 ## thanos
+### 组件说明
+- Sidecar: connects to Prometheus, reads its data for query and/or uploads it to cloud storage.
+- Store Gateway: serves metrics inside of a cloud storage bucket.
+- Compactor: compacts, downsamples and applies retention on the data stored in the cloud storage bucket.
+- Receiver: receives data from Prometheus’s remote write write-ahead log, exposes it, and/or uploads it to cloud storage.
+- Ruler/Rule: evaluates recording and alerting rules against data in Thanos for exposition and/or upload.
+- Querier/Query: implements Prometheus’s v1 API to aggregate data from the underlying components.
+- Query Frontend: implements Prometheus’s v1 API to proxy it to Querier while caching the response and optionally splitting it by queries per day.
+
+### Sidecar部署模式
+Thanos integrates with existing Prometheus servers as a sidecar process, which runs on the same machine or in the same pod as the Prometheus server.  
+The purpose of Thanos Sidecar is to back up Prometheus’s data into an object storage bucket, and give other Thanos components access to the Prometheus metrics via a gRPC API.  
+![Deployment with Thanos Sidecar for Kubernetes](images%2FThanos%20High%20Level%20Arch%20Diagram.png)

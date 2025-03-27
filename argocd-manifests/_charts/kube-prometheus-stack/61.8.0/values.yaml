@@ -1026,7 +1026,7 @@ grafana:
     tls:
       - secretName: roywong-work-tls-cert
         hosts:
-          - "grafana.idc-ingress-nginx-lan.roywong.work"
+          - "*.idc-ingress-nginx-lan.roywong.work"
 
   # # To make Grafana persistent (Using Statefulset)
   # #

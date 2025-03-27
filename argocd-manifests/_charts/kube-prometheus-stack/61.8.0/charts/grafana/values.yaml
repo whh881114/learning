@@ -1,6 +1,6 @@
 global:
   # -- Overrides the Docker registry globally for all images
-  imageRegistry: harbor.idc.roywong.work
+  imageRegistry: null
 
   # To help compatibility with other charts which use global.imagePullSecrets.
   # Allow either an array of {name: pullSecret} maps (k8s-style), or an array of strings (more common helm-style).
@@ -98,9 +98,9 @@ image:
   # -- The Docker registry
   registry: docker.io
   # -- Docker image repository
-  repository: docker.io/grafana/grafana
+  repository: grafana/grafana
   # Overrides the Grafana image tag whose default is the chart appVersion
-  tag: "11.1.0"
+  tag: ""
   sha: ""
   pullPolicy: IfNotPresent
 
@@ -413,7 +413,7 @@ initChownData:
   image:
     # -- The Docker registry
     registry: docker.io
-    repository: docker.io/library/busybox
+    repository: library/busybox
     tag: "1.31.1"
     sha: ""
     pullPolicy: IfNotPresent
@@ -858,7 +858,7 @@ sidecar:
   image:
     # -- The Docker registry
     registry: quay.io
-    repository: quay.io/kiwigrid/k8s-sidecar
+    repository: kiwigrid/k8s-sidecar
     tag: 1.27.4
     sha: ""
   imagePullPolicy: IfNotPresent

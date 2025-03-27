@@ -2,10 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
-  registry: harbor.idc.roywong.work
-  repository: quay.io/prometheus/node-exporter
+  registry: quay.io
+  repository: prometheus/node-exporter
   # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
-  tag: "v1.8.2"
+  tag: ""
   pullPolicy: IfNotPresent
   digest: ""
 

@@ -70,3 +70,31 @@
   `apply`逻辑了，也会报错。  
   **错误信息**：`The CustomResourceDefinition "***********" is invalid: metadata.annotations: Too long: must have at most 262144 bytes`  
   **个人解决方法**：将代码拉取到`kubernetes`集群的主机上，然后使用`kubectl create -f xxx.yaml`方法创建于`crds`资源。
+  ```shell
+  [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 13:45]# 31> ls | xargs -n 1 kubectl create -f
+  customresourcedefinition.apiextensions.k8s.io/alertmanagerconfigs.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/alertmanagers.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/podmonitors.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/probes.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/prometheusagents.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/prometheuses.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/prometheusrules.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/scrapeconfigs.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/servicemonitors.monitoring.coreos.com created
+  customresourcedefinition.apiextensions.k8s.io/thanosrulers.monitoring.coreos.com created
+  [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 13:45]# 32> 
+  
+  [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 3> ll
+  总用量 3332
+  -rw-r--r-- 1 root root 439093  3月 27 13:29 crd-alertmanagerconfigs.yaml
+  -rw-r--r-- 1 root root 523281  3月 27 13:29 crd-alertmanagers.yaml
+  -rw-r--r-- 1 root root  48118  3月 27 13:29 crd-podmonitors.yaml
+  -rw-r--r-- 1 root root  46592  3月 27 13:29 crd-probes.yaml
+  -rw-r--r-- 1 root root 626429  3月 27 13:29 crd-prometheusagents.yaml
+  -rw-r--r-- 1 root root 736313  3月 27 13:29 crd-prometheuses.yaml
+  -rw-r--r-- 1 root root   6624  3月 27 13:29 crd-prometheusrules.yaml
+  -rw-r--r-- 1 root root 418557  3月 27 13:29 crd-scrapeconfigs.yaml
+  -rw-r--r-- 1 root root  49299  3月 27 13:29 crd-servicemonitors.yaml
+  -rw-r--r-- 1 root root 497408  3月 27 13:29 crd-thanosrulers.yaml
+  [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
+  ```

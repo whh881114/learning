@@ -32,6 +32,10 @@
     ingress:
       enabled: true
       ingressClassName: ingress-nginx-lan
+      annotations:
+        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
         - "grafana.idc-ingress-nginx-lan.roywong.work"
       path: /
@@ -143,4 +147,52 @@ prometheus:
     enabled: true
   thanosServiceMonitor:
     enabled: true
+  prometheusSpec:
+    image:
+      repository: quay.io/prometheus/prometheus
+      tag: v2.54.0
+    replicas: 3
+    retention: 30d    # 启用了thanos后，此参数没有任何作用了，因为thanos默认以2小时为间隔将本地数据写向thanos。
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: infra
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 300Gi
+```
+
+## alertmanager
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
+```yaml
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: ingress-nginx-lan
+    annotations:
+      cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - alertmanager.idc-ingress-nginx-lan.roywong.work
+    paths:
+     - /
+    tls:
+      - secretName: roywong-work-tls-cert
+        hosts:
+          - "*.idc-ingress-nginx-lan.roywong.work"
+  alertmanagerSpec:
+    image:
+      repository: quay.io/prometheus/alertmanager
+      tag: v0.27.0
+    replicas: 3
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: infra
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 1Gi
 ```

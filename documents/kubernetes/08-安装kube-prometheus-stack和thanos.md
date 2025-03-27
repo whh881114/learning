@@ -117,3 +117,19 @@
     repository: quay.io/prometheus/node-exporter
     tag: "v1.8.2"
   ```
+
+## prometheusOperator
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
+  ```yaml
+  prometheusOperator:
+    image:
+      repository: quay.io/prometheus-operator/prometheus-operator
+      tag: "v0.75.2"
+    prometheusConfigReloader:
+      image:
+        repository: quay.io/prometheus-operator/prometheus-config-reloader
+        tag: "v0.75.2"
+    thanosImage:
+      repository: quay.io/thanos/thanos
+      tag: v0.36.0
+  ```

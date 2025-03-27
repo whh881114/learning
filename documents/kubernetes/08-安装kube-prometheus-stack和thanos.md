@@ -15,7 +15,8 @@
 - 部署方式由`ansible`转向`argocd`。
 
 
-## 配置全局变量
+## prometheus
+### 配置全局变量
 - 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
   namespaceOverride: "monitoring"
@@ -59,7 +60,7 @@
   [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
   ```
 
-## 配置grafana
+### 配置grafana
 - 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
   grafana:
@@ -103,7 +104,7 @@
   ```
 
 
-## 配置kube-state-metrics
+### 配置kube-state-metrics
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/kube-state-metrics/values.yaml`，修改内容如下：
   ```yaml
   image:
@@ -113,7 +114,7 @@
   replicas: 3
   ```
 
-## 配置prometheus-node-exporter
+### 配置prometheus-node-exporter
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/prometheus-node-exporter/values.yaml`，修改内容如下：
   ```yaml
   image:
@@ -121,7 +122,7 @@
     tag: "v1.8.2"
   ```
 
-## 配置prometheusOperator
+### 配置prometheusOperator
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
   ```yaml
   prometheusOperator:
@@ -138,7 +139,7 @@
   ```
 
 
-## 配置prometheus
+### 配置prometheus
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
 ```yaml
 prometheus:
@@ -162,7 +163,7 @@ prometheus:
               storage: 300Gi
 ```
 
-## 配置alertmanager
+### 配置alertmanager
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
 ```yaml
 alertmanager:
@@ -195,3 +196,6 @@ alertmanager:
             requests:
               storage: 1Gi
 ```
+
+
+## thanos

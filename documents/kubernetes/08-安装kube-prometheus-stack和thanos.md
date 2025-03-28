@@ -215,7 +215,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
 ![Deployment with Thanos Sidecar for Kubernetes](images%2FThanos%20High%20Level%20Arch%20Diagram.png)
 
 
-### 配置文件
+### 配置全局变量
 - 配置文件`argocd-manifests/_charts/thanos/15.7.19/values.yaml`，所有的组件参数配置都在此文件中，修改内容如下：
   ```yaml
   global:
@@ -234,43 +234,58 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
   ```
 
 ### 配置query
-```yaml
-query:
-  # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
-  # 同时查数据了，然后将结果汇总给到终端用户。
-  extraFlags:
-    - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
-  replicaCount: 3
-```
+  ```yaml
+  query:
+    # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
+    # 同时查数据了，然后将结果汇总给到终端用户。
+    extraFlags:
+      - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+    replicaCount: 3
+  ```
 
 
 ### 配置queryFrontend
-```yaml
-queryFrontend:
-  replicaCount: 3
-```
+  ```yaml
+  queryFrontend:
+    replicaCount: 3
+  ```
 
 
 ### 配置compactor
-```yaml
-compactor:
-  enabled: true
-  persistence:
+  ```yaml
+  compactor:
     enabled: true
-    storageClass: "infra"
-    size: 100Gi
-```
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 100Gi
+  ```
 
 
 ### 配置storegateway
-```yaml
-storegateway:
-  enabled: true
-  replicaCount: 3
-  persistence:
+  ```yaml
+  storegateway:
     enabled: true
-    storageClass: "infra"
-    size: 100Gi
-  persistentVolumeClaimRetentionPolicy:
+    replicaCount: 3
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 100Gi
+    persistentVolumeClaimRetentionPolicy:
+      enabled: true
+  ```
+
+### 配置ruler
+  ```yaml
+  ruler:
     enabled: true
-```
+    alertmanagers:
+      - http://prometheus-kube-prometheus-alertmanager:9093
+    replicaCount: 3
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 20Gi
+    persistentVolumeClaimRetentionPolicy:
+      enabled: true
+  ```

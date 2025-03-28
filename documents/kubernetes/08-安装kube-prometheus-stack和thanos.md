@@ -62,7 +62,7 @@
   [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
   ```
 - **特别说明二**：`defaultRules.create=false`，部署时不要加载`PrometheusRule`资源，因为`prometheus`是多实例，每个实例的数据是  
-  不一样的，其告警规则会重复，需要使用`thanos`的`ruler`组件来替代。
+  不一样的，其告警规则计算出来的数据有问题，所以需要使用`thanos`的`ruler`组件来替代。
 
 
 ### 配置grafana

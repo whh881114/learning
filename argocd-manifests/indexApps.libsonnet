@@ -9,4 +9,5 @@
 
     {name: 'cert-manager-issuers', namespace: 'cert-manager', path: self.name},
     {name: 'argocd-ingress',       namespace: 'argocd',       path: 'argocd'},
+    {name: 'thanos-ruler-rules',   namespace: 'monitoring',   path: 'monitoring'},
 ]

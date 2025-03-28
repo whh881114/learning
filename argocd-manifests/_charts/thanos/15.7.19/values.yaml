@@ -87,7 +87,7 @@ objstoreConfig:
   type: s3
   config:
     bucket: "thanos"
-    endpoint: "minio-s3.idc.idc.roywong.work"
+    endpoint: "minio-s3.idc.roywong.work"
     access_key: "x8cgXyXhr96zYd8CWGqd"
     secret_key: "FYuEmLS6ztrqBEFNfmOS9qOLjPn5nXBCMMdDP7pi"
 ## @param indexCacheConfig The [index cache configuration](https://thanos.io/tip/components/store.md/)

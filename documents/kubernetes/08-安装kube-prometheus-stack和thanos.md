@@ -89,6 +89,9 @@
       size: 20Gi
       finalizers:
         - kubernetes.io/pvc-protection
+  sidecar:
+    datasources:
+      url: http://thanos-query:9090/
   ```
 
 - 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/grafana/values.yaml`，修改内容如下：

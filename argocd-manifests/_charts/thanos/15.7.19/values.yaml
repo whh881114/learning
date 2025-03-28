@@ -3287,7 +3287,7 @@ ruler:
   ## NOTE: This is only used when ruler.alertmanagersConfig is not set
   ##
   alertmanagers:
-    - http://kube-prometheus-stack-alertmanager:9093
+    - http://prometheus-kube-prometheus-alertmanager:9093
   ## @param ruler.alertmanagersConfig Alert managers configuration
   ## NOTE: This is only used when ruler.alertmanagers is not set
   ## ref: https://thanos.io/tip/components/rule.md/#alertmanager

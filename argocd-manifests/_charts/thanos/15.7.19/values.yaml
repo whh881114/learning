@@ -1379,10 +1379,10 @@ queryFrontend:
   ingress:
     ## @param queryFrontend.ingress.enabled Enable ingress controller resource
     ##
-    enabled: false
+    enabled: true
     ## @param queryFrontend.ingress.hostname Default host for the ingress resource
     ##
-    hostname: thanos.local
+    hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
     ## @param queryFrontend.ingress.overrideAlertQueryURL Automatically use query-frontend's ingress hostname as --alert.queryURL for both Query and Ruler.
     ## This is used in order for the expression url on alerts/rules to be correctly rendered on UI as Frontend's hostname, instead of http://localhost:10902
     ##
@@ -1391,7 +1391,7 @@ queryFrontend:
     ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
     ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
     ##
-    ingressClassName: ""
+    ingressClassName: "ingress-nginx-lan"
     ## @param queryFrontend.ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
     ## For a full list of possible ingress annotations, please see
     ## ref: https://github.com/kubernetes/ingress-nginx/blob/main/docs/user-guide/nginx-configuration/annotations.md

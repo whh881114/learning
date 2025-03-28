@@ -256,14 +256,15 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
 
 
 ### 配置queryFrontend
-```yaml
-queryFrontend:
-  replicaCount: 3
-  ingress:
-    enabled: true
-    hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-    ingressClassName: "ingress-nginx-lan"
-```
+  ```yaml
+  queryFrontend:
+    replicaCount: 3
+    # 启用ingress，可以像调用prometheus api一样调用queryFrontend，默认情况下只配置http即可。
+    ingress:
+      enabled: true
+      hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+      ingressClassName: "ingress-nginx-lan"
+  ```
 
 
 ### 配置compactor

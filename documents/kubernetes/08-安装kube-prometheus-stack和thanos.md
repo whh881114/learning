@@ -239,7 +239,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
     # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
     # 同时查数据了，然后将结果汇总给到终端用户。
     extraFlags:
-      - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+      - --endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local
     replicaCount: 3
   ```
 

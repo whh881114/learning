@@ -86,10 +86,10 @@ image:
 objstoreConfig:
   type: s3
   config:
-    bucket: "thanos"
+    bucket: "kubernetes-prometheus"
     endpoint: "minio-s3.idc.roywong.work"
-    access_key: "x8cgXyXhr96zYd8CWGqd"
-    secret_key: "FYuEmLS6ztrqBEFNfmOS9qOLjPn5nXBCMMdDP7pi"
+    access_key: "053ixvmeitBL45A6BxFo"
+    secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
 ## @param indexCacheConfig The [index cache configuration](https://thanos.io/tip/components/store.md/)
 ## Specify content for index-cache.yml
 ##

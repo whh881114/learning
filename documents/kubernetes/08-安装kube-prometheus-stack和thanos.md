@@ -227,10 +227,10 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
   objstoreConfig:
     type: s3
     config:
-      bucket: "prometheus"
-      endpoint: "minio-s3.idc.idc.roywong.work"
-      access_key: "053ixvmeitBL45A6BxFo"
-      secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
+      bucket: "thanos"
+      endpoint: "minio-s3.idc.roywong.work"
+      access_key: "x8cgXyXhr96zYd8CWGqd"
+      secret_key: "FYuEmLS6ztrqBEFNfmOS9qOLjPn5nXBCMMdDP7pi"
   ```
 
 ### 配置query
@@ -275,7 +275,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
       enabled: true
   ```
 
-### 配置ruler
+### 配置ruler，临时禁用。
   ```yaml
   ruler:
     enabled: true

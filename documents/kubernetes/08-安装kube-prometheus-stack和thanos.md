@@ -241,24 +241,35 @@ query:
   extraFlags:
     - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
   replicaCount: 3
-  ingress:
-    ## @param query.ingress.enabled Enable ingress controller resource
-    ##
+```
+
+### 配置queryFrontend
+```yaml
+queryFrontend:
+  replicaCount: 3
+```
+
+
+### 配置compactor
+```yaml
+compactor:
+  enabled: true
+  persistence:
     enabled: true
-    ## @param query.ingress.hostname Default host for the ingress resource
-    ##
-    hostname: "query-http-thanos.idc-ingress-nginx-lan.roywong.top"
-    ## @param query.ingress.secretName Custom secretName for the ingress resource
-    ## If query.ingress.secretName is not set, the secret will be named as follows: query.ingress.hostname-tls
-    secretName: "roywong-work-tls-cert"
-    ## @param query.ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
-    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
-    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
-    ##
-    ingressClassName: "idc-ingress-nginx-lan"
-    ## @param query.ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
-    ## For a full list of possible ingress annotations, please see
-    ## ref: https://github.com/kubernetes/ingress-nginx/blob/main/docs/user-guide/nginx-configuration/annotations.md
-    ## Use this parameter to set the required annotations for cert-manager, see
-    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+    storageClass: "infra"
+    size: 100Gi
+```
+
+
+### 配置storegateway
+```yaml
+storegateway:
+  enabled: true
+  replicaCount: 3
+  persistence:
+    enabled: true
+    storageClass: "infra"
+    size: 100Gi
+  persistentVolumeClaimRetentionPolicy:
+    enabled: true
 ```

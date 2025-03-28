@@ -4,6 +4,8 @@ local minioBucketCapacity = import './minioBucketCapacity.libsonnet';
 local prometheusRules = [] +
                         minioBucketCapacity;
 
+local groups = {'groups': prometheusRules};
+
 {
   apiVersion: 'v1',
   kind: 'ConfigMap',
@@ -11,6 +13,6 @@ local prometheusRules = [] +
     name: 'thanos-ruler-rules',
   },
   data: {
-    'ruler.yml': prometheusRules
+    'ruler.yml': std.manifestYamlDoc(groups)
   }
 }

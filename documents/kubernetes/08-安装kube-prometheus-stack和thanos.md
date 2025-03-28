@@ -113,7 +113,6 @@
   image:
     repository: registry.k8s.io/kube-state-metrics/kube-state-metrics
     tag: "v2.13.0"
-  
   replicas: 3
   ```
 
@@ -164,6 +163,15 @@
             resources:
               requests:
                 storage: 300Gi
+      thanos:
+        objectStorageConfig:
+          secret:
+            type: S3
+            config:
+              bucket: "kubernetes-prometheus"
+              endpoint: "minio-s3.idc.roywong.work"
+              access_key: "053ixvmeitBL45A6BxFo"
+              secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
   ```
 
 ### 配置alertmanager
@@ -230,10 +238,10 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
   objstoreConfig:
     type: s3
     config:
-      bucket: "thanos"
+      bucket: "kubernetes-prometheus"
       endpoint: "minio-s3.idc.roywong.work"
-      access_key: "x8cgXyXhr96zYd8CWGqd"
-      secret_key: "FYuEmLS6ztrqBEFNfmOS9qOLjPn5nXBCMMdDP7pi"
+      access_key: "053ixvmeitBL45A6BxFo"
+      secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
   ```
 
 ### 配置query

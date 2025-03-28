@@ -3266,7 +3266,7 @@ storegateway:
 ruler:
   ## @param ruler.enabled Enable/disable Thanos Ruler component
   ##
-  enabled: true
+  enabled: false
   ## @param ruler.logLevel Thanos Ruler log level
   ##
   logLevel: info

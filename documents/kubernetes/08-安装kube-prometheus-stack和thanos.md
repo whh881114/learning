@@ -243,6 +243,7 @@ query:
   replicaCount: 3
 ```
 
+
 ### 配置queryFrontend
 ```yaml
 queryFrontend:

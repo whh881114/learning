@@ -3322,7 +3322,7 @@ ruler:
   ## @param ruler.existingConfigmap Name of existing ConfigMap with Ruler configuration
   ## NOTE: This will override ruler.config
   ##
-  existingConfigmap: "kube-prometheus-stack-alertmanager-overview"
+  existingConfigmap: ""
   ## @param ruler.extraEnvVars Extra environment variables for Thanos Ruler container
   ## e.g:
   ## extraEnvVars:
@@ -3720,7 +3720,7 @@ ruler:
       - ReadWriteOnce
     ## @param ruler.persistence.size PVC Storage Request for data volume
     ##
-    size: 8Gi
+    size: 20Gi
     ## @param ruler.persistence.annotations Annotations for the PVC
     ##
     annotations: {}
@@ -3785,15 +3785,15 @@ ruler:
   ingress:
     ## @param ruler.ingress.enabled Enable ingress controller resource
     ##
-    enabled: true
+    enabled: false
     ## @param ruler.ingress.hostname Default host for the ingress resource
     ##
-    hostname: "ruler-thanos.idc-ingress-nginx-lan.roywong.work"
+    hostname: thanos-ruler.local
     ## @param ruler.ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
     ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
     ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
     ##
-    ingressClassName: "ingress-nginx-lan"
+    ingressClassName: ""
     ## @param ruler.ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
     ## For a full list of possible ingress annotations, please see
     ## ref: https://github.com/kubernetes/ingress-nginx/blob/main/docs/user-guide/nginx-configuration/annotations.md

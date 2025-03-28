@@ -307,7 +307,8 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
 ### 配置ruler，临时禁用。
   ```yaml
   ruler:
-    enabled: false
+    enabled: true
+    existingConfigmap: "thanos-ruler-rules"
     alertmanagers:
       - http://prometheus-kube-prometheus-alertmanager:9093
     replicaCount: 3

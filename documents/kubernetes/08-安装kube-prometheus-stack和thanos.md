@@ -264,6 +264,14 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
       enabled: true
       hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
       ingressClassName: "ingress-nginx-lan"
+      annotations:
+          cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+          nginx.ingress.kubernetes.io/rewrite-target: /
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      extraTls:
+        - hosts:
+            - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+          secretName: roywong-work-tls-cert
   ```
 
 

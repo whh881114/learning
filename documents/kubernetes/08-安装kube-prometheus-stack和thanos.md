@@ -25,8 +25,10 @@
     enabled: false
   global:
     imageRegistry: "harbor.idc.roywong.work"
+  defaultRules:
+    create: false
   ```
-- **特别说明**：`crds.enabled=false`，部署时不安装`crds`。默认情况下是开启`crds`安装，即使在`prometheus`应用中添加同步参数
+- **特别说明一**：`crds.enabled=false`，部署时不安装`crds`。默认情况下是开启`crds`安装，即使在`prometheus`应用中添加同步参数
   `ApplyStrategy=create`，是可以将部分`crds`创建出来，但`create`逻辑只适合于初次创建，创建好后，还需要将此参数删除，之后就是
   `apply`逻辑了，也会报错。  
   **错误信息**：`The CustomResourceDefinition "***********" is invalid: metadata.annotations: Too long: must have at most 262144 bytes`  
@@ -59,6 +61,9 @@
   -rw-r--r-- 1 root root 497408  3月 27 13:29 crd-thanosrulers.yaml
   [root@master-1.k8s.freedom.org /data/learning/argocd-manifests/_charts/kube-prometheus-stack/61.8.0/charts/crds/crds 14:32]# 4>
   ```
+- **特别说明二**：`defaultRules.create=false`，部署时不要加载`PrometheusRule`资源，因为`prometheus`是多实例，每个实例的数据是  
+  不一样的，其告警规则会重复，需要使用`thanos`的`ruler`组件来替代。
+
 
 ### 配置grafana
 - 配置文件：`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：

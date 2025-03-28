@@ -141,61 +141,61 @@
 
 ### 配置prometheus
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
-```yaml
-prometheus:
-  thanosService:
-    enabled: true
-  thanosServiceMonitor:
-    enabled: true
-  prometheusSpec:
-    image:
-      repository: quay.io/prometheus/prometheus
-      tag: v2.54.0
-    replicas: 3
-    retention: 30d    # 启用了thanos后，此参数没有任何作用了，因为thanos默认以2小时为间隔将本地数据写向thanos。
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: infra
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 300Gi
-```
+  ```yaml
+  prometheus:
+    thanosService:
+      enabled: true
+    thanosServiceMonitor:
+      enabled: true
+    prometheusSpec:
+      image:
+        repository: quay.io/prometheus/prometheus
+        tag: v2.54.0
+      replicas: 3
+      retention: 30d    # 启用了thanos后，此参数没有任何作用了，因为thanos默认以2小时为间隔将本地数据写向thanos。
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: infra
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 300Gi
+  ```
 
 ### 配置alertmanager
 - 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，修改内容如下：
-```yaml
-alertmanager:
-  ingress:
-    enabled: true
-    ingressClassName: ingress-nginx-lan
-    annotations:
-      cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
-      nginx.ingress.kubernetes.io/rewrite-target: /
-      nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    hosts:
-      - alertmanager.idc-ingress-nginx-lan.roywong.work
-    paths:
-     - /
-    tls:
-      - secretName: roywong-work-tls-cert
-        hosts:
-          - "*.idc-ingress-nginx-lan.roywong.work"
-  alertmanagerSpec:
-    image:
-      repository: quay.io/prometheus/alertmanager
-      tag: v0.27.0
-    replicas: 3
-    storage:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: infra
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 1Gi
-```
+  ```yaml
+  alertmanager:
+    ingress:
+      enabled: true
+      ingressClassName: ingress-nginx-lan
+      annotations:
+        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - alertmanager.idc-ingress-nginx-lan.roywong.work
+      paths:
+       - /
+      tls:
+        - secretName: roywong-work-tls-cert
+          hosts:
+            - "*.idc-ingress-nginx-lan.roywong.work"
+    alertmanagerSpec:
+      image:
+        repository: quay.io/prometheus/alertmanager
+        tag: v0.27.0
+      replicas: 3
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: infra
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 1Gi
+  ```
 
 
 ## thanos
@@ -208,7 +208,57 @@ alertmanager:
 - Querier/Query: implements Prometheus’s v1 API to aggregate data from the underlying components.
 - Query Frontend: implements Prometheus’s v1 API to proxy it to Querier while caching the response and optionally splitting it by queries per day.
 
-### Sidecar部署模式
+
+### sidecar部署模式
 Thanos integrates with existing Prometheus servers as a sidecar process, which runs on the same machine or in the same pod as the Prometheus server.  
 The purpose of Thanos Sidecar is to back up Prometheus’s data into an object storage bucket, and give other Thanos components access to the Prometheus metrics via a gRPC API.  
 ![Deployment with Thanos Sidecar for Kubernetes](images%2FThanos%20High%20Level%20Arch%20Diagram.png)
+
+
+### 配置文件
+- 配置文件`argocd-manifests/_charts/thanos/15.7.19/values.yaml`，所有的组件参数配置都在此文件中，修改内容如下：
+  ```yaml
+  global:
+    imageRegistry: "harbor.idc.roywong.work"
+    defaultStorageClass: "infra"
+  kubeVersion: "1.30.3"
+  image:
+    repository: docker.io/bitnami/thanos
+  objstoreConfig:
+    type: s3
+    config:
+      bucket: "prometheus"
+      endpoint: "minio-s3.idc.idc.roywong.work"
+      access_key: "053ixvmeitBL45A6BxFo"
+      secret_key: "igLOl7oPohS3mrHnIRkbujmkwAA6YYVVgoqA8mTt"
+  ```
+
+### 配置query
+```yaml
+query:
+  # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
+  # 同时查数据了，然后将结果汇总给到终端用户。
+  extraFlags:
+    - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+  replicaCount: 3
+  ingress:
+    ## @param query.ingress.enabled Enable ingress controller resource
+    ##
+    enabled: true
+    ## @param query.ingress.hostname Default host for the ingress resource
+    ##
+    hostname: "query-http-thanos.idc-ingress-nginx-lan.roywong.top"
+    ## @param query.ingress.secretName Custom secretName for the ingress resource
+    ## If query.ingress.secretName is not set, the secret will be named as follows: query.ingress.hostname-tls
+    secretName: "roywong-work-tls-cert"
+    ## @param query.ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+    ##
+    ingressClassName: "idc-ingress-nginx-lan"
+    ## @param query.ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/main/docs/user-guide/nginx-configuration/annotations.md
+    ## Use this parameter to set the required annotations for cert-manager, see
+    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+```

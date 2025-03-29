@@ -1,8 +1,10 @@
+local prometheusDefaultRules = import './prometheusDefaultRules.libsonnet';
 local minioBucketCapacity = import './minioBucketCapacity.libsonnet';
 
 
-local prometheusRules = [] +
+local prometheusRules = prometheusDefaultRules +
                         minioBucketCapacity;
+
 
 local groups = {'groups': prometheusRules};
 

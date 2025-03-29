@@ -1054,7 +1054,13 @@ queryFrontend:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  resources: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
   ## Configure extra options for Thanos Query Frontend containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param queryFrontend.livenessProbe.enabled Enable livenessProbe on Thanos Query Frontend containers
@@ -2126,7 +2132,13 @@ compactor:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  resources: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
   ## Configure extra options for Thanos Compactor containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param compactor.livenessProbe.enabled Enable livenessProbe on Thanos Compactor containers
@@ -2687,7 +2699,13 @@ storegateway:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  resources: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
   ## Configure extra options for Thanos Store Gateway containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param storegateway.livenessProbe.enabled Enable livenessProbe on Thanos Store Gateway containers

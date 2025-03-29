@@ -969,7 +969,8 @@ queryFrontend:
   extraEnvVarsSecret: ""
   ## @param queryFrontend.extraFlags Extra Flags to passed to Thanos Query Frontend
   ##
-  extraFlags: []
+  extraFlags:
+    - "--query.replica-label=replica"
   ## @param queryFrontend.command Override default container command (useful when using custom images)
   ##
   command: []

@@ -250,109 +250,109 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
   ```
 
 ### 配置query
-```yaml
-query:
-  # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
-  # 同时查数据了，然后将结果汇总给到终端用户。
-  # 此外，添加过滤prometheus_replica标签（此标签随版本不同而不同），这样查询结果会汇总去重。
-  extraFlags:
-    - "--endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local"
-    - "--query.replica-label=prometheus_replica"
-  replicaCount: 3
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 4
-      memory: 8092Mi
-```
+  ```yaml
+  query:
+    # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
+    # 同时查数据了，然后将结果汇总给到终端用户。
+    # 此外，添加过滤prometheus_replica标签（此标签随版本不同而不同），这样查询结果会汇总去重。
+    extraFlags:
+      - "--endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local"
+      - "--query.replica-label=prometheus_replica"
+    replicaCount: 3
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 4
+        memory: 8092Mi
+  ```
 
 
 ### 配置queryFrontend
-```yaml
-queryFrontend:
-  replicaCount: 3
-  # 启用ingress，可以像调用prometheus api一样调用queryFrontend，默认情况下只配置http即可。
-  ingress:
-    enabled: true
-    hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-    ingressClassName: "ingress-nginx-lan"
-    annotations:
-        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    extraTls:
-      - hosts:
-          - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-        secretName: roywong-work-tls-cert
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 4
-      memory: 8092Mi
-```
+  ```yaml
+  queryFrontend:
+    replicaCount: 3
+    # 启用ingress，可以像调用prometheus api一样调用queryFrontend，默认情况下只配置http即可。
+    ingress:
+      enabled: true
+      hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+      ingressClassName: "ingress-nginx-lan"
+      annotations:
+          cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+          nginx.ingress.kubernetes.io/rewrite-target: /
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      extraTls:
+        - hosts:
+            - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+          secretName: roywong-work-tls-cert
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 4
+        memory: 8092Mi
+  ```
 
 
 ### 配置compactor
-```yaml
-compactor:
-  enabled: true
-  persistence:
+  ```yaml
+  compactor:
     enabled: true
-    storageClass: "infra"
-    size: 100Gi
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 4
-      memory: 8092Mi
-```
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 100Gi
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 4
+        memory: 8092Mi
+  ```
 
 
 ### 配置storegateway
-```yaml
-storegateway:
-  enabled: true
-  replicaCount: 3
-  persistence:
+  ```yaml
+  storegateway:
     enabled: true
-    storageClass: "infra"
-    size: 100Gi
-  persistentVolumeClaimRetentionPolicy:
-    enabled: true
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 4
-      memory: 8092Mi
-```
+    replicaCount: 3
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 100Gi
+    persistentVolumeClaimRetentionPolicy:
+      enabled: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 4
+        memory: 8092Mi
+  ```
 
 ### 配置ruler。
   ```yaml
-ruler:
-  enabled: true
-  existingConfigmap: "thanos-ruler-rules"   # 需要配置PrometheusRule资源的配置文件
-  alertmanagers:
-    - http://prometheus-kube-prometheus-alertmanager:9093
-  replicaCount: 3
-  persistence:
+  ruler:
     enabled: true
-    storageClass: "infra"
-    size: 20Gi
-  persistentVolumeClaimRetentionPolicy:
-    enabled: true
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 4
-      memory: 8092Mi
+    existingConfigmap: "thanos-ruler-rules"   # 需要配置PrometheusRule资源的配置文件
+    alertmanagers:
+      - http://prometheus-kube-prometheus-alertmanager:9093
+    replicaCount: 3
+    persistence:
+      enabled: true
+      storageClass: "infra"
+      size: 20Gi
+    persistentVolumeClaimRetentionPolicy:
+      enabled: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 4
+        memory: 8092Mi
   ```

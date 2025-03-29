@@ -291,7 +291,7 @@ query:
       memory: 128Mi
     limits:
       cpu: 4
-      memory: 8092Mi
+      memory: 8192Mi
   ## Configure extra options for Thanos Query containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param query.livenessProbe.enabled Enable livenessProbe on Thanos Query containers
@@ -1060,7 +1060,7 @@ queryFrontend:
       memory: 128Mi
     limits:
       cpu: 4
-      memory: 8092Mi
+      memory: 8192Mi
   ## Configure extra options for Thanos Query Frontend containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param queryFrontend.livenessProbe.enabled Enable livenessProbe on Thanos Query Frontend containers
@@ -2138,7 +2138,7 @@ compactor:
       memory: 128Mi
     limits:
       cpu: 4
-      memory: 8092Mi
+      memory: 8192Mi
   ## Configure extra options for Thanos Compactor containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param compactor.livenessProbe.enabled Enable livenessProbe on Thanos Compactor containers
@@ -2705,7 +2705,7 @@ storegateway:
       memory: 128Mi
     limits:
       cpu: 4
-      memory: 8092Mi
+      memory: 8192Mi
   ## Configure extra options for Thanos Store Gateway containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param storegateway.livenessProbe.enabled Enable livenessProbe on Thanos Store Gateway containers
@@ -3459,7 +3459,7 @@ ruler:
       memory: 128Mi
     limits:
       cpu: 4
-      memory: 8092Mi
+      memory: 8192Mi
   ## Configure extra options for Thanos Ruler containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param ruler.livenessProbe.enabled Enable livenessProbe on Thanos Ruler containers

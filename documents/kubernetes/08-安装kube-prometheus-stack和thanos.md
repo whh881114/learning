@@ -265,7 +265,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 128Mi
       limits:
         cpu: 4
-        memory: 8092Mi
+        memory: 8192Mi
   ```
 
 
@@ -292,7 +292,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 128Mi
       limits:
         cpu: 4
-        memory: 8092Mi
+        memory: 8192Mi
   ```
 
 
@@ -310,7 +310,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 128Mi
       limits:
         cpu: 4
-        memory: 8092Mi
+        memory: 8192Mi
   ```
 
 
@@ -331,7 +331,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 128Mi
       limits:
         cpu: 4
-        memory: 8092Mi
+        memory: 8192Mi
   ```
 
 ### 配置ruler。
@@ -354,5 +354,5 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 128Mi
       limits:
         cpu: 4
-        memory: 8092Mi
+        memory: 8192Mi
   ```

@@ -205,6 +205,7 @@ query:
   # 同时查数据了，然后将结果汇总给到终端用户。
   extraFlags:
     - --endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local
+    - --query.replica-label=replica
   ## @param query.command Override default container command (useful when using custom images)
   ##
   command: []
@@ -969,8 +970,7 @@ queryFrontend:
   extraEnvVarsSecret: ""
   ## @param queryFrontend.extraFlags Extra Flags to passed to Thanos Query Frontend
   ##
-  extraFlags:
-    - "--query.replica-label=replica"
+  extraFlags: []
   ## @param queryFrontend.command Override default container command (useful when using custom images)
   ##
   command: []

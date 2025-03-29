@@ -204,8 +204,8 @@ query:
   # query中需要添加prometheus的thanos-sidecar的地址，这样grafana配置prometheus数据源时，就可以从cos和prometheus本地
   # 同时查数据了，然后将结果汇总给到终端用户。
   extraFlags:
-    - --endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local
-    - --query.replica-label=replica
+    - "--endpoint=dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local"
+    - "--query.replica-label=prometheus_replica"
   ## @param query.command Override default container command (useful when using custom images)
   ##
   command: []

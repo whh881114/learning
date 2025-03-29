@@ -334,7 +334,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         memory: 8192Mi
   ```
 
-### 配置ruler。
+### 配置ruler
   ```yaml
   ruler:
     enabled: true
@@ -356,3 +356,23 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
         cpu: 4
         memory: 8192Mi
   ```
+
+
+## 迁移Prometheus默认规则
+- 配置文件`argocd-manifests/_charts/kube-prometheus-stack/61.8.0/values.yaml`，其中参数`defaultRules.create=true`为  
+  `Prometheus`默认告警规则创建开关。
+- 这些默认告警规则挺好的，想把这些规则迁移到`thanos`的`ruler`组件中使用，最终的数据位于`argocd-manifests/thanos-ruler-rules/prometheusDefaultRules.libsonnet`文件中。
+  ```shell
+  #!/bin/bash
+  
+  > rules.json
+  
+  rules=$(kubectl -n monitoring get prometheusrule | grep -v '^NAME' | awk '{print $1}')
+  
+  for rule in $rules
+  do
+      kubectl -n monitoring get prometheusrule $rule -o json > tmp.json
+      jq '.spec.groups' tmp.json >> rules.json
+  done 
+  ```
+- 增加告警规则后，需要调整`thanos`各组件的`resources`值，避免`OOM`故障。

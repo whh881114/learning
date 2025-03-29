@@ -270,61 +270,89 @@ query:
 
 
 ### 配置queryFrontend
-  ```yaml
-  queryFrontend:
-    replicaCount: 3
-    # 启用ingress，可以像调用prometheus api一样调用queryFrontend，默认情况下只配置http即可。
-    ingress:
-      enabled: true
-      hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-      ingressClassName: "ingress-nginx-lan"
-      annotations:
-          cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
-          nginx.ingress.kubernetes.io/rewrite-target: /
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      extraTls:
-        - hosts:
-            - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-          secretName: roywong-work-tls-cert
-  ```
+```yaml
+queryFrontend:
+  replicaCount: 3
+  # 启用ingress，可以像调用prometheus api一样调用queryFrontend，默认情况下只配置http即可。
+  ingress:
+    enabled: true
+    hostname: "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+    ingressClassName: "ingress-nginx-lan"
+    annotations:
+        cert-manager.io/cluster-issuer: roywong-work-tls-cluster-issuer
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    extraTls:
+      - hosts:
+          - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
+        secretName: roywong-work-tls-cert
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
+```
 
 
 ### 配置compactor
-  ```yaml
-  compactor:
+```yaml
+compactor:
+  enabled: true
+  persistence:
     enabled: true
-    persistence:
-      enabled: true
-      storageClass: "infra"
-      size: 100Gi
-  ```
+    storageClass: "infra"
+    size: 100Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
+```
 
 
 ### 配置storegateway
-  ```yaml
-  storegateway:
+```yaml
+storegateway:
+  enabled: true
+  replicaCount: 3
+  persistence:
     enabled: true
-    replicaCount: 3
-    persistence:
-      enabled: true
-      storageClass: "infra"
-      size: 100Gi
-    persistentVolumeClaimRetentionPolicy:
-      enabled: true
-  ```
+    storageClass: "infra"
+    size: 100Gi
+  persistentVolumeClaimRetentionPolicy:
+    enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
+```
 
 ### 配置ruler。
   ```yaml
-  ruler:
+ruler:
+  enabled: true
+  existingConfigmap: "thanos-ruler-rules"   # 需要配置PrometheusRule资源的配置文件
+  alertmanagers:
+    - http://prometheus-kube-prometheus-alertmanager:9093
+  replicaCount: 3
+  persistence:
     enabled: true
-    existingConfigmap: "thanos-ruler-rules"   # 需要配置PrometheusRule资源的配置文件
-    alertmanagers:
-      - http://prometheus-kube-prometheus-alertmanager:9093
-    replicaCount: 3
-    persistence:
-      enabled: true
-      storageClass: "infra"
-      size: 20Gi
-    persistentVolumeClaimRetentionPolicy:
-      enabled: true
+    storageClass: "infra"
+    size: 20Gi
+  persistentVolumeClaimRetentionPolicy:
+    enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
   ```

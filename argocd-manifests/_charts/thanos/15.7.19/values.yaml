@@ -3453,7 +3453,13 @@ ruler:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  resources: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 8092Mi
   ## Configure extra options for Thanos Ruler containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param ruler.livenessProbe.enabled Enable livenessProbe on Thanos Ruler containers

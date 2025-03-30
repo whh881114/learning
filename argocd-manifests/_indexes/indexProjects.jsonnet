@@ -6,7 +6,7 @@ local clusterParams = import '../clusterParams.libsonnet';
 [
   {
     apiVersion: 'argoproj.io/v1alpha1',
-    kind: 'Application',
+    kind: 'AppProject',
     metadata: {
       name: project.name,
       namespace: clusterParams.argocdNamespace,

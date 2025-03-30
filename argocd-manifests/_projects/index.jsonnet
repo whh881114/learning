@@ -13,8 +13,7 @@ local clusterParams = import '../clusterParams.libsonnet';
     },
     spec: {
       clusterResourceWhitelist: [
-        { group: '*' },
-        { kind: '*'},
+        { group: '*', kind: '*'},
       ],
       destinations: [
         { namespace: '*' },

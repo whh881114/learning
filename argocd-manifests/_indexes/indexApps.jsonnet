@@ -16,7 +16,7 @@ local clusterParams = import '../clusterParams.libsonnet';
         server: 'https://kubernetes.default.svc',
         namespace: app.namespace,
       },
-      project: 'default',
+      project: app.project,
       source: {
         path: clusterParams.appRootDir + '/' + app.path,
         directory: {

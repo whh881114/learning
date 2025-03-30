@@ -16,7 +16,7 @@ local clusterParams = import '../clusterParams.libsonnet';
         server: 'https://kubernetes.default.svc',
         namespace: chart.namespace,
       },
-      project: 'default',
+      project: chart.project,
       source: {
         repoURL: clusterParams.repo.url,
         targetRevision: clusterParams.repo.branch,

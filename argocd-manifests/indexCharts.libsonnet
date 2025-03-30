@@ -3,7 +3,7 @@
 		{name: 'storageclass-nfs-mysql', version: '4.0.18', path:'/_charts/nfs-subdir-external-provisioner/' + self.version, namespace: 'storageclass', valueFiles: ['values-mysql.yaml'], project: 'system'},
 		{name: 'storageclass-nfs-redis', version: '4.0.18', path:'/_charts/nfs-subdir-external-provisioner/' + self.version, namespace: 'storageclass', valueFiles: ['values-redis.yaml'], project: 'system'},
 
-		{name: 'cert-manager', version: '1.15.2', path:'/_charts/cert-manager/' + self.version, namespace: 'cert-manager', valueFiles: ['values.yaml'], roject: 'system'},
+		{name: 'cert-manager', version: '1.15.2', path:'/_charts/cert-manager/' + self.version, namespace: 'cert-manager', valueFiles: ['values.yaml'], project: 'system'},
 
 		{name: 'ingress-nginx-wan', version: '4.12.0', path:'/_charts/ingress-nginx/' + self.version, namespace: 'ingress-nginx', valueFiles: ['values-wan.yaml'], project: 'system'},
 		{name: 'ingress-nginx-lan', version: '4.12.0', path:'/_charts/ingress-nginx/' + self.version, namespace: 'ingress-nginx', valueFiles: ['values-lan.yaml'], project: 'system'},

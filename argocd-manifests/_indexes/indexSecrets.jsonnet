@@ -16,7 +16,7 @@ local clusterParams = import '../clusterParams.libsonnet';
         server: 'https://kubernetes.default.svc',
         namespace: secret.namespace,
       },
-      project: 'default',
+      project: secret.project,
       source: {
         repoURL: clusterParams.repoSecrets.url,
         targetRevision: clusterParams.repoSecrets.branch,

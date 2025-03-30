@@ -1,0 +1,30 @@
+# https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/
+
+local indexProjects = import '../indexApps.libsonnet';
+local clusterParams = import '../clusterParams.libsonnet';
+
+[
+  {
+    apiVersion: 'argoproj.io/v1alpha1',
+    kind: 'Application',
+    metadata: {
+      name: project.name,
+      namespace: clusterParams.argocdNamespace,
+    },
+    spec: {
+      clusterResourceWhitelist: [
+        { group: '*' },
+        { kind: '*'},
+      ],
+      destinations: [
+        { namespace: '*' },
+        { server: '*' },
+      ],
+      sourceRepos: [
+        '*',
+      ]
+    }
+  }
+
+  for project in indexProjects
+]

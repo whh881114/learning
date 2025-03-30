@@ -1,5 +1,8 @@
 [
     {name: 'default',    namespace: self.name, path: self.name, project: 'default'},
+
+    {name: '002-project-index', namespace: 'argocd', path: '_projects', project: 'default'},
+
     {name: 'kafka',      namespace: self.name, path: self.name, project: 'default'},
     {name: 'mysql',      namespace: self.name, path: self.name, project: 'default'},
     {name: 'redis',      namespace: self.name, path: self.name, project: 'default'},

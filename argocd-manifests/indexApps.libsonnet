@@ -5,7 +5,7 @@
 
     {name: 'kafka',      namespace: self.name, path: self.name, project: 'default'},
     {name: 'mysql',      namespace: self.name, path: self.name, project: 'default'},
-    {name: 'redis',      namespace: self.name, path: self.name, project: 'redis'},
+    {name: 'redis',      namespace: self.name, path: self.name, project: 'default'},
     {name: 'rocketmq',   namespace: self.name, path: self.name, project: 'default'},
     {name: 'zookeeper',  namespace: self.name, path: self.name, project: 'default'},
 

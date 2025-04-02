@@ -1,14 +1,14 @@
 [
 		{
-      name: 'cert-manager-secrets',
+      name: 'cert-manager',
       namespace: 'cert-manager',
       path: 'cert-manager',
-      project: 'default',
+      project: 'secret',
 		},
 		{
-      name: 'argocd-projects-secrets',
+      name: 'argocd-projects',
       namespace: 'argocd',
       path: 'argocd-projects',
-      project: 'default',
+      project: 'secret',
 		}
 ]

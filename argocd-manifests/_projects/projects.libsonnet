@@ -7,4 +7,5 @@
 		{name: 'rocketmq'},
 		{name: 'kafka'},
 		{name: 'secret'},
+		{name: 'zookeeper'},
 ]

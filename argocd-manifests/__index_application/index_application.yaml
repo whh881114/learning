@@ -15,3 +15,7 @@ spec:
     path: argocd-manifests/_indexes
     repoURL: git@github.com:whh881114/learning.git
     targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

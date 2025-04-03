@@ -10,6 +10,8 @@ function(app)
          'nginx.ingress.kubernetes.io/auth-type': 'basic',
          'nginx.ingress.kubernetes.io/auth-secret': 'baisc-auth-' + app.name,
          'nginx.ingress.kubernetes.io/auth-realm': 'Authentication Required',
+         'cert-manager.io/cluster-issuer': clusterParams.tls.certificateSecret,
+         'nginx.ingress.kubernetes.io/rewrite-target': '/',
       },
       labels: {app: app.name},
       name: app.name,
@@ -18,7 +20,7 @@ function(app)
       ingressClassName: app.ingressClassName,
       rules: [
         {
-          host: '%s-%s.idc-ingress-nginx.roywong.top' % [app.name, app.namespace],
+          host: '%s-%s.%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
           http: {
             paths: [
               {
@@ -40,9 +42,9 @@ function(app)
       tls: [
         {
           hosts: [
-            '%s-%s.idc-ingress-nginx.roywong.top' % [app.name, app.namespace],
+            '%s-%s.%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
           ],
-          'secretName': clusterParams.ingressNginxDomainNameTLS,
+          'secretName': clusterParams.tls.certificateSecret,
         }
       ]
     },

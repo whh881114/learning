@@ -125,4 +125,36 @@
   ![argocd-applications-new_app_4.png](images%2Fargocd-applications-new_app_4.png)
   ![argocd-applications-new_app_5.png](images%2Fargocd-applications-new_app_5.png)
 
-  
+
+## 配置项目
+- 默认应用全部署在`default`项目中，可以创建多个项目，主要作用是**对应用进行分组管理**，并提供**权限控制和资源约束**，确保`Kubernetes`资源的安全性和合规性。
+- 使用项目时，除去创建`AppProject`资源外，还需要创建对应的`secret`才行，而`secret`资源不能存放在`default`项目中，而是放在`secret`项目中，所以要先手动创建出`secret`资源。  
+  `secret`资源存放在此仓库：`git@github.com:whh881114/argocd-manifests-secrets.git`。
+  ```yaml
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    labels:
+      argocd.argoproj.io/secret-type: repository
+    name: repo-secret
+    namespace: argocd
+  stringData:
+    project: secret
+    sshPrivateKey: |
+      -----BEGIN RSA PRIVATE KEY-----
+      ......
+      ......
+      ......
+      ......
+      ......
+      ......
+      -----END RSA PRIVATE KEY-----
+    type: git
+    url: 'git@github.com:whh881114/argocd-manifests-secrets.git'
+  type: Opaque
+  ```
+- 创建项目，所涉及到的文件如下。
+  - `argocd-manifests/indexSecrets.libsonnet`
+  - `argocd-manifests/indexApps.libsonnet`
+  - `argocd-manifests/_projects/index.jsonnet`
+  - `argocd-manifests/_projects/projects.libsonnet`

@@ -29,10 +29,10 @@ local clusterParams = import '../clusterParams.libsonnet';
         syncOptions: [
           'CreateNamespace=true'
         ],
-        automated: {
-          prune: 'true',
-          selfHeal: 'true',
-        },
+        # automated: {
+        #   prune: 'true',
+        #   selfHeal: 'true',
+        # },
       },
     },
   }

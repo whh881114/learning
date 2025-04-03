@@ -8,7 +8,7 @@ local clusterParams = import '../clusterParams.libsonnet';
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-      name: secret.name,
+      name: secret.name + '-secrets',
       namespace: clusterParams.argocdNamespace,
     },
     spec: {

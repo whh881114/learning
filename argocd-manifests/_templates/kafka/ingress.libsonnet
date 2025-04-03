@@ -20,7 +20,7 @@ function(app)
       ingressClassName: app.ingressClassName,
       rules: [
         {
-          host: '%s-%s.%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
+          host: '%s-%s%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
           http: {
             paths: [
               {
@@ -42,7 +42,7 @@ function(app)
       tls: [
         {
           hosts: [
-            '%s-%s.%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
+            '%s-%s%s' % [app.name, app.namespace, clusterParams.ingressNginxLanDomainName],
           ],
           'secretName': clusterParams.tls.certificateSecret,
         }

@@ -1,3 +1,6 @@
 [submodule "argocd-manifests"]
 	path = argocd-manifests
 	url = https://github.com/whh881114/argocd-manifests
+[submodule "argocd-manifests-secrets"]
+	path = argocd-manifests-secrets
+	url = git@github.com:whh881114/argocd-manifests-secrets.git

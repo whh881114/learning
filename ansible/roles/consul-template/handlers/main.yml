@@ -1,8 +1,0 @@
----
-- include: roles/common/handlers/main.yml
-
-- name: restart-consul-template
-  service: 
-    name: consul-template 
-    state: restarted
-    enabled: yes

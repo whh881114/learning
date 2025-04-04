@@ -1,5 +1,0 @@
----
-- include: common.yml
-
-- include: "{{ project }}.yml"
-  when: project is defined

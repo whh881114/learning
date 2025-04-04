@@ -1,8 +1,0 @@
----
-- include: common.yml
-
-- include: master.yml
-  when: master_role
-
-- include: slave.yml
-  when: slave_role

@@ -1,3 +1,0 @@
----
-# - include: sysctl.yml
-- include: haproxy.yml

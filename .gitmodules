@@ -4,3 +4,6 @@
 [submodule "argocd-manifests-secrets"]
 	path = argocd-manifests-secrets
 	url = git@github.com:whh881114/argocd-manifests-secrets.git
+[submodule "ansible"]
+	path = ansible
+	url = git@github.com:whh881114/ansible.git

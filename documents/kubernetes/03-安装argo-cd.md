@@ -114,19 +114,54 @@
   nohup socat TCP-LISTEN:8443,reuseaddr,fork TCP:127.0.0.1:8080  &>/dev/null &
   ```
 
-## 配置
-- 登录后，在`Settings`下的`Repositories`中配置代码仓库。
-  ![argocd-settings-repositories.png](images%2Fargocd-settings-repositories.png)
+## 配置默认项目和application索引
+- 先配置默认项目要使用仓库信息。
+  ```yaml
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    labels:
+      argocd.argoproj.io/secret-type: repository
+    name: repo-secret
+    namespace: argocd
+  stringData:
+    project: default
+    sshPrivateKey: |
+      -----BEGIN RSA PRIVATE KEY-----
+      ......
+      ......
+      ......
+      ......
+      ......
+      ......
+      -----END RSA PRIVATE KEY-----
+    type: git
+    url: 'git@github.com:whh881114/argocd-manifests-secrets.git'
+  type: Opaque
+  ```
 
-- 创建`Application`。
-  ![argocd-applications-new_app_1.png](images%2Fargocd-applications-new_app_1.png)
-  ![argocd-applications-new_app_2.png](images%2Fargocd-applications-new_app_2.png)
-  ![argocd-applications-new_app_3.png](images%2Fargocd-applications-new_app_3.png)
-  ![argocd-applications-new_app_4.png](images%2Fargocd-applications-new_app_4.png)
-  ![argocd-applications-new_app_5.png](images%2Fargocd-applications-new_app_5.png)
+- 配置`application`索引
+  ```yaml
+  apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: 001-application-index
+    namespace: argocd
+  spec:
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      directory:
+        jsonnet: {}
+        recurse: true
+      path: _indexes
+      repoURL: git@github.com:whh881114/argocd-manifests.git
+      targetRevision: master
+  ```
 
-
-## 配置项目
+## 配置其他项目
 - 默认应用全部署在`default`项目中，可以创建多个项目，主要作用是**对应用进行分组管理**，并提供**权限控制和资源约束**，确保`Kubernetes`资源的安全性和合规性。
 - 使用项目时，除去创建`AppProject`资源外，还需要创建对应的`secret`才行，而`secret`资源不能存放在`default`项目中，而是放在`secret`项目中，所以要先手动创建出`secret`资源。  
   `secret`资源存放在此仓库：`git@github.com:whh881114/argocd-manifests-secrets.git`。
@@ -158,3 +193,6 @@
   - `argocd-manifests/indexApps.libsonnet`
   - `argocd-manifests/_projects/index.jsonnet`
   - `argocd-manifests/_projects/projects.libsonnet`
+
+## 同步项目
+- 登录`argocd`界面，同步各应用。

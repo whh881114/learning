@@ -4,7 +4,7 @@ local clusterParams = import '../../clusterParams.libsonnet';
 	namespace: 'kafka',
   image: clusterParams.registry + '/docker.io/apache/kafka:3.8.0',
   imagePullPolicy: 'IfNotPresent',
-  ingressClassName: 'nginx',
+  ingressClassName: clusterParams.ingressNginxLanClassName,
 
   storageClassName: 'infra',
   storageClassCapacity: '100Gi',

@@ -4,17 +4,92 @@
 - https://github.com/kubernetes/dashboard/releases/download/kubernetes-dashboard-7.5.0/kubernetes-dashboard-7.5.0.tgz
 
 ## 部署
-- 使用helm安装kubernetes-dashboard。
+- 部署方式由`ansible`转向`argocd`。
 
-- kong需要声明image和tag。
+- 涉及修改的配置`argocd-manifests/_charts/kubernetes-dashboard/7.5.0/charts/metrics-server/values.yaml`。
   ```yaml
+  image:
+    repository: harbor.idc.roywong.work/registry.k8s.io/metrics-server/metrics-server
+    tag: "0.7.1"
+  replicas: 3
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 1
+      memory: 1024Mi
+  ```
+
+- 涉及修改的配置`argocd-manifests/_charts/kubernetes-dashboard/7.5.0/values.yaml`。
+  ```yaml
+  app:
+    ingress:
+      enabled: true
+      hosts:
+        - kubernetes-dashboard.idc-ingress-nginx-lan.roywong.work
+      ingressClassName: ingress-nginx-lan
+      useDefaultIngressClass: false
+      useDefaultAnnotations: false
+      pathType: ImplementationSpecific
+      path: /
+      issuer:
+        name: roywong-work-tls-cluster-issuer
+        scope: cluster
+      tls:
+        enabled: true
+        secretName: "roywong-work-tls-cert"
+      labels: {}
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  
+  auth:
+    role: auth
+    image:
+      repository: harbor.idc.roywong.work/docker.io/kubernetesui/dashboard-auth
+      tag: 1.1.3
+    scaling:
+      replicas: 3
+  
+  api:
+    role: api
+    image:
+      repository: harbor.idc.roywong.work/docker.io/kubernetesui/dashboard-api
+      tag: 1.7.0
+    scaling:
+      replicas: 3
+  
+  web:
+    role: web
+    image:
+      repository: harbor.idc.roywong.work/docker.io/kubernetesui/dashboard-web
+      tag: 1.4.0
+    scaling:
+      replicas: 3
+  
+  metricsScraper:
+    enabled: true
+    role: metrics-scraper
+    image:
+      repository: harbor.idc.roywong.work/docker.io/kubernetesui/dashboard-metrics-scraper
+      tag: 1.1.1
+    scaling:
+      replicas: 3
+  
+  metrics-server:
+    enabled: true
+    args:
+      - --kubelet-preferred-address-types=InternalIP
+      - --kubelet-insecure-tls
+  
   kong:
     enabled: true
     replicaCount: 3
     image:
-      repository: kong/kong
-      tag: 3.6.x # 或指定具体的版本号
-    ## Configuration reference: https://docs.konghq.com/gateway/3.6.x/reference/configuration
+      repository: harbor.idc.roywong.work/docker.io/library/kong
+      tag: "3.6"
     env:
       dns_order: LAST,A,CNAME,AAAA,SRV
       plugins: 'off'
@@ -24,102 +99,16 @@
     dblessConfig:
       configMap: kong-dbless-config
     proxy:
-      type: NodePort
+      type: ClusterIP
       http:
-        enabled: true
+        enabled: true       # 开启http服务端口。
+      tls:
+        servicePort: 80     # 指定kong.proxy.tls.servicePort为80，因为此时的集群中已经安装好了cert-manager，并且可以正常签发证书了。
+  
+  cert-manager:
+    enabled: false
+    installCRDs: false
   ```
 
-- **因为环境中暂时没有https证书，所以启用了http，但是，这里出现问题了，必须要用https协议，否则会出现401
-  错误。所以，这里kong.proxy.type指定为NodePort，可以复现登录错误。**
-  ```shell
-  2024-08-08 11:07:31.822 E0808 03:07:31.822540       1 handler.go:33] "Could not get user" err="MSG_LOGIN_UNAUTHORIZED_ERROR"
-  2024-08-08 11:06:38.607 I0808 03:06:38.607705       1 main.go:41] "Listening and serving insecurely on" address="0.0.0.0:8000"
-  2024-08-08 11:06:38.607 I0808 03:06:38.607522       1 init.go:47] Using in-cluster config
-  2024-08-08 11:06:38.607 I0808 03:06:38.607466       1 main.go:34] "Starting Kubernetes Dashboard Auth" version="1.1.3"
-  ```
-
-- cert-manager自动管理证书失败，现在采用另一种访求更新证书，所以现在启用https，所以app.ingress配置如下。
-```yaml
-    enabled: true
-    hosts:
-      # Keep 'localhost' host only if you want to access Dashboard using 'kubectl port-forward ...' on:
-      # https://localhost:8443
-      - "kubernetes-dashboard.idc-ingress-nginx.roywong.top"
-      - "k8s-dash.idc-ingress-nginx.roywong.top"
-    ingressClassName: "nginx"
-    # Use only if your ingress controllers support default ingress classes.
-    # If set to true ingressClassName will be ignored and not added to the Ingress resources.
-    # It should fall back to using IngressClass marked as the default.
-    useDefaultIngressClass: false
-    # This will append our Ingress with annotations required by our default configuration.
-    #    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    #    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    #    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    useDefaultAnnotations: true
-    pathType: ImplementationSpecific
-    # If path is not the default (/), rewrite-target annotation will be added to the Ingress.
-    # It allows serving Kubernetes Dashboard on a sub-path. Make sure that the configured path
-    # does not conflict with gateway route configuration.
-    path: /
-    issuer:
-      name: disabled
-      # Scope determines what kind of issuer annotation will be used on ingress resource
-      # - default - adds 'cert-manager.io/issuer'
-      # - cluster - adds 'cert-manager.io/cluster-issuer'
-      # - disabled - disables cert-manager annotations
-      scope: cluster
-    tls:
-      enabled: true
-      # If provided it will override autogenerated secret name
-      secretName: "tls-wildcard-idc-ingress-nginx-roywong-top"
-    labels: {}
-    annotations: {}
-  # Use the following toleration if Dashboard can be deployed on a tainted control-plane nodes
-  # - key: node-role.kubernetes.io/control-plane
-  #   effect: NoSchedule
-  tolerations: []
-  affinity: {}
-```
-
-
-## 安装结果
-```shell
-ok: [10.255.1.12] => {
-    "msg": [
-        [
-            "release \"kubernetes-dashboard\" uninstalled",
-            "NAME: kubernetes-dashboard",
-            "LAST DEPLOYED: Thu Aug  8 11:30:25 2024",
-            "NAMESPACE: kubernetes-dashboard",
-            "STATUS: deployed",
-            "REVISION: 1",
-            "TEST SUITE: None",
-            "NOTES:",
-            "*************************************************************************************************",
-            "*** PLEASE BE PATIENT: Kubernetes Dashboard may need a few minutes to get up and become ready ***",
-            "*************************************************************************************************",
-            "",
-            "Congratulations! You have just installed Kubernetes Dashboard in your cluster.",
-            "",
-            "To access Dashboard run:",
-            "  kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443",
-            "",
-            "NOTE: In case port-forward command does not work, make sure that kong service name is correct.",
-            "      Check the services in Kubernetes Dashboard namespace using:",
-            "        kubectl -n kubernetes-dashboard get svc",
-            "",
-            "Dashboard will be available at:",
-            "  https://localhost:8443",
-            "",
-            "",
-            "",
-            "Looks like you are deploying Kubernetes Dashboard on a custom domain(s).",
-            "Please make sure that the ingress configuration is valid.",
-            "Dashboard should be accessible on your configured domain(s) soon:",
-            "  - https://kubernetes-dashboard.ingress-nginx.freedom.org",
-            "  - https://k8s-dash.ingress-nginx.freedom.org"
-        ],
-        []
-    ]
-}
-```
+## 访问kubernetes-dashboard
+- 创建token，文档位于`argocd-manifests/rbac`目录下。

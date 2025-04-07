@@ -30,7 +30,7 @@
         - kubernetes-dashboard.idc-ingress-nginx-lan.roywong.work
       ingressClassName: ingress-nginx-lan
       useDefaultIngressClass: false
-      useDefaultAnnotations: false
+      useDefaultAnnotations: true
       pathType: ImplementationSpecific
       path: /
       issuer:
@@ -43,7 +43,6 @@
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   
   auth:
     role: auth
@@ -101,9 +100,7 @@
     proxy:
       type: ClusterIP
       http:
-        enabled: true       # 开启http服务端口。
-      tls:
-        servicePort: 80     # 指定kong.proxy.tls.servicePort为80，因为此时的集群中已经安装好了cert-manager，并且可以正常签发证书了。
+        enabled: false
   
   cert-manager:
     enabled: false

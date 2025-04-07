@@ -30,7 +30,7 @@
         - kubernetes-dashboard.idc-ingress-nginx-lan.roywong.work
       ingressClassName: ingress-nginx-lan
       useDefaultIngressClass: false
-      useDefaultAnnotations: true
+      useDefaultAnnotations: false
       pathType: ImplementationSpecific
       path: /
       issuer:
@@ -38,6 +38,8 @@
         scope: cluster
       tls:
         enabled: true
+        hosts:
+          - "*.idc-ingress-nginx-lan.roywong.work"
         secretName: "roywong-work-tls-cert"
       labels: {}
       annotations:
@@ -105,6 +107,24 @@
   cert-manager:
     enabled: false
     installCRDs: false
+  ```
+
+- 涉及修改的配置`_charts/kubernetes-dashboard/7.5.0/templates/networking/ingress.yaml`，指定`tls.hosts`，这样是为了兼容`letsencrypt`证书签发。
+  ```
+  spec:
+    {{- if not .Values.app.ingress.useDefaultIngressClass }}
+    ingressClassName: {{ .Values.app.ingress.ingressClassName }}
+    {{- end }}
+    {{- if and .Values.app.ingress.tls.enabled .Values.app.ingress.tls.enabled }}
+    tls:
+      - hosts:
+        {{- toYaml .Values.app.ingress.tls.hosts | nindent 6 }}
+        {{- if .Values.app.ingress.tls.secretName }}
+        secretName: {{ .Values.app.ingress.tls.secretName }}
+        {{- else }}
+        secretName: {{ template "kubernetes-dashboard.app.ingress.secret.name" . }}
+        {{- end }}
+    {{- end }}
   ```
 
 ## 访问kubernetes-dashboard

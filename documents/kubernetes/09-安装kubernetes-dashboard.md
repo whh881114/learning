@@ -30,7 +30,7 @@
         - kubernetes-dashboard.idc-ingress-nginx-lan.roywong.work
       ingressClassName: ingress-nginx-lan
       useDefaultIngressClass: false
-      useDefaultAnnotations: false
+      useDefaultAnnotations: true
       pathType: ImplementationSpecific
       path: /
       issuer:
@@ -42,9 +42,7 @@
           - "*.idc-ingress-nginx-lan.roywong.work"
         secretName: "roywong-work-tls-cert"
       labels: {}
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      annotations: {}
   
   auth:
     role: auth

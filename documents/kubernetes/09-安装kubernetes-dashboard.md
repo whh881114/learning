@@ -109,13 +109,13 @@
     installCRDs: false
   ```
 
-- 涉及修改的配置`_charts/kubernetes-dashboard/7.5.0/templates/networking/ingress.yaml`，指定`tls.hosts`，这样是为了兼容`letsencrypt`证书签发。
+- 涉及修改的配置`_charts/kubernetes-dashboard/7.5.0/templates/networking/ingress.yaml`，指定`tls.hosts`，这样是为了兼容`letsencrypt`证书签发而不必每这个域名单独配置一个issuer。
   ```
   spec:
     {{- if not .Values.app.ingress.useDefaultIngressClass }}
     ingressClassName: {{ .Values.app.ingress.ingressClassName }}
     {{- end }}
-    {{- if and .Values.app.ingress.tls.enabled .Values.app.ingress.tls.enabled }}
+    {{- if and .Values.app.ingress.tls.enabled .Values.app.ingress.tls.hosts }}
     tls:
       - hosts:
         {{- toYaml .Values.app.ingress.tls.hosts | nindent 6 }}

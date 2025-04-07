@@ -126,7 +126,7 @@
   ```
 
 ## 访问kubernetes-dashboard
-- 获取token，文档位于`argocd-manifests-secrets/rbac`目录下。
+- 获取token，文档位于`argocd-manifests-secrets/kubernetes-dashboard`目录下。
   ```shell
   kubectl get secret cluster-admin  -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
   kubectl get secret cluster-viewer -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d

@@ -126,4 +126,11 @@
   ```
 
 ## 访问kubernetes-dashboard
-- 创建token，文档位于`argocd-manifests/rbac`目录下。
+- 获取token，文档位于`argocd-manifests-secrets/rbac`目录下。
+  ```shell
+  kubectl get secret cluster-admin  -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+  kubectl get secret cluster-viewer -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+  kubectl get secret system-ops     -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+  ```
+
+- 权限的精细化配置，可以后续补上。

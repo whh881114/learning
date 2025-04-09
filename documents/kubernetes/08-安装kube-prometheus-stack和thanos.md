@@ -81,9 +81,9 @@
         - "grafana.idc-ingress-nginx-lan.roywong.work"
       path: /
       tls:
-        - secretName: roywong-work-tls-cert
+        - secretName: tls-certificate-secret-grafana
           hosts:
-            - "*.idc-ingress-nginx-lan.roywong.work"
+            - "grafana.idc-ingress-nginx-lan.roywong.work"
     useStatefulSet: true
     persistence:
       enabled: true
@@ -195,9 +195,9 @@
       paths:
        - /
       tls:
-        - secretName: roywong-work-tls-cert
+        - secretName: tls-certificate-secret-alertmanager
           hosts:
-            - "*.idc-ingress-nginx-lan.roywong.work"
+            - "alertmanager.idc-ingress-nginx-lan.roywong.work"
     alertmanagerSpec:
       image:
         repository: quay.io/prometheus/alertmanager
@@ -285,7 +285,7 @@ The purpose of Thanos Sidecar is to back up Prometheus’s data into an object s
       extraTls:
         - hosts:
             - "thanos-query-frontend.idc-ingress-nginx-lan.roywong.work"
-          secretName: roywong-work-tls-cert
+          secretName: tls-certificate-secret-thanos-query-frontend
     resources:
       requests:
         cpu: 100m
